@@ -19,10 +19,10 @@
     <div class="card-footer text-muted">
       <div class="row">
         <div class="col-6">
-          <div class="mt-3">2021/6/18</div>
+          <div class="mt-2">2021/6/18</div>
         </div>
         <div class="col-6 text-right">
-          <button type="button" class="btn btn-primary p-2">いいね <span class="badge badge-light">5</span></button>
+          <button type="button" class="btn btn-primary">いいね <span class="badge badge-light">5</span></button>
         </div>
       </div>
     </div>
