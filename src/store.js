@@ -6,10 +6,12 @@ export const store = createStore({
   // デフォルト値
   state() {
     return {
+      // ユーザー
       user: {
         email: "ゲストユーザー",
       },
 
+      // アラート
       alert: {
         flag: {
           showSuccessAlert: false,
@@ -20,6 +22,9 @@ export const store = createStore({
           error: "",
         },
       },
+
+      // 質問
+      questions: {},
     };
   },
 
@@ -28,6 +33,7 @@ export const store = createStore({
 
   // state のデータを直接操作するための関数（非同期処理は定義不可）
   mutations: {
+    // ユーザー
     updateUser: (state, user) => {
       state.user = user;
     },
@@ -36,6 +42,7 @@ export const store = createStore({
       state.user.email = "ゲストユーザー";
     },
 
+    // アラート
     setAlert: (state, alert) => {
       state.alert = alert;
     },
@@ -51,6 +58,11 @@ export const store = createStore({
           error: "",
         },
       };
+    },
+
+    // 質問
+    setQuestions: (state, questions) => {
+      state.questions = questions;
     },
   },
 
@@ -69,6 +81,17 @@ export const store = createStore({
         .catch((e) => {
           alert(e);
         });
+    },
+
+    checkQuestions: async function(context) {
+      await axios
+        .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/questions`)
+        .then((response) => {
+          if (response.data.get_questions) {
+            context.commit("setQuestions", response.data.questions);
+          }
+        })
+        .catch(() => {});
     },
   },
 });

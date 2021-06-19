@@ -45,6 +45,7 @@ export default {
   --sub-color: #32322c;
   --accent-color: #13c4a3;
   --sub-accent-color: #4c6085;
+  --emphasis-color: #d991ba;
 }
 
 /* bootstrap */
@@ -60,5 +61,8 @@ export default {
 .show > .btn-secondary.dropdown-toggle {
   background-color: var(--sub-accent-color);
   border-color: var(--sub-accent-color);
+}
+.badge-secondary {
+  background-color: var(--emphasis-color);
 }
 </style>
