@@ -25,6 +25,9 @@ export const store = createStore({
 
       // 質問
       questions: {},
+
+      // タグ
+      tags: {},
     };
   },
 
@@ -64,6 +67,11 @@ export const store = createStore({
     setQuestions: (state, questions) => {
       state.questions = questions;
     },
+
+    // タグ
+    setTags: (state, tags) => {
+      state.tags = tags;
+    },
   },
 
   // mutations の操作を各コンポーネントから呼び出すために使用する関数（非同期処理を定義可）
@@ -83,12 +91,12 @@ export const store = createStore({
         });
     },
 
-    checkQuestions: async function(context) {
+    getQuestions: async function(context) {
       await axios
         .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/questions/index`)
         .then((response) => {
-          console.log(response);
           context.commit("setQuestions", response.data.questions);
+          context.commit("setTags", response.data.tags);
         })
         .catch(() => {});
     },

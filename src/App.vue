@@ -1,9 +1,7 @@
 <template>
   <Header></Header>
-  <div class="container">
-    <Alert></Alert>
-    <router-view></router-view>
-  </div>
+  <Alert></Alert>
+  <router-view></router-view>
 </template>
 
 <script>
