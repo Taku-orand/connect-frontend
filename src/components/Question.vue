@@ -8,7 +8,7 @@
             <div>質問者</div>
           </div>
           <div class="col-6 text-right">
-            <span v-if="false" class="badge badge-secondary p-2">解決済</span>
+            <span v-if="question.solved" class="badge badge-secondary p-2">解決済</span>
           </div>
         </div>
       </div>

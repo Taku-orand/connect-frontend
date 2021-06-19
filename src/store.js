@@ -88,7 +88,7 @@ export const store = createStore({
         .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/questions/index`)
         .then((response) => {
           console.log(response);
-          context.commit("setQuestions", response.data.question);
+          context.commit("setQuestions", response.data.questions);
         })
         .catch(() => {});
     },
