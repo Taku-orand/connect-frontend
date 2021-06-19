@@ -85,11 +85,10 @@ export const store = createStore({
 
     checkQuestions: async function(context) {
       await axios
-        .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/questions`)
+        .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/questions/index`)
         .then((response) => {
-          if (response.data.get_questions) {
-            context.commit("setQuestions", response.data.questions);
-          }
+          console.log(response);
+          context.commit("setQuestions", response.data.question);
         })
         .catch(() => {});
     },
