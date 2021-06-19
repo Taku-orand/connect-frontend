@@ -28,6 +28,7 @@ import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
 
 export default {
+  name: "Header",
   props: {
     user: Object,
   },

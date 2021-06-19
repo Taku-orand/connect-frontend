@@ -10,6 +10,7 @@ import { reactive } from "vue";
 // import { useStore } from "vuex";
 
 export default {
+  name: "Alert",
   props: {
     user: Object,
   },

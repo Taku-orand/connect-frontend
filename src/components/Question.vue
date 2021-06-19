@@ -8,6 +8,7 @@ import { reactive } from "vue";
 import { useRoute } from "vue-router";
 
 export default {
+  name: "Question",
   props: {},
   setup() {
     // const router = useRouter();

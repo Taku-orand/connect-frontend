@@ -22,6 +22,7 @@ import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 
 export default {
+  name: "Signin",
   props: {},
   setup() {
     const router = useRouter();
