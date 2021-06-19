@@ -1,0 +1,97 @@
+<template>
+  <h2 class="text-center m-5">サインイン</h2>
+  <div class="form-group m-5">
+    <label for="email">メールアドレス</label>
+    <input v-model="data.email" type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="メールアドレスを入力してください。" />
+    <small id="emailHelp" class="form-text text-muted">あなたのメールアドレスを他の誰とも共有することはありません。</small>
+  </div>
+  <div class="form-group m-5">
+    <label for="password">パスワード</label>
+    <input v-model="data.password" type="password" class="form-control" id="password" placeholder="パスワードを入力してください。" />
+  </div>
+  <div class="text-center m-5">
+    <button @click="backToHome" class="btn btn-secondary m-3">ホームに戻る</button>
+    <button @click="signin" class="btn btn-primary m-3">アカウント接続</button>
+  </div>
+</template>
+
+<script>
+import { reactive } from "vue";
+import axios from "axios";
+import { useRouter } from "vue-router";
+import { useStore } from "vuex";
+
+export default {
+  props: {},
+  setup() {
+    const router = useRouter();
+    // const route = useRoute();
+    const store = useStore();
+
+    const data = reactive({
+      email: "",
+      password: "",
+    });
+
+    function signin() {
+      axios
+        .post(
+          `${process.env.VUE_APP_CONNECT_BACKEND_URL}/signin`,
+          {
+            user: {
+              email: data.email,
+              password: data.password,
+            },
+          },
+          { withCredentials: true }
+        )
+        .then((response) => {
+          console.log(response);
+          if (response.data.signed_in) {
+            store.dispatch("checkSignedIn");
+            store.commit("setAlert", {
+              flag: {
+                showSuccessAlert: true,
+                showErrorAlert: false,
+              },
+              message: {
+                success: "サインインに成功しました。",
+              },
+            });
+            router.push({
+              name: "home",
+            });
+          } else {
+            store.commit("setAlert", {
+              flag: {
+                showSuccessAlert: false,
+                showErrorAlert: true,
+              },
+              message: {
+                error: "サインインに失敗しました。メールアドレスかパスワードが間違っています。",
+              },
+            });
+          }
+        })
+        .catch((e) => {
+          alert(e);
+        });
+    }
+
+    function backToHome() {
+      store.commit("resetAlert");
+      router.push({
+        name: "home",
+      });
+    }
+
+    return {
+      data,
+      signin,
+      backToHome,
+    };
+  },
+};
+</script>
+
+<style scoped></style>
