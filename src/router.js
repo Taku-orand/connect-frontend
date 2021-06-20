@@ -3,6 +3,8 @@ import Signup from "./components/Signup.vue";
 import Signin from "./components/Signin.vue";
 import Home from "./components/Home.vue";
 import Question from "./components/Question.vue";
+import QuestionList from "./components/QuestionList.vue";
+import QuestionDetail from "./components/QuestionDetail.vue";
 
 export const router = createRouter({
   history: createWebHistory(),
@@ -16,6 +18,18 @@ export const router = createRouter({
       path: "/question",
       name: "question",
       component: Question,
+      children: [
+        {
+          path: "list",
+          name: "question_list",
+          component: QuestionList,
+        },
+        {
+          path: "detail",
+          name: "question_detail",
+          component: QuestionDetail,
+        },
+      ],
     },
     {
       path: "/signup",

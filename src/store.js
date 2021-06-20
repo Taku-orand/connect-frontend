@@ -26,6 +26,8 @@ export const store = createStore({
       // 質問
       questions: {},
 
+      questionDetails: {},
+
       // タグ
       tags: {},
     };
@@ -68,6 +70,10 @@ export const store = createStore({
       state.questions = questions;
     },
 
+    setQuestionDetails: (state, questionDetails) => {
+      state.questionDetails = questionDetails;
+    },
+
     // タグ
     setTags: (state, tags) => {
       state.tags = tags;
@@ -98,7 +104,21 @@ export const store = createStore({
           context.commit("setQuestions", response.data.questions);
           context.commit("setTags", response.data.tags);
         })
-        .catch(() => {});
+        .catch((e) => {
+          alert(e);
+        });
+    },
+
+    getQuestionDetails: async function(context, id) {
+      await axios
+        .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/questions/show/${id}`)
+        .then((response) => {
+          console.log(response);
+          context.commit("setQuestionDetails", response.data);
+        })
+        .catch((e) => {
+          alert(e);
+        });
     },
   },
 });

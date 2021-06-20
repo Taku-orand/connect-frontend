@@ -21,7 +21,7 @@ export default {
     // バージョン1.0.0では質問機能以外の実装はしないのでホーム画面から直接質問画面に飛ばす。
     onMounted(() => {
       router.push({
-        name: "question",
+        name: "question_list",
       });
     });
 

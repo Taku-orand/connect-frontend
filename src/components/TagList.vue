@@ -14,7 +14,7 @@ import { reactive } from "vue";
 // import { useStore } from "vuex";
 
 export default {
-  name: "Tag",
+  name: "TagList",
   props: {},
   setup() {
     // const router = useRouter();
