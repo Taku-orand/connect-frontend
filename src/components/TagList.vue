@@ -8,10 +8,10 @@
 </template>
 
 <script>
-import { reactive } from "vue";
+import { reactive, onMounted } from "vue";
 // import axios from "axios";
 // import { useRoute } from "vue-router";
-// import { useStore } from "vuex";
+import { useStore } from "vuex";
 
 export default {
   name: "TagList",
@@ -19,16 +19,14 @@ export default {
   setup() {
     // const router = useRouter();
     // const route = useRoute();
-    // const store = useStore();
+    const store = useStore();
 
-    const data = reactive({
-      test: Object,
+    const data = reactive({});
+
+    // Tagコンポーネントをロードした時にタグを取得
+    onMounted(() => {
+      store.dispatch("getTags");
     });
-
-    // Questionコンポーネントをロードした時にタグを取得
-    // onMounted(() => {
-    //   store.dispatch("getTags");
-    // });
 
     return {
       data,

@@ -32,6 +32,32 @@
         </div>
       </div>
     </template>
+    {{ $store.state.questionDetails.answers }}
+    <template v-for="(answer, key) in $store.state.questionDetails.answers" :key="key">
+      <div class="card mb-4">
+        <div class="card-header">
+          <div class="col-6">
+            <div>回答者</div>
+          </div>
+          <div class="col-6 text-right"></div>
+        </div>
+        <div class="card-body">
+          <p class="card-text">{{ answer.content }}</p>
+        </div>
+        <div class="card-footer text-muted">
+          <div class="row">
+            <div class="col-6">
+              <div class="mt-2">{{ answer.updated_at }}</div>
+            </div>
+            <div class="col-6 text-right">
+              <button type="button" class="btn btn-primary">
+                いいね <span class="badge badge-light">{{ answer.like }}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
   </div>
 </template>
 
