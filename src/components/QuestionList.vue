@@ -57,9 +57,8 @@ export default {
     });
 
     function showDetail(question) {
-      store.dispatch("getQuestionDetails", question.id);
       router.push({
-        name: "question_detail",
+        path: `detail/${question.id}`,
       });
     }
 

@@ -1,7 +1,7 @@
 <template>
   <div class="container sticky">
     <h2 class="text-center m-4">タグ一覧</h2>
-    <ul class="list-group">
+    <ul class="list-group overflow-auto">
       <li v-for="(tag, key) in $store.state.tags" :key="key" class="list-group-item">{{ tag.name }}</li>
     </ul>
   </div>
@@ -44,6 +44,5 @@ export default {
 }
 .list-group {
   height: 50vh;
-  overflow: auto;
 }
 </style>

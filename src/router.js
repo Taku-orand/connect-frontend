@@ -25,7 +25,7 @@ export const router = createRouter({
           component: QuestionList,
         },
         {
-          path: "detail",
+          path: "detail/:id",
           name: "question_detail",
           component: QuestionDetail,
         },

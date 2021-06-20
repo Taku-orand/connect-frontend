@@ -26,6 +26,7 @@ export const store = createStore({
       // 質問
       questions: {},
 
+      // 質問詳細
       questionDetails: {},
 
       // タグ
@@ -70,6 +71,7 @@ export const store = createStore({
       state.questions = questions;
     },
 
+    // 質問詳細
     setQuestionDetails: (state, questionDetails) => {
       state.questionDetails = questionDetails;
     },
