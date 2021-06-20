@@ -132,7 +132,6 @@ export const store = createStore({
       await axios
         .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/answers/show/${id}`)
         .then((response) => {
-          console.log(response);
           context.commit("setAnswers", response.data.answers);
         })
         .catch((e) => {
@@ -144,7 +143,6 @@ export const store = createStore({
       await axios
         .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/tags/index`)
         .then((response) => {
-          console.log(response.data);
           context.commit("setTags", response.data.tags);
         })
         .catch((e) => {
