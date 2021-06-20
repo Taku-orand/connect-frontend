@@ -1,38 +1,33 @@
 <template>
-  <div class="container">
-    <textarea v-model="sourceText"></textarea>
-    <vue-markdown-it :source="markdown" />
-    <vue-markdown-it :text="markdown" />
+  <div>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/atom-one-dark.min.css">
+
+    <textarea v-model="text" v-on:input="md"></textarea>
+    <Markdown :source="md" :linkify="linkify" :emoji="emoji" />
   </div>
 </template>
- 
+
 <script>
-import VueMarkdownIt from 'vue3-markdown-it';
-import 'highlight.js/styles/monokai.css';
- 
-//let str = '# Hello World! \n ## Hello World!'
- 
+import Markdown from 'vue3-markdown-it';
+
 export default {
   components: {
-    VueMarkdownIt
+    Markdown
   },
-  props: ['text'],
   data() {
     return {
-      sourceText: "T",
-      text: String
+      emoji: {
+        "smile":[ ":)", ":-)" ]
+      },
+      linkify: true,
+      source: '# Hello World!',
+      text: ''
     }
   },
+  computed: {
+    md: function(){
+      return this.source = this.text
+    }
+  }
 }
 </script>
-<style>
-.container {
-  margin: 0 auto;
-  margin-top: 200px;
-  min-height: 100vh;
-  width: 500px;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-</style>
