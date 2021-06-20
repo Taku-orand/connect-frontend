@@ -35,12 +35,14 @@
 
     <!-- 回答を表示 -->
     <template v-for="(answer, key) in $store.state.answers" :key="key">
-      <div class="card mb-4">
+      <div class="card mb-4 answer-card">
         <div class="card-header">
-          <div class="col-6">
-            <div>回答者</div>
+          <div class="row">
+            <div class="col-6">
+              <div>回答者</div>
+            </div>
+            <div class="col-6 text-right"></div>
           </div>
-          <div class="col-6 text-right"></div>
         </div>
         <div class="card-body">
           <p class="card-text">{{ answer.content }}</p>
@@ -92,4 +94,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.answer-card {
+  border-color: var(--emphasis-color);
+}
+</style>
