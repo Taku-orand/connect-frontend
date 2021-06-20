@@ -11,7 +11,8 @@
         <div class="dropdown text-center">
           <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">メニュー</button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <!-- <router-link @click="$store.commit('resetAlert')" class="dropdown-item" to="/question">質問一覧</router-link> -->
+            <router-link @click="$store.commit('resetAlert')" class="dropdown-item" to="/my_page">マイページ</router-link>
+            <router-link @click="$store.commit('resetAlert')" class="dropdown-item" to="/question/list">質問一覧</router-link>
             <router-link @click="$store.commit('resetAlert')" class="dropdown-item" to="/signup">サインアップ</router-link>
             <router-link @click="$store.commit('resetAlert')" class="dropdown-item" to="/signin">サインイン</router-link>
             <button @click="signOut" class="dropdown-item">サインアウト</button>
