@@ -32,8 +32,9 @@
         </div>
       </div>
     </template>
-    {{ $store.state.questionDetails.answers }}
-    <template v-for="(answer, key) in $store.state.questionDetails.answers" :key="key">
+
+    <!-- 回答を表示 -->
+    <template v-for="(answer, key) in $store.state.answers" :key="key">
       <div class="card mb-4">
         <div class="card-header">
           <div class="col-6">
@@ -81,6 +82,7 @@ export default {
     // QuestionDetailコンポーネントをロードした時に質問詳細を取得
     onMounted(() => {
       store.dispatch("getQuestionDetails", route.params.id);
+      store.dispatch("getAnswers", route.params.id);
     });
 
     return {
