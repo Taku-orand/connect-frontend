@@ -3,27 +3,30 @@
 </template>
 
 <script>
-import { reactive } from "vue";
+import { reactive, onMounted } from "vue";
 // import axios from "axios";
-import { useRoute } from "vue-router";
+import { useRouter } from "vue-router";
 
 export default {
+  name: "Home",
   props: {},
   setup() {
-    // const router = useRouter();
-    const route = useRoute();
+    const router = useRouter();
+    // const route = useRoute();
 
     const data = reactive({
       test: Object,
     });
 
-    function button() {
-      console.log(route);
-    }
+    // バージョン1.0.0では質問機能以外の実装はしないのでホーム画面から直接質問画面に飛ばす。
+    onMounted(() => {
+      router.push({
+        name: "question_list",
+      });
+    });
 
     return {
       data,
-      button,
     };
   },
 };

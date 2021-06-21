@@ -6,10 +6,12 @@ export const store = createStore({
   // デフォルト値
   state() {
     return {
+      // ユーザー
       user: {
         email: "ゲストユーザー",
       },
 
+      // アラート
       alert: {
         flag: {
           showSuccessAlert: false,
@@ -20,6 +22,18 @@ export const store = createStore({
           error: "",
         },
       },
+
+      // 質問
+      questions: {},
+
+      // 質問詳細
+      questionDetails: {},
+
+      // 回答
+      answers: {},
+
+      // タグ
+      tags: {},
     };
   },
 
@@ -28,6 +42,7 @@ export const store = createStore({
 
   // state のデータを直接操作するための関数（非同期処理は定義不可）
   mutations: {
+    // ユーザー
     updateUser: (state, user) => {
       state.user = user;
     },
@@ -36,6 +51,7 @@ export const store = createStore({
       state.user.email = "ゲストユーザー";
     },
 
+    // アラート
     setAlert: (state, alert) => {
       state.alert = alert;
     },
@@ -52,6 +68,25 @@ export const store = createStore({
         },
       };
     },
+
+    // 質問
+    setQuestions: (state, questions) => {
+      state.questions = questions;
+    },
+
+    // 質問詳細
+    setQuestionDetails: (state, questionDetails) => {
+      state.questionDetails = questionDetails;
+    },
+
+    setAnswers: (state, answers) => {
+      state.answers = answers;
+    },
+
+    // タグ
+    setTags: (state, tags) => {
+      state.tags = tags;
+    },
   },
 
   // mutations の操作を各コンポーネントから呼び出すために使用する関数（非同期処理を定義可）
@@ -65,6 +100,50 @@ export const store = createStore({
           } else {
             context.commit("resetUser");
           }
+        })
+        .catch((e) => {
+          alert(e);
+        });
+    },
+
+    getQuestions: async function(context) {
+      await axios
+        .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/questions/index`)
+        .then((response) => {
+          context.commit("setQuestions", response.data.questions);
+        })
+        .catch((e) => {
+          alert(e);
+        });
+    },
+
+    getQuestionDetails: async function(context, id) {
+      await axios
+        .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/questions/show/${id}`)
+        .then((response) => {
+          context.commit("setQuestionDetails", response.data);
+        })
+        .catch((e) => {
+          alert(e);
+        });
+    },
+
+    getAnswers: async function(context, id) {
+      await axios
+        .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/answers/show/${id}`)
+        .then((response) => {
+          context.commit("setAnswers", response.data.answers);
+        })
+        .catch((e) => {
+          alert(e);
+        });
+    },
+
+    getTags: async function(context) {
+      await axios
+        .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/tags/index`)
+        .then((response) => {
+          context.commit("setTags", response.data.tags);
         })
         .catch((e) => {
           alert(e);
