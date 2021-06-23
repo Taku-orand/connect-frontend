@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h2 class="text-center m-5">マイページ</h2>
-    <p>{{ $store.state.user.email }}</p>
+    <p class="text-center">{{ $store.state.user.email }}</p>
     <QuestionList></QuestionList>
   </div>
 </template>
