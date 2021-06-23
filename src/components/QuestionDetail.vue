@@ -33,6 +33,10 @@
       </div>
     </template>
 
+    <div>
+      <button class="btn btn-info">回答する</button>
+    </div>
+
     <!-- 回答を表示 -->
     <template v-for="(answer, key) in $store.state.answers" :key="key">
       <div class="card mb-4 answer-card">

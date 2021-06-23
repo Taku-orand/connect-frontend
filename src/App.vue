@@ -47,6 +47,13 @@ export default {
 }
 
 /* bootstrap */
+/* ヘッダーと同じ色のボタン */
+.btn-info,
+.btn-info:hover,
+.btn-info:focus {
+  background-color: var(--main-color);
+  border-color: var(--main-color);
+}
 .btn-primary,
 .btn-primary:hover,
 .btn-primary:focus {
