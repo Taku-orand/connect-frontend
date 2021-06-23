@@ -1,10 +1,12 @@
 <template>
-  <div class="row">
-    <div class="col-3">
-      <TagList></TagList>
-    </div>
-    <div class="col-9">
-      <router-view></router-view>
+  <div class="container">
+    <div class="row">
+      <div class="col-3">
+        <TagList></TagList>
+      </div>
+      <div class="col-9">
+        <router-view></router-view>
+      </div>
     </div>
   </div>
 </template>
