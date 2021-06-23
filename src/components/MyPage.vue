@@ -2,6 +2,7 @@
   <div class="container">
     <h2 class="text-center m-5">マイページ</h2>
     <p>{{ $store.state.user.email }}</p>
+    <QuestionList></QuestionList>
   </div>
 </template>
 
@@ -11,9 +12,13 @@ import { reactive, onMounted } from "vue";
 // import { useRoute } from "vue-router";
 // import { useStore } from "vuex";
 
+import QuestionList from "./QuestionList.vue";
+
 export default {
   name: "MyPage",
-  components: {},
+  components: {
+    QuestionList,
+  },
   props: {},
   setup() {
     // const router = useRouter();
