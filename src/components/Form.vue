@@ -21,6 +21,9 @@ export default {
     const data = reactive({
       title: "",
       content: "",
+      anonymous: false,
+      solved: false,
+      like: 0
     });
 
     async function postq() {
@@ -31,6 +34,9 @@ export default {
             question: {
               title: data.title,
               content: data.content,
+              anonymous: data.anonymous,
+              solved: false,
+              like: 0
             },
           },
           { withCredentials: true }
@@ -39,6 +45,10 @@ export default {
           console.log(response);
           if (response.data.posted) {
             store.commit("setAlert", {
+              flag: {
+                showSuccessAlert: true,
+                showErrorAlert: false,
+              },
               message: {
                 success: "投稿に成功しました。",
               },
@@ -48,6 +58,10 @@ export default {
             });
           } else {
             store.commit("setAlert", {
+              flag: {
+                showSuccessAlert: true,
+                showErrorAlert: false,
+              },
               message: {
                 success: "投稿に失敗しました。",
               },
