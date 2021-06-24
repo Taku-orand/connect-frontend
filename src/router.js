@@ -6,6 +6,7 @@ import MyPage from "./components/MyPage.vue";
 import Question from "./components/Question.vue";
 import QuestionList from "./components/QuestionList.vue";
 import QuestionDetail from "./components/QuestionDetail.vue";
+import ReplyAnswer from "./components/ReplyAnswer.vue";
 
 export const router = createRouter({
   history: createWebHistory(),
@@ -34,7 +35,6 @@ export const router = createRouter({
       path: "/question",
       name: "question",
       component: Question,
-      props: { tagList: true },
       children: [
         {
           path: "list",
@@ -45,6 +45,11 @@ export const router = createRouter({
           path: "detail/:id",
           name: "question_detail",
           component: QuestionDetail,
+        },
+        {
+          path: "reply_answer/:id",
+          name: "reply_answer",
+          component: ReplyAnswer,
         },
       ],
     },
