@@ -34,6 +34,7 @@ export const router = createRouter({
       path: "/question",
       name: "question",
       component: Question,
+      props: { tagList: true },
       children: [
         {
           path: "list",

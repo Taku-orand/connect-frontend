@@ -108,7 +108,7 @@ export const store = createStore({
 
     getQuestions: async function(context) {
       await axios
-        .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/questions/index`)
+        .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/questions/user`, { withCredentials: true })
         .then((response) => {
           context.commit("setQuestions", response.data.questions);
         })
