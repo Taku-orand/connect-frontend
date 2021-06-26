@@ -43,8 +43,10 @@ import { useStore } from "vuex";
 export default {
   name: "QuestionList",
   components: {},
-  props: {},
-  setup() {
+  props: {
+    isMyPage: Boolean,
+  },
+  setup(props) {
     const router = useRouter();
     // const route = useRoute();
     const store = useStore();
@@ -53,7 +55,11 @@ export default {
 
     // QuestionListコンポーネントをロードした時に質問を取得
     onMounted(() => {
-      store.dispatch("getQuestions");
+      if (props.isMyPage) {
+        store.dispatch("getMyQuestions");
+      } else {
+        store.dispatch("getQuestions");
+      }
     });
 
     function showDetail(question) {

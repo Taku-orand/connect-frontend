@@ -2,7 +2,7 @@
   <div class="container">
     <h2 class="text-center m-5">マイページ</h2>
     <p class="text-center">{{ $store.state.user.email }}</p>
-    <QuestionList></QuestionList>
+    <QuestionList :is-my-page="true"></QuestionList>
   </div>
 </template>
 
