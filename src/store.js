@@ -8,7 +8,7 @@ export const store = createStore({
     return {
       // ユーザー
       user: {
-        email: "ゲストユーザー",
+        name: "ゲストユーザー",
       },
 
       // アラート
@@ -48,7 +48,7 @@ export const store = createStore({
     },
 
     resetUser: (state) => {
-      state.user.email = "ゲストユーザー";
+      state.user.name = "ゲストユーザー";
     },
 
     // アラート
