@@ -8,7 +8,7 @@
 import { reactive } from "vue";
 import axios from "axios";
 // import { useRouter } from "vue-router";
-// import { useStore } from "vuex";
+import { useStore } from "vuex";
 
 export default {
   name: "QuestionList",
@@ -17,16 +17,28 @@ export default {
   setup(props) {
     // const router = useRouter();
     // const route = useRoute();
-    // const store = useStore();
+    const store = useStore();
 
     const data = reactive({});
 
     function addLike() {
-      console.log("like");
       axios
-        .post(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/likes/`)
+        .post(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/likes/add/${props.question.like_id}`)
         .then((response) => {
-          console.log(response);
+          if (response.data.add_like) {
+            console.log(response);
+            // 質問を更新、マイページなのかに注意
+          } else {
+            store.commit("setAlert", {
+              flag: {
+                showSuccessAlert: false,
+                showErrorAlert: true,
+              },
+              message: {
+                success: "いいねに失敗しました。",
+              },
+            });
+          }
         })
         .catch((e) => {
           alert(e);
