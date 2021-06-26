@@ -2,7 +2,7 @@
   <header>
     <div class="row">
       <div class="col-8">
-        <h1 class="p-2">Connect</h1>
+        <h1 class="p-2">Connect 会津大学</h1>
       </div>
       <div class="col-2 d-flex align-items-center justify-content-end">
         <div>{{ $store.state.user.email }}</div>
