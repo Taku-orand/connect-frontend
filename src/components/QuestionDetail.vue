@@ -12,6 +12,8 @@
             <div class="col-6 text-right">
               <span v-if="$store.state.questionDetails.question.solved" class="badge badge-secondary p-2">解決済</span>
             </div>
+
+            
           </div>
         </div>
         <div class="card-body">

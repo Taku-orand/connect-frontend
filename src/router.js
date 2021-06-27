@@ -6,7 +6,7 @@ import MyPage from "./components/MyPage.vue";
 import Question from "./components/Question.vue";
 import QuestionList from "./components/QuestionList.vue";
 import QuestionDetail from "./components/QuestionDetail.vue";
-import Form from "./components/Form.vue";
+import CreateQuestion from "./components/CreateQuestion.vue";
 
 export const router = createRouter({
   history: createWebHistory(),
@@ -49,10 +49,9 @@ export const router = createRouter({
       ],
     },
     {
-
       path: "/post-form",
       name: "post-form",
-      component: Form,
+      component: CreateQuestion,
     }
     ],
 });
