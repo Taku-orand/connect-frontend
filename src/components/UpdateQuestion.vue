@@ -26,15 +26,16 @@ export default {
       store.dispatch("getQuestionDetails");
     });
 
-    async function updateq(){
+    async function updateQuestion(){
       await axios
         .post(
           `${process.env.VUE_APP_CONNECT_BACKEND_URL}/questions/update/${route.params.id}`,
           {
             question: {
-              title: data.title,
-              content: data.content,
-              anonymous: data.anonymous,
+              title: store.state.questionDetails.title,
+              content: store.state.questionDetails.content,
+              anonymous: store.state.questionDetails.anonymous,
+              solved: store.state.questionDetails.solved
             },
           },
           { withCredentials: true }
@@ -71,7 +72,8 @@ export default {
         });
     }
     return {
-      data
+      data,
+      updateQuestion
     };
   },
 };
