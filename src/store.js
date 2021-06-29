@@ -106,9 +106,33 @@ export const store = createStore({
         });
     },
 
+    getMyQuestions: async function(context) {
+      await axios
+        .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/questions/user`, { withCredentials: true })
+        .then((response) => {
+          console.log(response);
+          if (response.data.get_my_questions) {
+            context.commit("setQuestions", response.data.questions);
+          } else {
+            store.commit("setAlert", {
+              flag: {
+                showSuccessAlert: false,
+                showErrorAlert: true,
+              },
+              message: {
+                error: "自分の質問を取得できませんでした。",
+              },
+            });
+          }
+        })
+        .catch((e) => {
+          alert(e);
+        });
+    },
+
     getQuestions: async function(context) {
       await axios
-        .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/questions/index`)
+        .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/questions/index`, { withCredentials: true })
         .then((response) => {
           context.commit("setQuestions", response.data.questions);
         })
@@ -119,7 +143,7 @@ export const store = createStore({
 
     getQuestionDetails: async function(context, id) {
       await axios
-        .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/questions/show/${id}`)
+        .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/questions/show/${id}`, { withCredentials: true })
         .then((response) => {
           context.commit("setQuestionDetails", response.data);
         })
@@ -130,7 +154,7 @@ export const store = createStore({
 
     getAnswers: async function(context, id) {
       await axios
-        .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/answers/show/${id}`)
+        .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/answers/show/${id}`, { withCredentials: true })
         .then((response) => {
           context.commit("setAnswers", response.data.answers);
         })
