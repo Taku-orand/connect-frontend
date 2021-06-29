@@ -1,23 +1,21 @@
 <template>
   <header>
-    <div class="container">
-      <div class="row">
-        <div class="col-8">
-          <h1 class="p-2">Connect</h1>
-        </div>
-        <div class="col-2 d-flex align-items-center justify-content-end">
-          <div>{{ $store.state.user.email }}</div>
-        </div>
-        <div class="col-2 d-flex align-items-center justify-content-center">
-          <div class="dropdown text-center">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">メニュー</button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <router-link @click="$store.commit('resetAlert')" class="dropdown-item" to="/my_page">マイページ</router-link>
-              <router-link @click="$store.commit('resetAlert')" class="dropdown-item" to="/question/list">質問一覧</router-link>
-              <router-link @click="$store.commit('resetAlert')" class="dropdown-item" to="/signup">サインアップ</router-link>
-              <router-link @click="$store.commit('resetAlert')" class="dropdown-item" to="/signin">サインイン</router-link>
-              <button @click="signOut" class="dropdown-item">サインアウト</button>
-            </div>
+    <div class="row">
+      <div class="col-8">
+        <h1 class="p-2">Connect</h1>
+      </div>
+      <div class="col-2 d-flex align-items-center justify-content-end">
+        <div>{{ $store.state.user.name }}</div>
+      </div>
+      <div class="col-2 d-flex align-items-center justify-content-center">
+        <div class="dropdown text-center">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">メニュー</button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <router-link @click="$store.commit('resetAlert')" class="dropdown-item" to="/my_page">マイページ</router-link>
+            <router-link @click="$store.commit('resetAlert')" class="dropdown-item" to="/question/list">質問一覧</router-link>
+            <router-link @click="$store.commit('resetAlert')" class="dropdown-item" to="/signup">サインアップ</router-link>
+            <router-link @click="$store.commit('resetAlert')" class="dropdown-item" to="/signin">サインイン</router-link>
+            <button @click="signOut" class="dropdown-item">サインアウト</button>
           </div>
         </div>
       </div>
@@ -51,7 +49,6 @@ export default {
       axios
         .delete(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/signout`, { withCredentials: true })
         .then((response) => {
-          console.log(response);
           store.dispatch("checkSignedIn");
           if (response.data.signed_out) {
             store.commit("setAlert", {
