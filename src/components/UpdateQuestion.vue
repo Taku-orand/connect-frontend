@@ -1,34 +1,35 @@
 <template>
-  <Form></Form>
-     <button @click="updateQuestion()" class="btn btn-primary m-3">修正</button>
+  <div>
+    <Form></Form>
+    <button @click="updateQuestion()" class="btn btn-primary m-3">修正</button>
+  </div>
 </template>
 
 <script>
 import { useStore } from "vuex";
-import { useRouter } from "vue-router";
+import { useRoute } from "vue-router";
 import { reactive, onMounted } from "vue";
 import  axios  from "axios";
 
 export default {
   props: {},
   setup() {
-    const router = useRouter();
+    const route = useRoute();
     const store = useStore();
     const data = reactive({
-      title: "",
-      content: "",
-      anonymous: false,
-      solved: false,
-      like: 0
+      title: store.state.questionDetails.title,
+      content: store.state.questionDetails.content,
+      anonymous: store.state.questionDetails.anonymous,
+      solved: store.state.questionDetails.solved,
     });
 
     onMounted(()=>{
-      store.dispatch("getQuestionDetails");
+      store.dispatch("getQuestionDetails", route.params.id);
     });
 
     async function updateQuestion(){
       await axios
-        .post(
+        .patch(
           `${process.env.VUE_APP_CONNECT_BACKEND_URL}/questions/update/${route.params.id}`,
           {
             question: {
@@ -52,7 +53,7 @@ export default {
                 success: "修正に成功しました。",
               },
             });
-            router.push({
+            route.push({
               name: "home",
             });
           } else {

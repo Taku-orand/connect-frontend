@@ -50,12 +50,12 @@ export const router = createRouter({
       ],
     },
     {
-      path: "/post-form",
+      path: "/post_form",
       name: "post_form",
       component: CreateQuestion,
     },
     {
-      path: "/update-form",
+      path: "/update_form/:id",
       name: "update_form",
       component: UpdateQuestion,
     }

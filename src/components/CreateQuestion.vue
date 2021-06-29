@@ -1,6 +1,8 @@
 <template>
-  <Form></Form>
-     <button @click="createQuestion()" class="btn btn-primary m-3">投稿</button>
+  <div>
+    <Form></Form>
+    <button @click="createQuestion()" class="btn btn-primary m-3">投稿</button>
+  </div>
 </template>
 
 <script>
