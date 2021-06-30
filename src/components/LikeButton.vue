@@ -1,6 +1,6 @@
 <template>
   <button @click.stop="addLike" type="button" class="btn btn-primary">
-    いいね <span class="badge badge-light">{{ question.like }}</span>
+    いいね <span class="badge badge-light">{{ question.count }}</span>
   </button>
 </template>
 
@@ -23,10 +23,10 @@ export default {
 
     function addLike() {
       axios
-        .post(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/likes/add/${props.question.like_id}`)
+        .post(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/like/add/${props.question.like_id}`)
         .then((response) => {
           if (response.data.add_like) {
-            console.log(response);
+            store.dispatch("getQuestions");
             // 質問を更新、マイページなのかに注意
           } else {
             store.commit("setAlert", {

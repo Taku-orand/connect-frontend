@@ -29,9 +29,7 @@
                   <div class="mt-2">{{ $store.state.questionDetails.question.updated_at }}</div>
                 </div>
                 <div class="col-6 text-right">
-                  <button type="button" class="btn btn-primary">
-                    いいね <span class="badge badge-light">{{ $store.state.questionDetails.question.like }}</span>
-                  </button>
+                  <LikeButton :question="$store.state.questionDetails.question"></LikeButton>
                 </div>
               </div>
             </div>
@@ -78,11 +76,13 @@ import { useRoute } from "vue-router";
 import { useStore } from "vuex";
 
 import TagList from "./TagList.vue";
+import LikeButton from "./LikeButton.vue";
 
 export default {
   name: "Question",
   components: {
     TagList,
+    LikeButton,
   },
   props: {},
   setup() {
