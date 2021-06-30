@@ -2,6 +2,7 @@
   <div>
     <Form></Form>
     <button @click="updateQuestion()" class="btn btn-primary m-3">修正</button>
+    {{ $store.state.questionDetails.title }}
   </div>
 </template>
 
@@ -10,9 +11,13 @@ import { useStore } from "vuex";
 import { useRoute } from "vue-router";
 import { onMounted } from "vue";
 import  axios  from "axios";
+import Form from "./Form.vue"
 
 export default {
   props: {},
+  components: {
+    Form
+  },
   setup() {
     const route = useRoute();
     const store = useStore();
@@ -30,7 +35,8 @@ export default {
               title: store.state.questionDetails.title,
               content: store.state.questionDetails.content,
               anonymous: store.state.questionDetails.anonymous,
-              solved: store.state.questionDetails.solved
+              solved: store.state.questionDetails.solved,
+              tag_ids: store.state.post_tags_id
             },
           },
           { withCredentials: true }

@@ -3,8 +3,13 @@
     <button
       type="button"
       class="btn btn-dark btn-sm"
-      @click="$store.state.questionDetails.anonymous = !$store.state.questionDetails.anonymous"
-    >匿名</button>
+      @click="
+        $store.state.questionDetails.anonymous = !$store.state.questionDetails
+          .anonymous
+      "
+    >
+      匿名
+    </button>
     <div v-if="$store.state.questionDetails.anonymous">
       <div class="col-xs-10">匿名</div>
     </div>
@@ -51,11 +56,9 @@ export default {
   setup() {
     const store = useStore();
     const data = reactive({
-      title: "",
-      content: "",
-      anonymous: false,
-      solved: false,
-      like: 0,
+      title: store.state.questionDetails.title,
+      content: store.state.questionDetails.content,
+      anonymous: store.state.questionDetails.anonymous,
     });
 
     onMounted(() => {
