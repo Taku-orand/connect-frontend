@@ -7,7 +7,7 @@
 <script>
 import { reactive } from "vue";
 import axios from "axios";
-// import { useRouter } from "vue-router";
+import { useRoute } from "vue-router";
 import { useStore } from "vuex";
 
 export default {
@@ -19,7 +19,7 @@ export default {
   },
   setup(props) {
     // const router = useRouter();
-    // const route = useRoute();
+    const route = useRoute();
     const store = useStore();
 
     const data = reactive({});
@@ -33,6 +33,9 @@ export default {
               store.dispatch("getQuestionDetails");
             } else {
               store.dispatch("getQuestions");
+              if (route.params.id) {
+                store.dispatch("getQuestionDetails", route.params.id);
+              }
             }
             // 質問を更新、マイページなのかに注意
           } else {
