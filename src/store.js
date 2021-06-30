@@ -34,6 +34,8 @@ export const store = createStore({
 
       // タグ
       tags: {},
+      // タグ
+      post_tags_id: []
     };
   },
 
@@ -85,7 +87,11 @@ export const store = createStore({
 
     // タグ
     setTags: (state, tags) => {
-      state.tags = tags;
+      state.tags = tags
+      // tags.forEach(element => {
+      //   state.tags.name.push(element.name)
+      //   state.tags.id.push(element.id)
+      // });
     },
   },
 

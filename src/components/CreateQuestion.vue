@@ -8,7 +8,6 @@
 <script>
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
-import { reactive } from "vue";
 import  axios  from "axios";
 import Form from "./Form.vue"
 
@@ -20,13 +19,6 @@ export default {
   setup() {
     const router = useRouter();
     const store = useStore();
-    const data = reactive({
-      title: "",
-      content: "",
-      anonymous: false,
-      solved: false,
-      like: 0
-    });
 
     async function createQuestion() {
       await axios 
@@ -38,7 +30,8 @@ export default {
               content: store.state.questionDetails.content,
               anonymous: store.state.questionDetails.anonymous,
               solved: false,
-              like: 0
+              like: 0,
+              tag_ids: store.state.post_tags_id,
             },
           },
           { withCredentials: true }
@@ -75,7 +68,6 @@ export default {
         });
     }
     return {
-      data,
       createQuestion
     };
   },
