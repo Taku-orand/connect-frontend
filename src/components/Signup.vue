@@ -2,6 +2,11 @@
   <div class="container">
     <h2 class="text-center m-5">サインアップ</h2>
     <div class="form-group m-5">
+      <label for="name">ユーザー名</label>
+      <input v-model="data.name" type="text" class="form-control" id="name" aria-describedby="nameHelp" placeholder="ユーザー名を入力してください。" />
+      <small id="nameHelp" class="form-text text-muted">質問や回答を投稿する際に表示されるユーザー名です。後で変更することができます。</small>
+    </div>
+    <div class="form-group m-5">
       <label for="email">メールアドレス</label>
       <input v-model="data.email" type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="メールアドレスを入力してください。" />
       <small id="emailHelp" class="form-text text-muted">あなたのメールアドレスを他の誰とも共有することはありません。</small>
@@ -38,6 +43,7 @@ export default {
     const store = useStore();
 
     const data = reactive({
+      name: "",
       email: "",
       password: "",
       passwordConfirmation: "",
@@ -49,6 +55,7 @@ export default {
           `${process.env.VUE_APP_CONNECT_BACKEND_URL}/signup`,
           {
             user: {
+              name: data.name,
               email: data.email,
               password: data.password,
               passwordConfirmation: data.passwordConfirmation,
