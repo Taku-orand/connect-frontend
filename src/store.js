@@ -88,10 +88,6 @@ export const store = createStore({
     // タグ
     setTags: (state, tags) => {
       state.tags = tags
-      // tags.forEach(element => {
-      //   state.tags.name.push(element.name)
-      //   state.tags.id.push(element.id)
-      // });
     },
   },
 
@@ -130,17 +126,6 @@ export const store = createStore({
               },
             });
           }
-        })
-        .catch((e) => {
-          alert(e);
-        });
-    },
-
-    getQuestions: async function(context) {
-      await axios
-        .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/questions/index`, { withCredentials: true })
-        .then((response) => {
-          context.commit("setQuestions", response.data.questions);
         })
         .catch((e) => {
           alert(e);

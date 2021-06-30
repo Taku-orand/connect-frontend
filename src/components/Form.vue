@@ -3,13 +3,8 @@
     <button
       type="button"
       class="btn btn-dark btn-sm"
-      @click="
-        $store.state.questionDetails.anonymous = !$store.state.questionDetails
-          .anonymous
-      "
-    >
-      匿名
-    </button>
+      @click="$store.state.questionDetails.anonymous = !$store.state.questionDetails.anonymous"
+    >匿名</button>
     <div v-if="$store.state.questionDetails.anonymous">
       <div class="col-xs-10">匿名</div>
     </div>

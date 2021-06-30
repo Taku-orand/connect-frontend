@@ -8,7 +8,7 @@
 <script>
 import { useStore } from "vuex";
 import { useRoute } from "vue-router";
-import { reactive, onMounted } from "vue";
+import { onMounted } from "vue";
 import  axios  from "axios";
 
 export default {
@@ -16,12 +16,6 @@ export default {
   setup() {
     const route = useRoute();
     const store = useStore();
-    const data = reactive({
-      title: store.state.questionDetails.title,
-      content: store.state.questionDetails.content,
-      anonymous: store.state.questionDetails.anonymous,
-      solved: store.state.questionDetails.solved,
-    });
 
     onMounted(()=>{
       store.dispatch("getQuestionDetails", route.params.id);
@@ -73,7 +67,6 @@ export default {
         });
     }
     return {
-      data,
       updateQuestion
     };
   },
