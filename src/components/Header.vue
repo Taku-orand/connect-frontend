@@ -5,7 +5,7 @@
         <h1 class="p-2">Connect 会津大学</h1>
       </div>
       <div class="col-2 d-flex align-items-center justify-content-end">
-        <div>{{ $store.state.user.email }}</div>
+        <div>{{ $store.state.user.name }}</div>
       </div>
       <div class="col-2 d-flex align-items-center justify-content-center">
         <div class="dropdown text-center">
@@ -49,7 +49,6 @@ export default {
       axios
         .delete(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/signout`, { withCredentials: true })
         .then((response) => {
-          console.log(response);
           store.dispatch("checkSignedIn");
           if (response.data.signed_out) {
             store.commit("setAlert", {

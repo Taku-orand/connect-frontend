@@ -50,12 +50,15 @@ import LikeButton from "./LikeButton.vue";
 
 export default {
   name: "QuestionList",
+
   components: {
     TagList,
     LikeButton,
+    isMyPage: Boolean,
   },
   props: {},
   setup() {
+
     const router = useRouter();
     // const route = useRoute();
     const store = useStore();
@@ -64,7 +67,11 @@ export default {
 
     // QuestionListコンポーネントをロードした時に質問を取得
     onMounted(() => {
-      store.dispatch("getQuestions");
+      if (props.isMyPage) {
+        store.dispatch("getMyQuestions");
+      } else {
+        store.dispatch("getQuestions");
+      }
     });
 
     function showDetail(question) {

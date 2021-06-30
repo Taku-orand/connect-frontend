@@ -8,7 +8,7 @@ export const store = createStore({
     return {
       // ユーザー
       user: {
-        email: "ゲストユーザー",
+        name: "ゲストユーザー",
       },
 
       // アラート
@@ -48,7 +48,7 @@ export const store = createStore({
     },
 
     resetUser: (state) => {
-      state.user.email = "ゲストユーザー";
+      state.user.name = "ゲストユーザー";
     },
 
     // アラート
@@ -99,6 +99,30 @@ export const store = createStore({
             context.commit("updateUser", response.data.user);
           } else {
             context.commit("resetUser");
+          }
+        })
+        .catch((e) => {
+          alert(e);
+        });
+    },
+
+    getMyQuestions: async function(context) {
+      await axios
+        .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/questions/user`, { withCredentials: true })
+        .then((response) => {
+          console.log(response);
+          if (response.data.get_my_questions) {
+            context.commit("setQuestions", response.data.questions);
+          } else {
+            store.commit("setAlert", {
+              flag: {
+                showSuccessAlert: false,
+                showErrorAlert: true,
+              },
+              message: {
+                error: "自分の質問を取得できませんでした。",
+              },
+            });
           }
         })
         .catch((e) => {
