@@ -132,6 +132,18 @@ export const store = createStore({
         });
     },
 
+    getQuestions: async function(context) {
+      await axios
+        .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/questions/index`, { withCredentials: true })
+        .then((response) => {
+          console.log(response);
+          context.commit("setQuestions", response.data.questions);
+        })
+        .catch((e) => {
+          alert(e);
+        });
+    },
+
     getQuestionDetails: async function(context, id) {
       await axios
         .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/questions/show/${id}`, { withCredentials: true })
@@ -156,7 +168,7 @@ export const store = createStore({
 
     getTags: async function(context) {
       await axios
-        .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/tags/index`)
+        .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/tags/index`, { withCredentials: true })
         .then((response) => {
           context.commit("setTags", response.data.tags);
         })
