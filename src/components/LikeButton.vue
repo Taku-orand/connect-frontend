@@ -13,7 +13,10 @@ import { useStore } from "vuex";
 export default {
   name: "QuestionList",
   components: {},
-  props: { question: Object },
+  props: {
+    question: Object,
+    isMyPage: Boolean,
+  },
   setup(props) {
     // const router = useRouter();
     // const route = useRoute();
@@ -26,7 +29,11 @@ export default {
         .post(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/like/add/${props.question.like_id}`)
         .then((response) => {
           if (response.data.add_like) {
-            store.dispatch("getQuestions");
+            if (props.isMyPage) {
+              store.dispatch("getQuestionDetails");
+            } else {
+              store.dispatch("getQuestions");
+            }
             // 質問を更新、マイページなのかに注意
           } else {
             store.commit("setAlert", {

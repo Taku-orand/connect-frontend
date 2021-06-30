@@ -28,7 +28,7 @@
                   <div class="mt-2">{{ question.updated_at }}</div>
                 </div>
                 <div class="col-6 text-right">
-                  <LikeButton :question="question"></LikeButton>
+                  <LikeButton :question="question" :is-my-page="false"></LikeButton>
                 </div>
               </div>
             </div>
