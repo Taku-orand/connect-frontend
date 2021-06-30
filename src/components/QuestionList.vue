@@ -54,11 +54,11 @@ export default {
   components: {
     TagList,
     LikeButton,
+  },
+  props: {
     isMyPage: Boolean,
   },
-  props: {},
-  setup() {
-
+  setup(props) {
     const router = useRouter();
     // const route = useRoute();
     const store = useStore();
