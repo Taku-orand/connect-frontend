@@ -1,5 +1,12 @@
 <template>
-  <router-view></router-view>
+  <div class="row">
+    <div class="col-3">
+      <TagList></TagList>
+    </div>
+    <div class="col-9">
+      <router-view></router-view>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -8,9 +15,13 @@ import { reactive } from "vue";
 // import { useRoute } from "vue-router";
 // import { useStore } from "vuex";
 
+import TagList from "./TagList.vue";
+
 export default {
   name: "Question",
-  components: {},
+  components: {
+    TagList,
+  },
   props: {},
   setup() {
     // const router = useRouter();
