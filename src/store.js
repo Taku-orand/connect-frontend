@@ -146,7 +146,8 @@ export const store = createStore({
       await axios
         .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/questions/show/${id}`, { withCredentials: true })
         .then((response) => {
-          context.commit("setQuestionDetails", response.data);
+          console.log(response);
+          context.commit("setQuestionDetails", response.data.question);
         })
         .catch((e) => {
           alert(e);
