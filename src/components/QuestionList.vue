@@ -66,9 +66,15 @@ export default {
     });
 
     function showDetail(question) {
-      router.push({
-        path: `detail/${question.id}`,
-      });
+      if (props.isMyPage) {
+        router.push({
+          path: `/question/detail/${question.id}`,
+        });
+      } else {
+        router.push({
+          path: `detail/${question.id}`,
+        });
+      }
     }
 
     return {
