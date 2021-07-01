@@ -1,19 +1,20 @@
 <template>
-  <div>
+  <div class="container">
+    <h2 class="text-center m-4">質問投稿</h2>
     <Form></Form>
-    <button @click="createQuestion()" class="btn btn-primary m-3">投稿</button>
+    <button @click="createQuestion()" class="btn btn-primary">投稿</button>
   </div>
 </template>
 
 <script>
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
-import  axios  from "axios";
-import Form from "./Form.vue"
+import axios from "axios";
+import Form from "./Form.vue";
 
 export default {
-  components:{
-    Form
+  components: {
+    Form,
   },
   props: [],
   setup() {
@@ -21,7 +22,7 @@ export default {
     const store = useStore();
 
     async function createQuestion() {
-      await axios 
+      await axios
         .post(
           `${process.env.VUE_APP_CONNECT_BACKEND_URL}/questions/create`,
           {
@@ -35,26 +36,26 @@ export default {
           },
           { withCredentials: true }
         )
-        .then((response) =>{
+        .then((response) => {
           console.log(response);
-          if(response.data.posted){
+          if (response.data.posted) {
             store.commit("setAlert", {
               flag: {
                 showSuccessAlert: true,
                 showErrorAlert: false,
               },
               message: {
-                success: "投稿に成功しました"
+                success: "投稿に成功しました",
               },
             });
             router.push({
-              name: "home"
+              name: "home",
             });
-          }else{
+          } else {
             store.commit("setAlert", {
               flag: {
-                showSuccessAlert: true,
-                showErrorAlert: false,
+                showSuccessAlert: false,
+                showErrorAlert: true,
               },
               message: {
                 success: "投稿に失敗しました。",
@@ -67,8 +68,8 @@ export default {
         });
     }
     return {
-      createQuestion
+      createQuestion,
     };
   },
-}
+};
 </script>

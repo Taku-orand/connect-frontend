@@ -1,13 +1,11 @@
 <template>
   <div class="form-group m-1">
-    <button type="button" class="btn btn-dark btn-sm" @click="isAnon">
-      匿名
-    </button>
+    <button type="button" class="btn btn-dark btn-sm" @click="isAnon">匿名で投稿する</button>
     <div v-if="$store.state.questionDetails.anonymous">
-      <div class="col-xs-10">匿名</div>
+      <div class="">匿名</div>
     </div>
     <div v-else>
-      <div class="col-xs-10">{{ $store.state.user.email }}</div>
+      <div class="">{{ $store.state.user.email }}</div>
     </div>
     <input placeholder="タイトル" id="title" v-model="$store.state.questionDetails.title" />
     <br />
