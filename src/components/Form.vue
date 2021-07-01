@@ -1,10 +1,6 @@
 <template>
   <div class="form-group m-1">
-    <button
-      type="button"
-      class="btn btn-dark btn-sm"
-      @click="isAnon"
-    >
+    <button type="button" class="btn btn-dark btn-sm" @click="isAnon">
       匿名
     </button>
     <div v-if="$store.state.questionDetails.anonymous">
@@ -13,17 +9,9 @@
     <div v-else>
       <div class="col-xs-10">{{ $store.state.user.email }}</div>
     </div>
-    <input
-      placeholder="タイトル"
-      id="title"
-      v-model="$store.state.questionDetails.title"
-    />
+    <input placeholder="タイトル" id="title" v-model="$store.state.questionDetails.title" />
     <br />
-    <textarea
-      placeholder="内容"
-      id="content"
-      v-model="$store.state.questionDetails.content"
-    ></textarea>
+    <textarea placeholder="内容" id="content" v-model="$store.state.questionDetails.content"></textarea>
   </div>
 </template>
 <script>
@@ -39,12 +27,12 @@ export default {
     const data = reactive({
       title: store.state.questionDetails.title,
       content: store.state.questionDetails.content,
-      anonymous: store.state.questionDetails.anonymous
+      anonymous: store.state.questionDetails.anonymous,
     });
 
     onMounted(() => {
       store.dispatch("getTags");
-      if (!store.state.questionDetails.anonymous){
+      if (!store.state.questionDetails.anonymous) {
         store.state.questionDetails.anonymous = false;
       }
     });
@@ -60,4 +48,3 @@ export default {
   },
 };
 </script>
-<style src="@vueform/multiselect/themes/default.css"></style>
