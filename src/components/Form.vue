@@ -19,20 +19,6 @@
       v-model="$store.state.questionDetails.title"
     />
     <br />
-    <div>
-      <multiselect
-        v-model="$store.state.post_tags_id"
-        :options="$store.state.tags"
-        :custom-label="inputObject"
-        placeholder="Select one"
-        label="name"
-        track-by="id"
-        :searchable="true"
-        valueProp="id"
-        :taggable="true"
-        mode="tags"
-      ></multiselect>
-    </div>
     <textarea
       placeholder="内容"
       id="content"
@@ -43,12 +29,10 @@
 <script>
 import { useStore } from "vuex";
 import { reactive, onMounted } from "vue";
-import Multiselect from "@vueform/multiselect";
+
 export default {
   props: {},
-  components: {
-    Multiselect,
-  },
+  components: {},
 
   setup() {
     const store = useStore();
@@ -65,10 +49,6 @@ export default {
       }
     });
 
-    function inputObject(id, name) {
-      return `${id} - [${name}]`;
-    }
-
     function isAnon() {
       store.state.questionDetails.anonymous = !store.state.questionDetails.anonymous;
     }
@@ -76,7 +56,6 @@ export default {
     return {
       data,
       isAnon,
-      inputObject,
     };
   },
 };

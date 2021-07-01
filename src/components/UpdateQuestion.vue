@@ -2,7 +2,6 @@
   <div>
     <Form></Form>
     <button @click="updateQuestion()" class="btn btn-primary m-3">修正</button>
-    {{ $store.state.questionDetails.title }}
   </div>
 </template>
 
