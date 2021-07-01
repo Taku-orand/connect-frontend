@@ -3,10 +3,7 @@
     <button
       type="button"
       class="btn btn-dark btn-sm"
-      @click="
-        $store.state.questionDetails.anonymous = !$store.state.questionDetails
-          .anonymous
-      "
+      @click="isAnon"
     >
       匿名
     </button>
@@ -58,11 +55,14 @@ export default {
     const data = reactive({
       title: store.state.questionDetails.title,
       content: store.state.questionDetails.content,
-      anonymous: store.state.questionDetails.anonymous,
+      anonymous: store.state.questionDetails.anonymous
     });
 
     onMounted(() => {
       store.dispatch("getTags");
+      if (!store.state.questionDetails.anonymous){
+        store.state.questionDetails.anonymous = false;
+      }
     });
 
     function inputObject(id, name) {
@@ -70,8 +70,7 @@ export default {
     }
 
     function isAnon() {
-      store.state.questionDetails.anonymous = !store.state.questionDetails
-        .anonymous;
+      store.state.questionDetails.anonymous = !store.state.questionDetails.anonymous;
     }
 
     return {
