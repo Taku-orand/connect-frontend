@@ -36,7 +36,7 @@
       </div>
     </div>
   </div>
-  <div class="input-">
+  <div class="input-area">
     <div class="form-group">
       <label for="title">タイトル</label>
       <input v-model="$store.state.questionDetails.title" type="text" class="form-control" id="title" placeholder="タイトルを入力してください。" />
@@ -73,7 +73,6 @@
       </div>
     </div>
   </div>
-  {{ $store.state.selected_tags_id }}
 </template>
 <script>
 import { useStore } from "vuex";

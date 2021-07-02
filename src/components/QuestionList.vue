@@ -67,6 +67,7 @@ export default {
     });
 
     function showDetail(question) {
+      store.commit("resetAlert");
       if (props.isMyPage) {
         router.push({
           path: `/question/detail/${question.id}`,
@@ -79,6 +80,7 @@ export default {
     }
 
     function updateQuestion(question) {
+      store.commit("resetAlert");
       router.push({
         path: `/question/update/${question.id}`,
       });
