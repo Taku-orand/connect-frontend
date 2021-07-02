@@ -169,6 +169,7 @@ export const store = createStore({
       await axios
         .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/answers/show/${id}`, { withCredentials: true })
         .then((response) => {
+          console.log(response);
           context.commit("setAnswers", response.data.answers);
         })
         .catch((e) => {

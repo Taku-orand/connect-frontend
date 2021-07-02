@@ -2,7 +2,7 @@
   <div class="container">
     <h2 class="text-center m-4">質問投稿</h2>
     <Form></Form>
-    <button @click="createQuestion()" class="btn btn-primary">投稿</button>
+    <button @click="createQuestion()" class="btn btn-primary">質問投稿</button>
   </div>
 </template>
 

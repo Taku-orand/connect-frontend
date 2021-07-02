@@ -52,14 +52,18 @@
               <div class="mt-2">{{ answer.updated_at }}</div>
             </div>
             <div class="col-6 text-right">
-              <button type="button" class="btn btn-primary">
-                いいね <span class="badge badge-light">{{ answer.like }}</span>
-              </button>
+              <LikeButton :question="question" :is-my-page="false"></LikeButton>
             </div>
           </div>
         </div>
       </div>
     </template>
+
+    <div class="answer-area mb-5">
+      <h2 class="text-center m-4">回答</h2>
+      <Form></Form>
+      <button @click="createAnswer()" class="btn btn-primary">回答投稿</button>
+    </div>
   </div>
 </template>
 
@@ -70,11 +74,13 @@ import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
 
 import LikeButton from "./LikeButton.vue";
+import Form from "./Form.vue";
 
 export default {
   name: "Question",
   components: {
     LikeButton,
+    Form,
   },
   props: {},
   setup() {
