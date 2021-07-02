@@ -20,7 +20,7 @@
         <div class="card-footer text-muted">
           <div class="row">
             <div class="col-6">
-              <div class="mt-2">{{ question.updated_at }}</div>
+              <div class="mt-2">{{ question.updated_at.substr(0, 4) }}/{{ question.updated_at.substr(5, 2) }}/{{ question.updated_at.substr(8, 2) }}</div>
             </div>
             <div class="col-6 text-right">
               <button @click.stop="updateQuestion(question)" v-if="$store.state.user.id == question.user_id" class="btn btn-secondary mr-2">編集</button>
