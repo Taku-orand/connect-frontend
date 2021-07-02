@@ -33,6 +33,7 @@ export default {
 
     function goCreateQuestion() {
       store.commit("resetAlert");
+      store.commit("resetQuestionDetails");
       router.push({
         name: "post",
       });
