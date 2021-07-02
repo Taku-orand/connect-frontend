@@ -23,7 +23,7 @@
               <div class="mt-2">{{ question.updated_at }}</div>
             </div>
             <div class="col-6 text-right">
-              <button v-if="$store.state.user.id == question.user_id" class="btn btn-secondary mr-2">編集</button>
+              <button @click.stop="updateQuestion(question)" v-if="$store.state.user.id == question.user_id" class="btn btn-secondary mr-2">編集</button>
               <LikeButton :question="question" :is-my-page="false"></LikeButton>
             </div>
           </div>
@@ -78,9 +78,16 @@ export default {
       }
     }
 
+    function updateQuestion(question) {
+      router.push({
+        path: `update/${question.id}`,
+      });
+    }
+
     return {
       data,
       showDetail,
+      updateQuestion,
     };
   },
 };
