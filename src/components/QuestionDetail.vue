@@ -54,7 +54,7 @@
               <div class="mt-2">{{ answer.updated_at }}</div>
             </div>
             <div class="col-6 text-right">
-              <LikeButton :question="question" :is-my-page="false"></LikeButton>
+              <LikeButton :question="answer" :is-my-page="false"></LikeButton>
             </div>
           </div>
         </div>

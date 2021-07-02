@@ -31,6 +31,7 @@
         </div>
       </div>
     </template>
+    <button v-if="!isMyPage" @click="goCreateQuestion" class="btn btn-info btn-lg fixed-bottom ml-auto m-5">質問する</button>
   </div>
 </template>
 
@@ -87,10 +88,19 @@ export default {
       });
     }
 
+    function goCreateQuestion() {
+      store.commit("resetAlert");
+      store.commit("resetQuestionDetails");
+      router.push({
+        name: "post",
+      });
+    }
+
     return {
       data,
       showDetail,
       updateQuestion,
+      goCreateQuestion,
     };
   },
 };
