@@ -80,7 +80,7 @@ export default {
 
     function updateQuestion(question) {
       router.push({
-        path: `update/${question.id}`,
+        path: `/question/update/${question.id}`,
       });
     }
 

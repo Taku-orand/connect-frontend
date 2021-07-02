@@ -7,7 +7,7 @@
         <div class="card-header">
           <div class="row">
             <div class="col-6">
-              <div>質問者</div>
+              <div>{{ $store.state.questionDetails.user_name }}</div>
             </div>
             <div class="col-6 text-right">
               <span v-if="$store.state.questionDetails.solved" class="badge badge-secondary p-2">解決済</span>
@@ -24,6 +24,7 @@
               <div class="mt-2">{{ $store.state.questionDetails.updated_at }}</div>
             </div>
             <div class="col-6 text-right">
+              <button @click.stop="updateQuestion($store.state.questionDetails)" v-if="$store.state.user.id == $store.state.questionDetails.user_id" class="btn btn-secondary mr-2">編集</button>
               <LikeButton :question="$store.state.questionDetails" :is-my-page="false"></LikeButton>
             </div>
           </div>
@@ -65,7 +66,7 @@
 <script>
 import { reactive, onMounted } from "vue";
 // import axios from "axios";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
 
 import LikeButton from "./LikeButton.vue";
@@ -77,7 +78,7 @@ export default {
   },
   props: {},
   setup() {
-    // const router = useRouter();
+    const router = useRouter();
     const route = useRoute();
     const store = useStore();
 
@@ -89,8 +90,15 @@ export default {
       store.dispatch("getAnswers", route.params.id);
     });
 
+    function updateQuestion(question) {
+      router.push({
+        path: `/question/update/${question.id}`,
+      });
+    }
+
     return {
       data,
+      updateQuestion,
     };
   },
 };
