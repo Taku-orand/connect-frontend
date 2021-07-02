@@ -34,8 +34,8 @@ export const store = createStore({
 
       // タグ
       tags: {},
-      // タグ
-      post_tags_id: []
+      // 選択されたタグ
+      selected_tags_id: [],
     };
   },
 
@@ -80,6 +80,9 @@ export const store = createStore({
     setQuestionDetails: (state, questionDetails) => {
       state.questionDetails = questionDetails;
     },
+    resetQuestionDetails: (state) => {
+      state.questionDetails = {};
+    },
 
     setAnswers: (state, answers) => {
       state.answers = answers;
@@ -87,7 +90,13 @@ export const store = createStore({
 
     // タグ
     setTags: (state, tags) => {
-      state.tags = tags
+      state.tags = tags;
+    },
+    addTagId: (state, id) => {
+      state.selected_tags_id.push(id);
+    },
+    removeTagId: (state, id) => {
+      state.selected_tags_id.splice(state.selected_tags_id.indexOf(id), 1);
     },
   },
 

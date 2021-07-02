@@ -5,6 +5,7 @@
     </div>
     <div class="col-9">
       <router-view></router-view>
+      <button @click="goCreateQuestion" class="btn btn-info btn-lg fixed-bottom ml-auto m-5">質問する</button>
     </div>
   </div>
 </template>
@@ -12,8 +13,8 @@
 <script>
 import { reactive } from "vue";
 // import axios from "axios";
-// import { useRoute } from "vue-router";
-// import { useStore } from "vuex";
+import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 
 import TagList from "./TagList.vue";
 
@@ -24,19 +25,23 @@ export default {
   },
   props: {},
   setup() {
-    // const router = useRouter();
+    const router = useRouter();
     // const route = useRoute();
-    // const store = useStore();
+    const store = useStore();
 
     const data = reactive({});
 
-    function showDetail(question) {
-      console.log(question);
+    function goCreateQuestion() {
+      store.commit("resetAlert");
+      store.commit("resetQuestionDetails");
+      router.push({
+        name: "post",
+      });
     }
 
     return {
       data,
-      showDetail,
+      goCreateQuestion,
     };
   },
 };

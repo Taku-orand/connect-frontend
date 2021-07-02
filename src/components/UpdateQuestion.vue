@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div class="container">
+    <h2 class="text-center m-4">質問編集</h2>
     <Form></Form>
     <button @click="updateQuestion()" class="btn btn-primary m-3">修正</button>
   </div>
@@ -9,23 +10,23 @@
 import { useStore } from "vuex";
 import { useRoute } from "vue-router";
 import { onMounted } from "vue";
-import  axios  from "axios";
-import Form from "./Form.vue"
+import axios from "axios";
+import Form from "./Form.vue";
 
 export default {
   props: {},
   components: {
-    Form
+    Form,
   },
   setup() {
     const route = useRoute();
     const store = useStore();
 
-    onMounted(()=>{
+    onMounted(() => {
       store.dispatch("getQuestionDetails", route.params.id);
     });
 
-    async function updateQuestion(){
+    async function updateQuestion() {
       await axios
         .patch(
           `${process.env.VUE_APP_CONNECT_BACKEND_URL}/questions/update/${route.params.id}`,
@@ -35,7 +36,7 @@ export default {
               content: store.state.questionDetails.content,
               anonymous: store.state.questionDetails.anonymous,
               solved: store.state.questionDetails.solved,
-              tag_ids: store.state.post_tags_id
+              tag_ids: store.state.post_tags_id,
             },
           },
           { withCredentials: true }
@@ -72,7 +73,7 @@ export default {
         });
     }
     return {
-      updateQuestion
+      updateQuestion,
     };
   },
 };
