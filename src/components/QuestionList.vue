@@ -23,6 +23,7 @@
               <div class="mt-2">{{ question.updated_at }}</div>
             </div>
             <div class="col-6 text-right">
+              <button v-if="$store.state.user.id == question.user_id" class="btn btn-secondary mr-2">編集</button>
               <LikeButton :question="question" :is-my-page="false"></LikeButton>
             </div>
           </div>
