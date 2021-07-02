@@ -2,29 +2,30 @@
   <div class="container">
     <h2 class="text-center m-4">質問詳細</h2>
     <!-- questionの中身が読み込まれているか確認 -->
-    <template v-if="$store.state.questionDetails">
+    <template v-if="(question = $store.state.questionDetails)">
       <div class="card mb-4">
         <div class="card-header">
           <div class="row">
             <div class="col-6">
-              <div>質問者</div>
+              <div>{{ question.user_name }}</div>
             </div>
             <div class="col-6 text-right">
-              <span v-if="$store.state.questionDetails.solved" class="badge badge-secondary p-2">解決済</span>
+              <span v-if="question.solved" class="badge badge-secondary p-2">解決済</span>
             </div>
           </div>
         </div>
         <div class="card-body">
-          <h5 class="card-title">{{ $store.state.questionDetails.title }}</h5>
-          <p class="card-text">{{ $store.state.questionDetails.content }}</p>
+          <h5 class="card-title">{{ question.title }}</h5>
+          <p class="card-text">{{ question.content }}</p>
         </div>
         <div class="card-footer text-muted">
           <div class="row">
             <div class="col-6">
-              <div class="mt-2">{{ $store.state.questionDetails.updated_at }}</div>
+              <div v-if="question.updated_at" class="mt-2">{{ question.updated_at.substr(0, 4) }}/{{ question.updated_at.substr(5, 2) }}/{{ question.updated_at.substr(8, 2) }}</div>
             </div>
             <div class="col-6 text-right">
-              <LikeButton :question="$store.state.questionDetails" :is-my-page="false"></LikeButton>
+              <button @click.stop="updateQuestion(question)" v-if="$store.state.user.id == question.user_id" class="btn btn-secondary mr-2">編集</button>
+              <LikeButton :question="question" :is-my-page="false"></LikeButton>
             </div>
           </div>
         </div>
@@ -65,7 +66,7 @@
 <script>
 import { reactive, onMounted } from "vue";
 // import axios from "axios";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
 
 import LikeButton from "./LikeButton.vue";
@@ -77,7 +78,7 @@ export default {
   },
   props: {},
   setup() {
-    // const router = useRouter();
+    const router = useRouter();
     const route = useRoute();
     const store = useStore();
 
@@ -89,8 +90,15 @@ export default {
       store.dispatch("getAnswers", route.params.id);
     });
 
+    function updateQuestion(question) {
+      router.push({
+        path: `/question/update/${question.id}`,
+      });
+    }
+
     return {
       data,
+      updateQuestion,
     };
   },
 };
