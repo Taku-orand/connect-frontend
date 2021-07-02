@@ -31,7 +31,7 @@ export default {
               content: store.state.questionDetails.content,
               anonymous: store.state.questionDetails.anonymous,
               solved: 0,
-              tag_ids: store.state.post_tags_id,
+              tag_ids: store.state.selected_tags_id,
             },
           },
           { withCredentials: true }

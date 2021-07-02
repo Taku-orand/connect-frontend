@@ -34,7 +34,7 @@ export default {
     function goCreateQuestion() {
       store.commit("resetAlert");
       router.push({
-        name: "post_form",
+        name: "post",
       });
     }
 

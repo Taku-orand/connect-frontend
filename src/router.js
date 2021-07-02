@@ -49,13 +49,13 @@ export const router = createRouter({
           component: QuestionDetail,
         },
         {
-          path: "post_form",
-          name: "post_form",
+          path: "post",
+          name: "post",
           component: CreateQuestion,
         },
         {
-          path: "update_form/:id",
-          name: "update_form",
+          path: "update/:id",
+          name: "update",
           component: UpdateQuestion,
         },
       ],
