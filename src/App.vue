@@ -67,6 +67,9 @@ export default {
   background-color: var(--sub-accent-color);
   border-color: var(--sub-accent-color);
 }
+.badge-primary {
+  background-color: var(--accent-color);
+}
 .badge-secondary {
   background-color: var(--emphasis-color);
 }

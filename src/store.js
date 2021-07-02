@@ -80,6 +80,9 @@ export const store = createStore({
     setQuestionDetails: (state, questionDetails) => {
       state.questionDetails = questionDetails;
     },
+    resetQuestionDetails: (state) => {
+      state.questionDetails = {};
+    },
 
     setAnswers: (state, answers) => {
       state.answers = answers;

@@ -39,6 +39,7 @@ export default {
         .then((response) => {
           console.log(response);
           if (response.data.posted) {
+            store.commit("resetQuestionDetails");
             store.commit("setAlert", {
               flag: {
                 showSuccessAlert: true,

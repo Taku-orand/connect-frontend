@@ -1,30 +1,50 @@
 <template>
-  <div class="row mb-3">
-    <div class="col">
-      <h4>投稿者</h4>
-    </div>
-    <div class="col">
-      <div v-if="$store.state.questionDetails.anonymous">
-        <div class="">匿名</div>
+  <div class="user-area mb-3">
+    <div class="row">
+      <div class="col-2">
+        <div>投稿者</div>
       </div>
-      <div v-else>
-        <h4 class="">{{ $store.state.user.name }}</h4>
+      <div class="col-6">
+        <div v-if="$store.state.questionDetails.anonymous">
+          <h4>匿名</h4>
+        </div>
+        <div v-else>
+          <h4>{{ $store.state.user.name }}</h4>
+        </div>
       </div>
-    </div>
-    <div class="col">
-      <button type="button" class="btn btn-secondary" @click="isAnon">匿名で投稿する</button>
+      <div class="col-4 text-right">
+        <button type="button" class="btn btn-secondary" @click="isAnon">匿名で投稿する</button>
+      </div>
     </div>
   </div>
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#selectTagModal">
-    タグを選択する
-  </button>
-  <div class="form-group">
-    <label for="title">タイトル</label>
-    <input v-model="$store.state.questionDetails.title" type="text" class="form-control" id="title" placeholder="タイトルを入力してください。" />
+  <div class="tag-area mb-3">
+    <div class="row">
+      <div class="col-1">
+        <div>タグ</div>
+      </div>
+      <div class="col-7">
+        <template v-for="(tag, key) in $store.state.tags" :key="key">
+          <template v-if="$store.state.selected_tags_id.includes(tag.id)">
+            <span class="badge badge-primary p-2 mr-2">{{ tag.name }}</span>
+          </template>
+        </template>
+      </div>
+      <div class="col-4 text-right">
+        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#selectTagModal">
+          タグを選択する
+        </button>
+      </div>
+    </div>
   </div>
-  <div class="form-group">
-    <label for="content">内容</label>
-    <textarea v-model="$store.state.questionDetails.content" class="form-control" id="content" rows="5" placeholder="質問内容を入力してください。"></textarea>
+  <div class="input-">
+    <div class="form-group">
+      <label for="title">タイトル</label>
+      <input v-model="$store.state.questionDetails.title" type="text" class="form-control" id="title" placeholder="タイトルを入力してください。" />
+    </div>
+    <div class="form-group">
+      <label for="content">内容</label>
+      <textarea v-model="$store.state.questionDetails.content" class="form-control" id="content" rows="5" placeholder="質問内容を入力してください。"></textarea>
+    </div>
   </div>
 
   <!-- タグ選択モーダル -->
@@ -48,8 +68,7 @@
           </template>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
-          <button type="button" class="btn btn-primary">タグを選択</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal">決定</button>
         </div>
       </div>
     </div>
