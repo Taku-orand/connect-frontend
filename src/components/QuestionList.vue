@@ -6,7 +6,8 @@
         <div class="card-header">
           <div class="row">
             <div class="col-6">
-              <div>{{ question.user_name }}</div>
+              <div v-if="question.anonymous">匿名</div>
+              <div v-else>{{ question.user_name }}</div>
             </div>
             <div class="col-6 text-right">
               <span v-if="question.solved" class="badge badge-secondary p-2">解決済</span>
