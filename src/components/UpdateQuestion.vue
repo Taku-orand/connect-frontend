@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h2 class="text-center m-4">質問編集</h2>
-    <Form></Form>
+    <Form :isAnswer="false"></Form>
     <div class="text-right">
       <button @click="updateQuestion()" class="btn btn-primary m-3 btn-lg mb-5">質問修正</button>
     </div>

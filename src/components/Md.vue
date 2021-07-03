@@ -1,26 +1,23 @@
 <template>
   <div>
-    <!-- コードをハイライトするcss -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/atom-one-dark.min.css" />
-
     <div class="btn-toolbar mb-1" role="toolbar" aria-label="Toolbar with button groups">
       <div class="dropdown mr-1">
         <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">h </a>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-          <button v-on:click="inputH1" class="dropdown-item">h1</button>
-          <button v-on:click="inputH2" class="dropdown-item">h2</button>
-          <button v-on:click="inputH3" class="dropdown-item">h3</button>
-          <button v-on:click="inputH4" class="dropdown-item">h4</button>
-          <button v-on:click="inputH5" class="dropdown-item">h5</button>
+          <button v-on:click="input('h1')" class="dropdown-item">h1</button>
+          <button v-on:click="input('h2')" class="dropdown-item">h2</button>
+          <button v-on:click="input('h3')" class="dropdown-item">h3</button>
+          <button v-on:click="input('h4')" class="dropdown-item">h4</button>
+          <button v-on:click="input('h5')" class="dropdown-item">h5</button>
         </div>
       </div>
-      <button v-on:click="inputBold" type="button" class="btn btn-secondary mr-1">Bold</button>
-      <button v-on:click="inputItalic" type="button" class="btn btn-secondary mr-1">Italic</button>
-      <button v-on:click="inputQuot" type="button" class="btn btn-secondary mr-1">&quot;&quot;</button>
-      <button v-on:click="inputTable" type="button" class="btn btn-secondary mr-1">Table</button>
-      <button v-on:click="inputLink" type="button" class="btn btn-secondary mr-1">Link</button>
-      <button v-on:click="inputCode" type="button" class="btn btn-secondary mr-1">&lt; code &gt;</button>
-      <button v-on:click="inputClear" type="button" class="btn btn-secondary mr-1">clear</button>
+      <button v-on:click="input('bold')" type="button" class="btn btn-secondary mr-1">Bold</button>
+      <button v-on:click="input('italic')" type="button" class="btn btn-secondary mr-1">Italic</button>
+      <button v-on:click="input('quot')" type="button" class="btn btn-secondary mr-1">&quot;&quot;</button>
+      <button v-on:click="input('table')" type="button" class="btn btn-secondary mr-1">Table</button>
+      <button v-on:click="input('link')" type="button" class="btn btn-secondary mr-1">Link</button>
+      <button v-on:click="input('code')" type="button" class="btn btn-secondary mr-1">&lt; code &gt;</button>
+      <button v-on:click="input('clear')" type="button" class="btn btn-secondary mr-1">clear</button>
     </div>
     <div class="input-area mb-3">
       <div class="row">
@@ -28,6 +25,7 @@
           <div class="form-group">
             <textarea v-if="!isAnswer" v-model="$store.state.questionDetails.content" class="form-control" id="content" rows="10" placeholder="質問内容を入力してください。"> </textarea>
             <textarea v-if="isAnswer" v-model="$store.state.newAnswer.content" class="form-control" id="content" rows="10" placeholder="回答内容を入力してください。"> </textarea>
+            {{ isAnswer }}
           </div>
         </div>
         <div class="col">
@@ -65,65 +63,60 @@ export default {
       storeTarget: "",
     });
 
-    onMounted(() => {
+    onMounted(() => {});
+
+    function input(type) {
       if (!props.isAnswer) {
         data.storeTarget = store.state.questionDetails;
       }
       if (props.isAnswer) {
         data.storeTarget = store.state.newAnswer;
       }
-    });
+      switch (type) {
+        case "h1":
+          data.storeTarget.content += "# text\n";
+          break;
+        case "h2":
+          data.storeTarget.content += "## text\n";
+          break;
+        case "h3":
+          data.storeTarget.content += "### text\n";
+          break;
+        case "h4":
+          data.storeTarget.content += "#### text\n";
+          break;
+        case "h5":
+          data.storeTarget.content += "##### text\n";
+          break;
+        case "bold":
+          data.storeTarget.content += "**text**\n";
+          break;
+        case "italic":
+          data.storeTarget.content += "*text*\n";
+          break;
+        case "quot":
+          data.storeTarget.content += "> text\n";
+          break;
+        case "table":
+          data.storeTarget.content += "## Tables\nFirst Header | Second Header\n------------ | -------------\nContent from cell 1 | Content from cell 2\nContent in the first column | Content in the second column";
+          break;
+        case "link":
+          data.storeTarget.content += "[タイトル](URL)\n";
+          break;
+        case "code":
+          data.storeTarget.content += "``` language\n```\n";
+          break;
+        case "clear":
+          data.storeTarget.content = "";
+          break;
+        default:
+          break;
+      }
+    }
 
-    function inputH1() {
-      data.storeTarget.content += "# text\n";
-    }
-    function inputH2() {
-      data.storeTarget.content += "## text\n";
-    }
-    function inputH3() {
-      data.storeTarget.content += "### text\n";
-    }
-    function inputH4() {
-      data.storeTarget.content += "#### text\n";
-    }
-    function inputH5() {
-      data.storeTarget.content += "##### text\n";
-    }
-    function inputBold() {
-      data.storeTarget.content += "**text**\n";
-    }
-    function inputItalic() {
-      data.storeTarget.content += "*text*\n";
-    }
-    function inputQuot() {
-      data.storeTarget.content += "> text\n";
-    }
-    function inputTable() {
-      data.storeTarget.content += "## Tables\nFirst Header | Second Header\n------------ | -------------\nContent from cell 1 | Content from cell 2\nContent in the first column | Content in the second column";
-    }
-    function inputLink() {
-      data.storeTarget.content += "[タイトル](URL)\n";
-    }
-    function inputCode() {
-      data.storeTarget.content += "``` language\n```\n";
-    }
-    function inputClear() {
-      data.storeTarget.content = "";
-    }
     return {
       data,
-      inputH1,
-      inputH2,
-      inputH3,
-      inputH4,
-      inputH5,
-      inputBold,
-      inputItalic,
-      inputQuot,
-      inputTable,
-      inputLink,
-      inputCode,
-      inputClear,
+      input,
     };
   },
 };
