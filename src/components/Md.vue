@@ -1,114 +1,43 @@
 <template>
   <div>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/atom-one-dark.min.css"
-    />
-    <div
-      class="btn-toolbar"
-      role="toolbar"
-      aria-label="Toolbar with button groups"
-    >
-      <div class="btn-group mr-2" role="group" aria-label="Second group">
-        <div class="dropdown">
-          <a
-            class="btn btn-secondary dropdown-toggle"
-            href="#"
-            role="button"
-            id="dropdownMenuLink"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            h
-          </a>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <button v-on:click="inputH1" class="dropdown-item">h1</button>
-            <button v-on:click="inputH2" class="dropdown-item">h2</button>
-            <button v-on:click="inputH3" class="dropdown-item">h3</button>
-            <button v-on:click="inputH4" class="dropdown-item">h4</button>
-            <button v-on:click="inputH5" class="dropdown-item">h5</button>
+    <!-- コードをハイライトするcss -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/atom-one-dark.min.css" />
+
+    <div class="btn-toolbar mb-1" role="toolbar" aria-label="Toolbar with button groups">
+      <div class="dropdown mr-1">
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">h </a>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          <button v-on:click="inputH1" class="dropdown-item">h1</button>
+          <button v-on:click="inputH2" class="dropdown-item">h2</button>
+          <button v-on:click="inputH3" class="dropdown-item">h3</button>
+          <button v-on:click="inputH4" class="dropdown-item">h4</button>
+          <button v-on:click="inputH5" class="dropdown-item">h5</button>
+        </div>
+      </div>
+      <button v-on:click="inputBold" type="button" class="btn btn-secondary mr-1">Bold</button>
+      <button v-on:click="inputItalic" type="button" class="btn btn-secondary mr-1">Italic</button>
+      <button v-on:click="inputQuot" type="button" class="btn btn-secondary mr-1">&quot;&quot;</button>
+      <button v-on:click="inputTable" type="button" class="btn btn-secondary mr-1">Table</button>
+      <button v-on:click="inputLink" type="button" class="btn btn-secondary mr-1">Link</button>
+      <button v-on:click="inputCode" type="button" class="btn btn-secondary mr-1">&lt; code &gt;</button>
+      <button v-on:click="inputClear" type="button" class="btn btn-secondary mr-1">clear</button>
+    </div>
+    <div class="input-area mb-3">
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <textarea v-model="$store.state.questionDetails.content" class="form-control" id="content" rows="10" placeholder="質問内容を入力してください。"> </textarea>
           </div>
         </div>
-        <button
-          v-on:click="inputBold"
-          type="button"
-          class="btn btn-secondary btn-sm"
-        >
-          Bold
-        </button>
-        <button
-          v-on:click="inputItalic"
-          type="button"
-          class="btn btn-secondary btn-sm"
-        >
-          Italic
-        </button>
-      </div>
-      <div class="btn-group" role="group" aria-label="Third group">
-        <button
-          v-on:click="inputQuot"
-          type="button"
-          class="btn btn-secondary btn-sm"
-        >
-          &quot;&quot;
-        </button>
-      </div>
-      <div class="btn-group" role="group" aria-label="Fourth group">
-        <button
-          v-on:click="inputTable"
-          type="button"
-          class="btn btn-secondary btn-sm"
-        >
-          Table
-        </button>
-      </div>
-      <div class="btn-group" role="group" aria-label="Fifth group">
-        <button
-          v-on:click="inputLink"
-          type="button"
-          class="btn btn-secondary btn-sm"
-        >
-          Link
-        </button>
-      </div>
-      <div class="btn-group" role="group" aria-label="Sixth group">
-        <button
-          v-on:click="inputCode"
-          type="button"
-          class="btn btn-secondary btn-sm"
-        >
-          &lt; code &gt;
-        </button>
+        <div class="col">
+          <div class="card">
+            <div class="card-body">
+              <Markdown :source="$store.state.questionDetails.content" :linkify="true" :emoji="data.emoji" :breaks="data.breaks" />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="btn-group mr-2" role="group" aria-label="First group">
-      <button
-        v-on:click="inputClear"
-        type="button"
-        class="btn btn-secondary btn-sm"
-      >
-        clear
-      </button>
-    </div>
-    <div class="form-group">
-      <label for="content">内容</label>
-      <textarea
-        v-model="$store.state.questionDetails.content"
-        class="form-control"
-        id="content"
-        rows="5"
-        placeholder="質問内容を入力してください。"
-      >
-      </textarea>
-    </div>
-
-    <Markdown
-      :source="$store.state.questionDetails.content"
-      :linkify="true"
-      :emoji="data.emoji"
-      :breaks="data.breaks"
-    />
   </div>
 </template>
 
@@ -145,17 +74,16 @@ export default {
       store.state.questionDetails.content += "##### text\n";
     }
     function inputBold() {
-      store.state.questionDetails.content += "*text*\n";
+      store.state.questionDetails.content += "**text**\n";
     }
     function inputItalic() {
-      store.state.questionDetails.content += "**text**\n";
+      store.state.questionDetails.content += "*text*\n";
     }
     function inputQuot() {
       store.state.questionDetails.content += "> text\n";
     }
     function inputTable() {
-      store.state.questionDetails.content +=
-        "## Tables\nFirst Header | Second Header\n------------ | -------------\nContent from cell 1 | Content from cell 2\nContent in the first column | Content in the second column";
+      store.state.questionDetails.content += "## Tables\nFirst Header | Second Header\n------------ | -------------\nContent from cell 1 | Content from cell 2\nContent in the first column | Content in the second column";
     }
     function inputLink() {
       store.state.questionDetails.content += "[タイトル](URL)\n";

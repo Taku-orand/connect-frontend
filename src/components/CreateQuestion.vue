@@ -3,7 +3,7 @@
     <h2 class="text-center m-4">質問投稿</h2>
     <Form></Form>
     <div class="text-right">
-      <button @click="createQuestion()" class="btn btn-primary btn-lg">質問投稿</button>
+      <button @click="createQuestion()" class="btn btn-primary btn-lg mb-5">質問投稿</button>
     </div>
   </div>
 </template>
