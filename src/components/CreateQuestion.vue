@@ -2,11 +2,14 @@
   <div class="container">
     <h2 class="text-center m-4">質問投稿</h2>
     <Form></Form>
-    <button @click="createQuestion()" class="btn btn-primary">投稿</button>
+    <div class="text-right">
+      <button @click="createQuestion()" class="btn btn-primary btn-lg">質問投稿</button>
+    </div>
   </div>
 </template>
 
 <script>
+import { onMounted } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import  axios  from "axios";
@@ -17,12 +20,15 @@ export default {
   components: {
     Form,
   },
-  props: [],
-  setup() {
+  props: {
+    tagList: Boolean,
+  },
+  setup(props, context) {
     const router = useRouter();
     const store = useStore();
 
     onMounted(() => {
+      context.emit("showTagList", props.tagList);
       store.state.questionDetails.content = "";
     });
 
@@ -64,7 +70,7 @@ export default {
                 showErrorAlert: true,
               },
               message: {
-                success: "投稿に失敗しました。",
+                error: "投稿に失敗しました。",
               },
             });
           }

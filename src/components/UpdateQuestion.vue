@@ -2,27 +2,33 @@
   <div class="container">
     <h2 class="text-center m-4">質問編集</h2>
     <Form></Form>
-    <button @click="updateQuestion()" class="btn btn-primary m-3">修正</button>
+    <div class="text-right">
+      <button @click="updateQuestion()" class="btn btn-primary m-3 btn-lg">質問修正</button>
+    </div>
   </div>
 </template>
 
 <script>
 import { useStore } from "vuex";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { onMounted } from "vue";
 import axios from "axios";
 import Form from "./Form.vue";
 
 export default {
-  props: {},
   components: {
     Form,
   },
-  setup() {
+  props: {
+    tagList: Boolean,
+  },
+  setup(props, context) {
+    const router = useRouter();
     const route = useRoute();
     const store = useStore();
 
     onMounted(() => {
+      context.emit("showTagList", props.tagList);
       store.dispatch("getQuestionDetails", route.params.id);
     });
 
@@ -43,7 +49,7 @@ export default {
         )
         .then((response) => {
           console.log(response);
-          if (response.data.posted) {
+          if (response.data.update_question) {
             store.commit("setAlert", {
               flag: {
                 showSuccessAlert: true,
@@ -53,17 +59,17 @@ export default {
                 success: "修正に成功しました。",
               },
             });
-            route.push({
+            router.push({
               name: "home",
             });
           } else {
             store.commit("setAlert", {
               flag: {
-                showSuccessAlert: true,
-                showErrorAlert: false,
+                showSuccessAlert: false,
+                showErrorAlert: true,
               },
               message: {
-                success: "修正に失敗しました。",
+                error: "修正に失敗しました。",
               },
             });
           }

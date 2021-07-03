@@ -1,11 +1,15 @@
 <template>
-  <div class="row">
+  <div v-if="data.tagList" class="row">
     <div class="col-3">
       <TagList></TagList>
     </div>
     <div class="col-9">
-      <router-view></router-view>
-      <button @click="goCreateQuestion" class="btn btn-info btn-lg fixed-bottom ml-auto m-5">質問する</button>
+      <router-view @showTagList="showTagList"></router-view>
+    </div>
+  </div>
+  <div v-else class="row">
+    <div class="col-12">
+      <router-view @showTagList="showTagList"></router-view>
     </div>
   </div>
 </template>
@@ -13,8 +17,8 @@
 <script>
 import { reactive } from "vue";
 // import axios from "axios";
-import { useRouter } from "vue-router";
-import { useStore } from "vuex";
+// import { useRouter } from "vue-router";
+// import { useStore } from "vuex";
 
 import TagList from "./TagList.vue";
 
@@ -25,23 +29,21 @@ export default {
   },
   props: {},
   setup() {
-    const router = useRouter();
+    // const router = useRouter();
     // const route = useRoute();
-    const store = useStore();
+    // const store = useStore();
 
-    const data = reactive({});
+    const data = reactive({
+      tagList: Boolean,
+    });
 
-    function goCreateQuestion() {
-      store.commit("resetAlert");
-      store.commit("resetQuestionDetails");
-      router.push({
-        name: "post",
-      });
+    function showTagList(show) {
+      data.tagList = show;
     }
 
     return {
       data,
-      goCreateQuestion,
+      showTagList,
     };
   },
 };

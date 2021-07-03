@@ -7,7 +7,8 @@
         <div class="card-header">
           <div class="row">
             <div class="col-6">
-              <div>{{ question.user_name }}</div>
+              <div v-if="question.anonymous">匿名</div>
+              <div v-else>{{ question.user_name }}</div>
             </div>
             <div class="col-6 text-right">
               <span v-if="question.solved" class="badge badge-secondary p-2">解決済</span>
@@ -38,7 +39,8 @@
         <div class="card-header">
           <div class="row">
             <div class="col-6">
-              <div>回答者</div>
+              <div v-if="answer.anonymous">匿名</div>
+              <div v-else>{{ answer.user_name }}</div>
             </div>
             <div class="col-6 text-right"></div>
           </div>
@@ -52,14 +54,18 @@
               <div class="mt-2">{{ answer.updated_at }}</div>
             </div>
             <div class="col-6 text-right">
-              <button type="button" class="btn btn-primary">
-                いいね <span class="badge badge-light">{{ answer.like }}</span>
-              </button>
+              <LikeButton :question="answer" :is-my-page="false"></LikeButton>
             </div>
           </div>
         </div>
       </div>
     </template>
+
+    <div class="answer-area mb-5">
+      <h2 class="text-center m-4">回答</h2>
+      <Form></Form>
+      <button @click="createAnswer()" class="btn btn-primary">回答投稿</button>
+    </div>
   </div>
 </template>
 
@@ -70,14 +76,18 @@ import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
 
 import LikeButton from "./LikeButton.vue";
+import Form from "./Form.vue";
 
 export default {
   name: "Question",
   components: {
     LikeButton,
+    Form,
   },
-  props: {},
-  setup() {
+  props: {
+    tagList: Boolean,
+  },
+  setup(props, context) {
     const router = useRouter();
     const route = useRoute();
     const store = useStore();
@@ -86,6 +96,7 @@ export default {
 
     // QuestionDetailコンポーネントをロードした時に質問詳細を取得
     onMounted(() => {
+      context.emit("showTagList", props.tagList);
       store.dispatch("getQuestionDetails", route.params.id);
       store.dispatch("getAnswers", route.params.id);
     });
