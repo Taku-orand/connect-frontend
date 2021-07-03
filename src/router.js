@@ -59,6 +59,6 @@ export const router = createRouter({
       path: "/update_form/:id",
       name: "update_form",
       component: UpdateQuestion,
-    }
+    },
     ],
 });

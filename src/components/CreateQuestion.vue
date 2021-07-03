@@ -10,6 +10,7 @@ import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import  axios  from "axios";
 import Form from "./Form.vue"
+import { onMounted } from '@vue/runtime-core';
 
 export default {
   components:{
@@ -19,6 +20,10 @@ export default {
   setup() {
     const router = useRouter();
     const store = useStore();
+
+    onMounted(() => {
+      store.state.questionDetails.content = "";
+    });
 
     async function createQuestion() {
       await axios 

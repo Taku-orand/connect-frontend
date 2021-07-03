@@ -19,21 +19,19 @@
       v-model="$store.state.questionDetails.title"
     />
     <br />
-    <textarea
-      placeholder="内容"
-      id="content"
-      v-model="$store.state.questionDetails.content"
-    ></textarea>
+    <Md></Md>
   </div>
 </template>
 <script>
 import { useStore } from "vuex";
 import { reactive, onMounted } from "vue";
+import Md from "./Md.vue";
 
 export default {
   props: {},
-  components: {},
-
+  components: {
+    Md
+  },
   setup() {
     const store = useStore();
     const data = reactive({

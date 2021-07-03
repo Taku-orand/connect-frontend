@@ -44,6 +44,8 @@ export default {
   --accent-color: #13c4a3;
   --sub-accent-color: #4c6085;
   --emphasis-color: #d991ba;
+  --silver-color: #EEEEEE;
+  --table-head-color:#C0C0C0;
 }
 
 /* bootstrap */
