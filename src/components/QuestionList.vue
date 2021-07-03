@@ -16,7 +16,7 @@
         </div>
         <div class="card-body">
           <h5 class="card-title">{{ question.title }}</h5>
-          <p class="card-text">{{ question.content }}</p>
+          <Markdown :source="String(question.content)" :linkify="true" :emoji="data.emoji" :breaks="data.breaks" />
         </div>
         <div class="card-footer text-muted">
           <div class="row">
@@ -43,12 +43,14 @@ import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 
 import LikeButton from "./LikeButton.vue";
+import Markdown from "vue3-markdown-it";
 
 export default {
   name: "QuestionList",
 
   components: {
     LikeButton,
+    Markdown,
   },
   props: {
     isMyPage: Boolean,
