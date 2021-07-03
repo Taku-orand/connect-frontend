@@ -63,7 +63,7 @@
     </template>
 
     <div class="answer-area mb-5">
-      <CreateAnswer></CreateAnswer>
+      <CreateAnswer :question="$store.state.questionDetails"></CreateAnswer>
     </div>
   </div>
 </template>

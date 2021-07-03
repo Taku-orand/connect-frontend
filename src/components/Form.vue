@@ -5,11 +5,21 @@
         <div>投稿者</div>
       </div>
       <div class="col-6">
-        <div v-if="$store.state.questionDetails.anonymous">
-          <h4>匿名</h4>
+        <div v-if="!isAnswer">
+          <div v-if="$store.state.questionDetails.anonymous">
+            <h4>匿名</h4>
+          </div>
+          <div v-else>
+            <h4>{{ $store.state.user.name }}</h4>
+          </div>
         </div>
-        <div v-else>
-          <h4>{{ $store.state.user.name }}</h4>
+        <div v-if="isAnswer">
+          <div v-if="$store.state.newAnswer.anonymous">
+            <h4>匿名</h4>
+          </div>
+          <div v-else>
+            <h4>{{ $store.state.user.name }}</h4>
+          </div>
         </div>
       </div>
       <div class="col-4 text-right">
@@ -17,7 +27,7 @@
       </div>
     </div>
   </div>
-  <div class="tag-area mb-3">
+  <div v-if="!isAnswer" class="tag-area mb-3">
     <div class="row">
       <div class="col-1">
         <div>タグ</div>
@@ -36,11 +46,11 @@
       </div>
     </div>
   </div>
-  <div class="form-group">
+  <div v-if="!isAnswer" class="form-group">
     <label for="title">タイトル</label>
     <input v-model="$store.state.questionDetails.title" type="text" class="form-control" id="title" placeholder="タイトルを入力してください。" />
   </div>
-  <Md></Md>
+  <Md :isAnswer="isAnswer"></Md>
 
   <!-- タグ選択モーダル -->
   <div class="modal fade" id="selectTagModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -75,11 +85,13 @@ import { reactive, onMounted } from "vue";
 import Md from "./Md.vue";
 
 export default {
-  props: {},
   components: {
     Md,
   },
-  setup() {
+  props: {
+    isAnswer: Boolean,
+  },
+  setup(props) {
     const store = useStore();
     const data = reactive({
       title: store.state.questionDetails.title,
@@ -95,7 +107,12 @@ export default {
     });
 
     function isAnon() {
-      store.state.questionDetails.anonymous = !store.state.questionDetails.anonymous;
+      if (!props.isAnswer) {
+        store.state.questionDetails.anonymous = !store.state.questionDetails.anonymous;
+      }
+      if (props.isAnswer) {
+        store.state.newAnswer.anonymous = !store.state.newAnswer.anonymous;
+      }
     }
 
     function selectTag(tag) {

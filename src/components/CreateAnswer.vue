@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h2 class="text-center m-4">回答投稿</h2>
-    <Form></Form>
+    <Form :isAnswer="true"></Form>
     <div class="text-right">
       <button @click="createAnswer()" class="btn btn-primary btn-lg mb-5">回答投稿</button>
     </div>
@@ -11,7 +11,7 @@
 <script>
 import { onMounted } from "vue";
 import { useStore } from "vuex";
-// import { useRouter } from "vue-router";
+import { useRoute } from "vue-router";
 import axios from "axios";
 import Form from "./Form.vue";
 
@@ -19,24 +19,27 @@ export default {
   components: {
     Form,
   },
-  props: {},
-  setup() {
+  props: {
+    question: Object,
+  },
+  setup(props) {
     // const router = useRouter();
+    const route = useRoute();
     const store = useStore();
 
-    onMounted(() => {});
+    onMounted(() => {
+      store.state.newAnswer.content = "";
+    });
 
     async function createAnswer() {
       await axios
         .post(
           `${process.env.VUE_APP_CONNECT_BACKEND_URL}/answers/create`,
           {
-            question: {
-              title: store.state.questionDetails.title,
-              content: store.state.questionDetails.content,
-              anonymous: store.state.questionDetails.anonymous,
-              solved: 0,
-              tag_ids: store.state.selected_tags_id,
+            answer: {
+              content: store.state.newAnswer.content,
+              anonymous: store.state.newAnswer.anonymous,
+              question_id: props.question.id,
             },
           },
           { withCredentials: true }
@@ -53,6 +56,9 @@ export default {
                 success: "投稿に成功しました",
               },
             });
+            store.dispatch("getQuestionDetails", route.params.id);
+            store.dispatch("getAnswers", route.params.id);
+            store.commit("resetNewAnswer");
           } else {
             store.commit("setAlert", {
               flag: {

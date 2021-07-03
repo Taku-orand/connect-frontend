@@ -26,13 +26,15 @@
       <div class="row">
         <div class="col">
           <div class="form-group">
-            <textarea v-model="$store.state.questionDetails.content" class="form-control" id="content" rows="10" placeholder="質問内容を入力してください。"> </textarea>
+            <textarea v-if="!isAnswer" v-model="$store.state.questionDetails.content" class="form-control" id="content" rows="10" placeholder="質問内容を入力してください。"> </textarea>
+            <textarea v-if="isAnswer" v-model="$store.state.newAnswer.content" class="form-control" id="content" rows="10" placeholder="回答内容を入力してください。"> </textarea>
           </div>
         </div>
         <div class="col">
           <div class="card">
             <div class="card-body">
-              <Markdown :source="$store.state.questionDetails.content" :linkify="true" :emoji="data.emoji" :breaks="data.breaks" />
+              <Markdown v-if="!isAnswer" :source="$store.state.questionDetails.content" :linkify="true" :emoji="data.emoji" :breaks="data.breaks" />
+              <Markdown v-if="isAnswer" :source="$store.state.newAnswer.content" :linkify="true" :emoji="data.emoji" :breaks="data.breaks" />
             </div>
           </div>
         </div>
@@ -44,55 +46,69 @@
 <script>
 import Markdown from "vue3-markdown-it";
 import { useStore } from "vuex";
-import { reactive } from "vue";
+import { reactive, onMounted } from "vue";
 
 export default {
   components: {
     Markdown,
   },
-  setup() {
+  props: {
+    isAnswer: Boolean,
+  },
+  setup(props) {
     const store = useStore();
+
     const data = reactive({
       text: "",
       source: "",
       breaks: true,
+      storeTarget: "",
+    });
+
+    onMounted(() => {
+      if (!props.isAnswer) {
+        data.storeTarget = store.state.questionDetails;
+      }
+      if (props.isAnswer) {
+        data.storeTarget = store.state.newAnswer;
+      }
     });
 
     function inputH1() {
-      store.state.questionDetails.content += "# text\n";
+      data.storeTarget.content += "# text\n";
     }
     function inputH2() {
-      store.state.questionDetails.content += "## text\n";
+      data.storeTarget.content += "## text\n";
     }
     function inputH3() {
-      store.state.questionDetails.content += "### text\n";
+      data.storeTarget.content += "### text\n";
     }
     function inputH4() {
-      store.state.questionDetails.content += "#### text\n";
+      data.storeTarget.content += "#### text\n";
     }
     function inputH5() {
-      store.state.questionDetails.content += "##### text\n";
+      data.storeTarget.content += "##### text\n";
     }
     function inputBold() {
-      store.state.questionDetails.content += "**text**\n";
+      data.storeTarget.content += "**text**\n";
     }
     function inputItalic() {
-      store.state.questionDetails.content += "*text*\n";
+      data.storeTarget.content += "*text*\n";
     }
     function inputQuot() {
-      store.state.questionDetails.content += "> text\n";
+      data.storeTarget.content += "> text\n";
     }
     function inputTable() {
-      store.state.questionDetails.content += "## Tables\nFirst Header | Second Header\n------------ | -------------\nContent from cell 1 | Content from cell 2\nContent in the first column | Content in the second column";
+      data.storeTarget.content += "## Tables\nFirst Header | Second Header\n------------ | -------------\nContent from cell 1 | Content from cell 2\nContent in the first column | Content in the second column";
     }
     function inputLink() {
-      store.state.questionDetails.content += "[タイトル](URL)\n";
+      data.storeTarget.content += "[タイトル](URL)\n";
     }
     function inputCode() {
-      store.state.questionDetails.content += "``` language\n```";
+      data.storeTarget.content += "``` language\n```\n";
     }
     function inputClear() {
-      store.state.questionDetails.content = "";
+      data.storeTarget.content = "";
     }
     return {
       data,
