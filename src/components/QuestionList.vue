@@ -24,6 +24,7 @@
               <div class="mt-2">{{ question.updated_at.substr(0, 4) }}/{{ question.updated_at.substr(5, 2) }}/{{ question.updated_at.substr(8, 2) }}</div>
             </div>
             <div class="col-6 text-right">
+              <button @click.stop="updateSolved(question)" v-if="$store.state.user.id == question.user_id" class="btn btn-success mr-2">解決した！</button>
               <button @click.stop="updateQuestion(question)" v-if="$store.state.user.id == question.user_id" class="btn btn-secondary mr-2">編集</button>
               <LikeButton :question="question" :is-my-page="false"></LikeButton>
             </div>
@@ -81,6 +82,37 @@ export default {
       }
     }
 
+    function updateSolved() {
+      axios
+        .post(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/like/add/${props.question.like_id}`)
+        .then((response) => {
+          if (response.data.add_like) {
+            if (props.isMyPage) {
+              store.dispatch("getQuestionDetails");
+            } else {
+              store.dispatch("getQuestions");
+              if (route.params.id) {
+                store.dispatch("getQuestionDetails", route.params.id);
+              }
+            }
+            // 質問を更新、マイページなのかに注意
+          } else {
+            store.commit("setAlert", {
+              flag: {
+                showSuccessAlert: false,
+                showErrorAlert: true,
+              },
+              message: {
+                success: "いいねに失敗しました。",
+              },
+            });
+          }
+        })
+        .catch((e) => {
+          alert(e);
+        });
+    }
+
     function updateQuestion(question) {
       store.commit("resetAlert");
       router.push({
@@ -99,6 +131,7 @@ export default {
     return {
       data,
       showDetail,
+      updateSolved,
       updateQuestion,
       goCreateQuestion,
     };

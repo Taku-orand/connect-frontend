@@ -67,6 +67,13 @@ export default {
   background-color: var(--sub-accent-color);
   border-color: var(--sub-accent-color);
 }
+.btn-success,
+.btn-success:hover,
+.btn-success:focus,
+.show > .btn-success.dropdown-toggle {
+  background-color: var(--emphasis-color);
+  border-color: var(--emphasis-color);
+}
 .badge-primary {
   background-color: var(--accent-color);
 }

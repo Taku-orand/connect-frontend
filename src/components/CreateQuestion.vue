@@ -59,7 +59,7 @@ export default {
                 showErrorAlert: true,
               },
               message: {
-                success: "投稿に失敗しました。",
+                error: "投稿に失敗しました。",
               },
             });
           }

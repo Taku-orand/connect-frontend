@@ -8,7 +8,7 @@
 
 <script>
 import { useStore } from "vuex";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { onMounted } from "vue";
 import axios from "axios";
 import Form from "./Form.vue";
@@ -19,6 +19,7 @@ export default {
     Form,
   },
   setup() {
+    const router = useRouter();
     const route = useRoute();
     const store = useStore();
 
@@ -43,7 +44,7 @@ export default {
         )
         .then((response) => {
           console.log(response);
-          if (response.data.posted) {
+          if (response.data.update_question) {
             store.commit("setAlert", {
               flag: {
                 showSuccessAlert: true,
@@ -53,17 +54,17 @@ export default {
                 success: "修正に成功しました。",
               },
             });
-            route.push({
+            router.push({
               name: "home",
             });
           } else {
             store.commit("setAlert", {
               flag: {
-                showSuccessAlert: true,
-                showErrorAlert: false,
+                showSuccessAlert: false,
+                showErrorAlert: true,
               },
               message: {
-                success: "修正に失敗しました。",
+                error: "修正に失敗しました。",
               },
             });
           }
