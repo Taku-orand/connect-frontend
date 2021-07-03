@@ -63,9 +63,7 @@
     </template>
 
     <div class="answer-area mb-5">
-      <h2 class="text-center m-4">回答</h2>
-      <Form></Form>
-      <button @click="createAnswer()" class="btn btn-primary">回答投稿</button>
+      <CreateAnswer></CreateAnswer>
     </div>
   </div>
 </template>
@@ -77,13 +75,13 @@ import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
 
 import LikeButton from "./LikeButton.vue";
-import Form from "./Form.vue";
+import CreateAnswer from "./CreateAnswer.vue";
 
 export default {
   name: "Question",
   components: {
     LikeButton,
-    Form,
+    CreateAnswer,
   },
   props: {
     tagList: Boolean,

@@ -36,13 +36,11 @@
       </div>
     </div>
   </div>
-  <div class="input-area">
-    <div class="form-group">
-      <label for="title">タイトル</label>
-      <input v-model="$store.state.questionDetails.title" type="text" class="form-control" id="title" placeholder="タイトルを入力してください。" />
-    </div>
-    <Md></Md>
+  <div class="form-group">
+    <label for="title">タイトル</label>
+    <input v-model="$store.state.questionDetails.title" type="text" class="form-control" id="title" placeholder="タイトルを入力してください。" />
   </div>
+  <Md></Md>
 
   <!-- タグ選択モーダル -->
   <div class="modal fade" id="selectTagModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -79,7 +77,7 @@ import Md from "./Md.vue";
 export default {
   props: {},
   components: {
-    Md
+    Md,
   },
   setup() {
     const store = useStore();
