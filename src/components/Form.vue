@@ -41,10 +41,7 @@
       <label for="title">タイトル</label>
       <input v-model="$store.state.questionDetails.title" type="text" class="form-control" id="title" placeholder="タイトルを入力してください。" />
     </div>
-    <div class="form-group">
-      <label for="content">内容</label>
-      <textarea v-model="$store.state.questionDetails.content" class="form-control" id="content" rows="5" placeholder="質問内容を入力してください。"></textarea>
-    </div>
+    <Md></Md>
   </div>
 
   <!-- タグ選択モーダル -->
@@ -77,11 +74,13 @@
 <script>
 import { useStore } from "vuex";
 import { reactive, onMounted } from "vue";
+import Md from "./Md.vue";
 
 export default {
   props: {},
-  components: {},
-
+  components: {
+    Md
+  },
   setup() {
     const store = useStore();
     const data = reactive({

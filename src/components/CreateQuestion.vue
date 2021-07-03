@@ -12,8 +12,9 @@
 import { onMounted } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
-import axios from "axios";
-import Form from "./Form.vue";
+import  axios  from "axios";
+import Form from "./Form.vue"
+import { onMounted } from '@vue/runtime-core';
 
 export default {
   components: {
@@ -28,6 +29,7 @@ export default {
 
     onMounted(() => {
       context.emit("showTagList", props.tagList);
+      store.state.questionDetails.content = "";
     });
 
     async function createQuestion() {
