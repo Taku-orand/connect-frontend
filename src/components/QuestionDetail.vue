@@ -34,7 +34,7 @@
       </div>
     </template>
 
-    <div class="badge badge-secondary p-2 mb-3">{{ $store.state.answers.length }}件の回答</div>
+    <div class="badge badge-secondary text-left w-100 p-2 mb-3">{{ $store.state.answers.length }}件の回答</div>
 
     <!-- 回答を表示 -->
     <template v-for="(answer, key) in $store.state.answers" :key="key">
