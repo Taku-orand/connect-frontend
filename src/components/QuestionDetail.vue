@@ -55,7 +55,7 @@
               <div class="mt-2">{{ answer.updated_at.substr(0, 4) }}/{{ answer.updated_at.substr(5, 2) }}/{{ answer.updated_at.substr(8, 2) }}</div>
             </div>
             <div class="col-6 text-right">
-              <LikeButton :question="answer" :is-my-page="false"></LikeButton>
+              <LikeButton :question="answer" :is-my-page="false" :isAnswer="true"></LikeButton>
             </div>
           </div>
         </div>

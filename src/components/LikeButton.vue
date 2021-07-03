@@ -16,6 +16,7 @@ export default {
   props: {
     question: Object,
     isMyPage: Boolean,
+    isAnswer: Boolean,
   },
   setup(props) {
     // const router = useRouter();
@@ -31,6 +32,8 @@ export default {
           if (response.data.add_like) {
             if (props.isMyPage) {
               store.dispatch("getQuestionDetails");
+            } else if (props.isAnswer) {
+              store.dispatch("getAnswers", route.params.id);
             } else {
               store.dispatch("getQuestions");
               if (route.params.id) {
