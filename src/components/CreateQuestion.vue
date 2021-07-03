@@ -12,8 +12,8 @@
 import { onMounted } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
-import  axios  from "axios";
-import Form from "./Form.vue"
+import axios from "axios";
+import Form from "./Form.vue";
 
 export default {
   components: {
