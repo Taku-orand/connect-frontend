@@ -16,7 +16,7 @@
         </div>
         <div class="card-body">
           <h5 class="card-title">{{ question.title }}</h5>
-          <p class="card-text">{{ question.content }}</p>
+          <Markdown :source="String(question.content)" :linkify="true" :emoji="data.emoji" :breaks="data.breaks" />
         </div>
         <div class="card-footer text-muted">
           <div class="row">
@@ -24,9 +24,8 @@
               <div class="mt-2">{{ question.updated_at.substr(0, 4) }}/{{ question.updated_at.substr(5, 2) }}/{{ question.updated_at.substr(8, 2) }}</div>
             </div>
             <div class="col-8 text-right">
-              <button @click.stop="updateSolved(question.id)" v-if="$store.state.user.id == question.user_id && !question.solved" class="btn btn-success mr-2">解決した！</button>
               <button @click.stop="updateQuestion(question)" v-if="$store.state.user.id == question.user_id && !question.solved" class="btn btn-secondary mr-2">編集</button>
-              <LikeButton :question="question" :is-my-page="false"></LikeButton>
+              <LikeButton :question="question" :is-my-page="false" :isAnswer="false"></LikeButton>
             </div>
           </div>
         </div>
@@ -38,17 +37,19 @@
 
 <script>
 import { reactive, onMounted } from "vue";
-import axios from "axios";
+// import axios from "axios";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 
 import LikeButton from "./LikeButton.vue";
+import Markdown from "vue3-markdown-it";
 
 export default {
   name: "QuestionList",
 
   components: {
     LikeButton,
+    Markdown,
   },
   props: {
     isMyPage: Boolean,
@@ -84,47 +85,6 @@ export default {
       }
     }
 
-    async function updateSolved(id) {
-      await store.dispatch("getQuestionDetails", id);
-      await axios
-        .patch(
-          `${process.env.VUE_APP_CONNECT_BACKEND_URL}/questions/update/${id}`,
-          {
-            question: {
-              title: store.state.questionDetails.title,
-              content: store.state.questionDetails.content,
-              anonymous: store.state.questionDetails.anonymous,
-              solved: true,
-              tag_ids: store.state.post_tags_id,
-            },
-          },
-          { withCredentials: true }
-        )
-        .then((response) => {
-          if (response.data.update_question) {
-            store.commit("resetAlert");
-            if (props.isMyPage) {
-              store.dispatch("getMyQuestions");
-            } else {
-              store.dispatch("getQuestions");
-            }
-          } else {
-            store.commit("setAlert", {
-              flag: {
-                showSuccessAlert: false,
-                showErrorAlert: true,
-              },
-              message: {
-                error: "処理に失敗しました。",
-              },
-            });
-          }
-        })
-        .catch((e) => {
-          alert(e);
-        });
-    }
-
     function updateQuestion(question) {
       store.commit("resetAlert");
       router.push({
@@ -143,7 +103,6 @@ export default {
     return {
       data,
       showDetail,
-      updateSolved,
       updateQuestion,
       goCreateQuestion,
     };

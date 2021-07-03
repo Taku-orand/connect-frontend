@@ -23,14 +23,15 @@ export const store = createStore({
         },
       },
 
-      // 質問
+      // 質問一覧
       questions: {},
-
       // 質問詳細
       questionDetails: {},
 
-      // 回答
+      // 回答一覧
       answers: {},
+      // 投稿する回答
+      newAnswer: {},
 
       // タグ
       tags: {},
@@ -84,8 +85,14 @@ export const store = createStore({
       state.questionDetails = {};
     },
 
+    // 回答
     setAnswers: (state, answers) => {
       state.answers = answers;
+    },
+    // 回答投稿
+    resetNewAnswer: (state) => {
+      state.newAnswer.content = "";
+      state.newAnswer.anonymous = false;
     },
 
     // タグ

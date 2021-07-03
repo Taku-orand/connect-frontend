@@ -1,9 +1,9 @@
 <template>
   <div class="container">
-    <h2 class="text-center m-4">質問投稿</h2>
-    <Form :isAnswer="false"></Form>
+    <h2 class="text-center m-4">回答投稿</h2>
+    <Form :isAnswer="true"></Form>
     <div class="text-right">
-      <button @click="createQuestion()" class="btn btn-primary btn-lg mb-5">質問投稿</button>
+      <button @click="createAnswer()" class="btn btn-primary btn-lg mb-5">回答投稿</button>
     </div>
   </div>
 </template>
@@ -11,7 +11,7 @@
 <script>
 import { onMounted } from "vue";
 import { useStore } from "vuex";
-import { useRouter } from "vue-router";
+import { useRoute } from "vue-router";
 import axios from "axios";
 import Form from "./Form.vue";
 
@@ -20,36 +20,33 @@ export default {
     Form,
   },
   props: {
-    tagList: Boolean,
+    question: Object,
   },
-  setup(props, context) {
-    const router = useRouter();
+  setup(props) {
+    // const router = useRouter();
+    const route = useRoute();
     const store = useStore();
 
     onMounted(() => {
-      context.emit("showTagList", props.tagList);
-      store.state.questionDetails.content = "";
+      store.state.newAnswer.content = "";
     });
 
-    async function createQuestion() {
+    async function createAnswer() {
       await axios
         .post(
-          `${process.env.VUE_APP_CONNECT_BACKEND_URL}/questions/create`,
+          `${process.env.VUE_APP_CONNECT_BACKEND_URL}/answers/create`,
           {
-            question: {
-              title: store.state.questionDetails.title,
-              content: store.state.questionDetails.content,
-              anonymous: store.state.questionDetails.anonymous,
-              solved: 0,
-              tag_ids: store.state.selected_tags_id,
+            answer: {
+              content: store.state.newAnswer.content,
+              anonymous: store.state.newAnswer.anonymous,
+              question_id: props.question.id,
             },
           },
           { withCredentials: true }
         )
         .then((response) => {
           console.log(response);
-          if (response.data.posted) {
-            store.commit("resetQuestionDetails");
+          if (response.data.created_answer) {
             store.commit("setAlert", {
               flag: {
                 showSuccessAlert: true,
@@ -59,9 +56,9 @@ export default {
                 success: "投稿に成功しました",
               },
             });
-            router.push({
-              name: "home",
-            });
+            store.dispatch("getQuestionDetails", route.params.id);
+            store.dispatch("getAnswers", route.params.id);
+            store.commit("resetNewAnswer");
           } else {
             store.commit("setAlert", {
               flag: {
@@ -79,7 +76,7 @@ export default {
         });
     }
     return {
-      createQuestion,
+      createAnswer,
     };
   },
 };

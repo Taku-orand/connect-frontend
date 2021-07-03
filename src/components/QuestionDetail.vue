@@ -17,7 +17,7 @@
         </div>
         <div class="card-body">
           <h5 class="card-title">{{ question.title }}</h5>
-          <p class="card-text">{{ question.content }}</p>
+          <Markdown :source="String(question.content)" :linkify="true" :emoji="data.emoji" :breaks="data.breaks" />
         </div>
         <div class="card-footer text-muted">
           <div class="row">
@@ -25,7 +25,7 @@
               <div v-if="question.updated_at" class="mt-2">{{ question.updated_at.substr(0, 4) }}/{{ question.updated_at.substr(5, 2) }}/{{ question.updated_at.substr(8, 2) }}</div>
             </div>
             <div class="col-6 text-right">
-              <button @click.stop="updateSolved(question.id)" v-if="$store.state.user.id == question.user_id && !question.solved" class="btn btn-success mr-2">解決した！</button>
+              <button @click.stop="updateSolved(question.id)" v-if="$store.state.user.id == question.user_id && !question.solved" class="btn btn-success mr-2">解決済にする！</button>
               <button @click.stop="updateQuestion(question)" v-if="$store.state.user.id == question.user_id && !question.solved" class="btn btn-secondary mr-2">編集</button>
               <LikeButton :question="question" :is-my-page="false"></LikeButton>
             </div>
@@ -47,15 +47,15 @@
           </div>
         </div>
         <div class="card-body">
-          <p class="card-text">{{ answer.content }}</p>
+          <Markdown :source="String(answer.content)" :linkify="true" :emoji="data.emoji" :breaks="data.breaks" />
         </div>
         <div class="card-footer text-muted">
           <div class="row">
             <div class="col-6">
-              <div class="mt-2">{{ answer.updated_at }}</div>
+              <div class="mt-2">{{ answer.updated_at.substr(0, 4) }}/{{ answer.updated_at.substr(5, 2) }}/{{ answer.updated_at.substr(8, 2) }}</div>
             </div>
             <div class="col-6 text-right">
-              <LikeButton :question="answer" :is-my-page="false"></LikeButton>
+              <LikeButton :question="answer" :is-my-page="false" :isAnswer="true"></LikeButton>
             </div>
           </div>
         </div>
@@ -63,9 +63,7 @@
     </template>
 
     <div class="answer-area mb-5">
-      <h2 class="text-center m-4">回答</h2>
-      <Form></Form>
-      <button @click="createAnswer()" class="btn btn-primary">回答投稿</button>
+      <CreateAnswer :question="$store.state.questionDetails"></CreateAnswer>
     </div>
   </div>
 </template>
@@ -77,13 +75,15 @@ import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
 
 import LikeButton from "./LikeButton.vue";
-import Form from "./Form.vue";
+import CreateAnswer from "./CreateAnswer.vue";
+import Markdown from "vue3-markdown-it";
 
 export default {
   name: "Question",
   components: {
     LikeButton,
-    Form,
+    Markdown,
+    CreateAnswer,
   },
   props: {
     tagList: Boolean,
@@ -124,7 +124,7 @@ export default {
             if (props.isMyPage) {
               store.dispatch("getMyQuestions");
             } else {
-              store.dispatch("getQuestions");
+              store.dispatch("getQuestionDetails", route.params.id);
             }
           } else {
             store.commit("setAlert", {
