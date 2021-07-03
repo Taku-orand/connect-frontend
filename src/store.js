@@ -92,6 +92,7 @@ export const store = createStore({
     // 回答投稿
     resetNewAnswer: (state) => {
       state.newAnswer.content = "";
+      state.newAnswer.anonymous = false;
     },
 
     // タグ
