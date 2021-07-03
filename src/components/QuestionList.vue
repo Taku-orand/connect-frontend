@@ -20,11 +20,12 @@
         </div>
         <div class="card-footer text-muted">
           <div class="row">
-            <div class="col-6">
+            <div class="col-4">
               <div class="mt-2">{{ question.updated_at.substr(0, 4) }}/{{ question.updated_at.substr(5, 2) }}/{{ question.updated_at.substr(8, 2) }}</div>
             </div>
-            <div class="col-6 text-right">
-              <button @click.stop="updateSolved(question)" v-if="$store.state.user.id == question.user_id" class="btn btn-success mr-2">解決した！</button>
+            <div class="col-8 text-right">
+              <button @click.stop="updateSolved(question.id)" v-if="$store.state.user.id == question.user_id && question.solved" class="btn btn-secondary mr-2">もう少し回答を待つ</button>
+              <button @click.stop="updateSolved(question.id)" v-if="$store.state.user.id == question.user_id && !question.solved" class="btn btn-success mr-2">解決した！</button>
               <button @click.stop="updateQuestion(question)" v-if="$store.state.user.id == question.user_id" class="btn btn-secondary mr-2">編集</button>
               <LikeButton :question="question" :is-my-page="false"></LikeButton>
             </div>
@@ -38,7 +39,7 @@
 
 <script>
 import { reactive, onMounted } from "vue";
-// import axios from "axios";
+import axios from "axios";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 
@@ -82,20 +83,29 @@ export default {
       }
     }
 
-    function updateSolved() {
-      axios
-        .post(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/like/add/${props.question.like_id}`)
+    async function updateSolved(id) {
+      await store.dispatch("getQuestionDetails", id);
+      await axios
+        .patch(
+          `${process.env.VUE_APP_CONNECT_BACKEND_URL}/questions/update/${id}`,
+          {
+            question: {
+              title: store.state.questionDetails.title,
+              content: store.state.questionDetails.content,
+              anonymous: store.state.questionDetails.anonymous,
+              solved: !store.state.questionDetails.solved,
+              tag_ids: store.state.post_tags_id,
+            },
+          },
+          { withCredentials: true }
+        )
         .then((response) => {
-          if (response.data.add_like) {
+          if (response.data.update_question) {
             if (props.isMyPage) {
-              store.dispatch("getQuestionDetails");
+              store.dispatch("getMyQuestions");
             } else {
               store.dispatch("getQuestions");
-              if (route.params.id) {
-                store.dispatch("getQuestionDetails", route.params.id);
-              }
             }
-            // 質問を更新、マイページなのかに注意
           } else {
             store.commit("setAlert", {
               flag: {
@@ -103,7 +113,7 @@ export default {
                 showErrorAlert: true,
               },
               message: {
-                success: "いいねに失敗しました。",
+                error: "処理に失敗しました。",
               },
             });
           }
