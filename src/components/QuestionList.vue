@@ -31,7 +31,7 @@
         </div>
       </div>
     </template>
-    <button v-if="!isMyPage" @click="goCreateQuestion" class="btn btn-info btn-lg fixed-bottom ml-auto p-3 m-5">質問する</button>
+    <button v-if="!isMyPage" @click="goCreateQuestion" class="btn btn-info btn-lg fixed-bottom ml-auto shadow-lg p-3 m-5">質問する</button>
   </div>
 </template>
 
