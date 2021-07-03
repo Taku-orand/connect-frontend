@@ -103,6 +103,7 @@ export default {
         )
         .then((response) => {
           if (response.data.update_question) {
+            store.commit("resetAlert");
             if (props.isMyPage) {
               store.dispatch("getMyQuestions");
             } else {

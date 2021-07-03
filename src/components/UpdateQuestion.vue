@@ -2,7 +2,9 @@
   <div class="container">
     <h2 class="text-center m-4">質問編集</h2>
     <Form></Form>
-    <button @click="updateQuestion()" class="btn btn-primary m-3">修正</button>
+    <div class="text-right">
+      <button @click="updateQuestion()" class="btn btn-primary m-3 btn-lg">質問修正</button>
+    </div>
   </div>
 </template>
 
