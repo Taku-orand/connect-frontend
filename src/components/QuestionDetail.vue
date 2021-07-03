@@ -84,8 +84,10 @@ export default {
     LikeButton,
     Form,
   },
-  props: {},
-  setup() {
+  props: {
+    tagList: Boolean,
+  },
+  setup(props, context) {
     const router = useRouter();
     const route = useRoute();
     const store = useStore();
@@ -94,6 +96,7 @@ export default {
 
     // QuestionDetailコンポーネントをロードした時に質問詳細を取得
     onMounted(() => {
+      context.emit("showTagList", props.tagList);
       store.dispatch("getQuestionDetails", route.params.id);
       store.dispatch("getAnswers", route.params.id);
     });

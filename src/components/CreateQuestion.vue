@@ -7,6 +7,7 @@
 </template>
 
 <script>
+import { onMounted } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import axios from "axios";
@@ -16,10 +17,16 @@ export default {
   components: {
     Form,
   },
-  props: [],
-  setup() {
+  props: {
+    tagList: Boolean,
+  },
+  setup(props, context) {
     const router = useRouter();
     const store = useStore();
+
+    onMounted(() => {
+      context.emit("showTagList", props.tagList);
+    });
 
     async function createQuestion() {
       await axios

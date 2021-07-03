@@ -1,10 +1,15 @@
 <template>
-  <div class="row">
+  <div v-if="data.tagList" class="row">
     <div class="col-3">
       <TagList></TagList>
     </div>
     <div class="col-9">
-      <router-view></router-view>
+      <router-view @showTagList="showTagList"></router-view>
+    </div>
+  </div>
+  <div v-else class="row">
+    <div class="col-12">
+      <router-view @showTagList="showTagList"></router-view>
     </div>
   </div>
 </template>
@@ -28,10 +33,17 @@ export default {
     // const route = useRoute();
     // const store = useStore();
 
-    const data = reactive({});
+    const data = reactive({
+      tagList: Boolean,
+    });
+
+    function showTagList(show) {
+      data.tagList = show;
+    }
 
     return {
       data,
+      showTagList,
     };
   },
 };

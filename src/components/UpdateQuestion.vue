@@ -14,16 +14,19 @@ import axios from "axios";
 import Form from "./Form.vue";
 
 export default {
-  props: {},
   components: {
     Form,
   },
-  setup() {
+  props: {
+    tagList: Boolean,
+  },
+  setup(props, context) {
     const router = useRouter();
     const route = useRoute();
     const store = useStore();
 
     onMounted(() => {
+      context.emit("showTagList", props.tagList);
       store.dispatch("getQuestionDetails", route.params.id);
     });
 
