@@ -25,7 +25,7 @@
               <div v-if="question.updated_at" class="mt-2">{{ question.updated_at.substr(0, 4) }}/{{ question.updated_at.substr(5, 2) }}/{{ question.updated_at.substr(8, 2) }}</div>
             </div>
             <div class="col-6 text-right">
-              <button @click.stop="updateSolved(question.id)" v-if="$store.state.user.id == question.user_id && !question.solved" class="btn btn-success mr-2">解決した！</button>
+              <button @click.stop="updateSolved(question.id)" v-if="$store.state.user.id == question.user_id && !question.solved" class="btn btn-success mr-2">解決済にする！</button>
               <button @click.stop="updateQuestion(question)" v-if="$store.state.user.id == question.user_id && !question.solved" class="btn btn-secondary mr-2">編集</button>
               <LikeButton :question="question" :is-my-page="false"></LikeButton>
             </div>
@@ -124,7 +124,7 @@ export default {
             if (props.isMyPage) {
               store.dispatch("getMyQuestions");
             } else {
-              store.dispatch("getQuestions");
+              store.dispatch("getQuestionDetails", route.params.id);
             }
           } else {
             store.commit("setAlert", {
