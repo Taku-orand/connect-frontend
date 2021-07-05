@@ -2,6 +2,27 @@
   <div class="container">
     <h2 class="text-center m-4">質問一覧</h2>
     <Search v-if="!isMyPage"></Search>
+
+    <div class="row">
+      <div class="col-2">
+        <div>{{ $store.state.questions.length }}件</div>
+      </div>
+      <div class="col-6">
+        <button class="btn btn-primary">すべて</button>
+        <button class="btn btn-primary">解決済</button>
+        <button class="btn btn-primary">未解決</button>
+      </div>
+      <div class="col-4">
+        <div class="dropdown text-center">
+          <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownSortButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">並べ替え</button>
+          <div class="dropdown-menu" aria-labelledby="dropdownSortButton">
+            <button @click="signOut" class="dropdown-item">更新日</button>
+            <button @click="signOut" class="dropdown-item">いいね</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <template v-for="(question, key) in $store.state.questions" :key="key">
       <div @click="showDetail(question)" class="card mb-4">
         <div class="card-header">
