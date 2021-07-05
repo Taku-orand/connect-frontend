@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <Search v-if="!isMyPage"></Search>
     <h2 class="text-center m-4">質問一覧</h2>
+    <Search v-if="!isMyPage"></Search>
     <template v-for="(question, key) in $store.state.questions" :key="key">
       <div @click="showDetail(question)" class="card mb-4">
         <div class="card-header">
@@ -32,7 +32,7 @@
         </div>
       </div>
     </template>
-    <button v-if="!isMyPage" @click="goCreateQuestion" class="btn btn-info btn-lg fixed-bottom ml-auto p-3 m-5">質問する</button>
+    <button v-if="!isMyPage" @click="goCreateQuestion" class="btn btn-info btn-lg fixed-bottom ml-auto shadow-lg p-3 m-5">質問する</button>
   </div>
 </template>
 
@@ -44,7 +44,7 @@ import { useStore } from "vuex";
 
 import LikeButton from "./LikeButton.vue";
 import Markdown from "vue3-markdown-it";
-import Search from './Search.vue';
+import Search from "./Search.vue";
 
 export default {
   name: "QuestionList",
