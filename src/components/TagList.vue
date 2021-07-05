@@ -2,7 +2,7 @@
   <div class="container sticky">
     <h2 class="text-center m-4">タグ一覧</h2>
     <ul class="list-group overflow-auto">
-      <li v-for="(tag, key) in $store.state.tags" :key="key" class="list-group-item">{{ tag.name }}</li>
+      <li v-for="(tag, key) in $store.state.tags" :key="key" @click="getQuestionByTag(tag.id)" class="list-group-item">{{ tag.name }}</li>
     </ul>
   </div>
 </template>
@@ -12,6 +12,7 @@ import { reactive, onMounted } from "vue";
 // import axios from "axios";
 // import { useRoute } from "vue-router";
 import { useStore } from "vuex";
+import axios from "axios";
 
 export default {
   name: "TagList",
@@ -28,8 +29,30 @@ export default {
       store.dispatch("getTags");
     });
 
+    function getQuestionByTag(id) {
+      axios
+        .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/tags/${id}`, { withCredentials: true })
+        .then((response) => {
+          if (response.data.get_question) {
+            store.dispatch("setQuestions", response.data.questions);
+          } else {
+            store.commit("setAlert", {
+              flag: {
+                showSuccessAlert: false,
+                showErrorAlert: true,
+              },
+              message: {
+                error: "タグ絞り込みに失敗しました。",
+              },
+            });
+          }
+        })
+        .catch(() => {});
+    }
+
     return {
       data,
+      getQuestionByTag,
     };
   },
 };
