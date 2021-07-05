@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <Search v-if="!isMyPage"></Search>
     <h2 class="text-center m-4">質問一覧</h2>
+    <Search v-if="!isMyPage"></Search>
     <template v-for="(question, key) in $store.state.questions" :key="key">
       <div @click="showDetail(question)" class="card mb-4">
         <div class="card-header">
@@ -44,7 +44,7 @@ import { useStore } from "vuex";
 
 import LikeButton from "./LikeButton.vue";
 import Markdown from "vue3-markdown-it";
-import Search from './Search.vue';
+import Search from "./Search.vue";
 
 export default {
   name: "QuestionList",
