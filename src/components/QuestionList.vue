@@ -8,18 +8,18 @@
         <div class="">{{ $store.state.questions.length }}件</div>
       </div>
       <div class="col-8">
-        <button class="btn btn-primary mr-2">すべて</button>
-        <button class="btn btn-primary mr-2">解決済</button>
-        <button class="btn btn-primary mr-2">未解決</button>
+        <button @click="sort('all')" class="btn btn-primary mr-2">すべて</button>
+        <button @click="sort('solved')" class="btn btn-primary mr-2">解決済</button>
+        <button @click="sort('unsolved')" class="btn btn-primary mr-2">未解決</button>
       </div>
       <div class="col-2">
         <div class="dropdown">
           <button class="btn btn-primary dropdown-toggle w-100" type="button" id="dropdownSortButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">並べ替え</button>
           <div class="dropdown-menu" aria-labelledby="dropdownSortButton">
-            <button @click="signOut" class="dropdown-item">新しい順</button>
-            <button @click="signOut" class="dropdown-item">古い順</button>
-            <button @click="signOut" class="dropdown-item">いいね多い順</button>
-            <button @click="signOut" class="dropdown-item">いいね少ない順</button>
+            <button @click="sort('new')" class="dropdown-item">新しい順</button>
+            <button @click="sort('old')" class="dropdown-item">古い順</button>
+            <button @click="sort('like')" class="dropdown-item">いいね多い順</button>
+            <button @click="sort('unlike')" class="dropdown-item">いいね少ない順</button>
           </div>
         </div>
       </div>
@@ -126,11 +126,41 @@ export default {
       });
     }
 
+    function sort(type) {
+      switch (type) {
+        case "all":
+          store.dispatch("getQuestions");
+          break;
+        case "solved":
+          store.dispatch("getSortedQuestions", "solved");
+          break;
+        case "unsolved":
+          store.dispatch("getSortedQuestions", "unsolved");
+          break;
+        case "new":
+          store.dispatch("getSortedQuestions", "date_desc");
+          break;
+        case "old":
+          store.dispatch("getSortedQuestions", "date_asc");
+          break;
+        case "like":
+          store.dispatch("getSortedQuestions", "like_desc");
+          break;
+        case "unlike":
+          store.dispatch("getSortedQuestions", "like_asc");
+          break;
+
+        default:
+          break;
+      }
+    }
+
     return {
       data,
       showDetail,
       updateQuestion,
       goCreateQuestion,
+      sort,
     };
   },
 };

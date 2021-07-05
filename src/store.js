@@ -109,6 +109,7 @@ export const store = createStore({
 
   // mutations の操作を各コンポーネントから呼び出すために使用する関数（非同期処理を定義可）
   actions: {
+    // サインインしいるか確認します。
     checkSignedIn: async function(context) {
       await axios
         .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/signed_in`, { withCredentials: true })
@@ -124,6 +125,7 @@ export const store = createStore({
         });
     },
 
+    // マイページで利用する今までの自分の質問を取得します。
     getMyQuestions: async function(context) {
       await axios
         .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/questions/user`, { withCredentials: true })
@@ -148,6 +150,7 @@ export const store = createStore({
         });
     },
 
+    // 全ての質問を取得します。
     getQuestions: async function(context) {
       await axios
         .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/questions/index`, { withCredentials: true })
@@ -160,6 +163,20 @@ export const store = createStore({
         });
     },
 
+    // 並び替えられた質問を取得します。
+    getSortedQuestions: async function(context, type) {
+      await axios
+        .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/sort/${type}`, { withCredentials: true })
+        .then((response) => {
+          console.log(response);
+          context.commit("setQuestions", response.data.questions);
+        })
+        .catch((e) => {
+          alert(e);
+        });
+    },
+
+    // 一つの質問の詳細を取得します。
     getQuestionDetails: async function(context, id) {
       await axios
         .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/questions/show/${id}`, { withCredentials: true })
@@ -172,6 +189,7 @@ export const store = createStore({
         });
     },
 
+    // 質問に対する回答を全て取得します。
     getAnswers: async function(context, id) {
       await axios
         .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/answers/show/${id}`, { withCredentials: true })
@@ -184,6 +202,7 @@ export const store = createStore({
         });
     },
 
+    // 全てのタグを取得します。
     getTags: async function(context) {
       await axios
         .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/tags/index`, { withCredentials: true })
