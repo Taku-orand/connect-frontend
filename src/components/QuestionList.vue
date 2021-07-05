@@ -3,21 +3,23 @@
     <h2 class="text-center m-4">質問一覧</h2>
     <Search v-if="!isMyPage"></Search>
 
-    <div class="row">
+    <div class="row mb-3">
       <div class="col-2">
-        <div>{{ $store.state.questions.length }}件</div>
+        <div class="">{{ $store.state.questions.length }}件</div>
       </div>
-      <div class="col-6">
-        <button class="btn btn-primary">すべて</button>
-        <button class="btn btn-primary">解決済</button>
-        <button class="btn btn-primary">未解決</button>
+      <div class="col-8">
+        <button class="btn btn-primary mr-2">すべて</button>
+        <button class="btn btn-primary mr-2">解決済</button>
+        <button class="btn btn-primary mr-2">未解決</button>
       </div>
-      <div class="col-4">
-        <div class="dropdown text-center">
-          <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownSortButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">並べ替え</button>
+      <div class="col-2">
+        <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle w-100" type="button" id="dropdownSortButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">並べ替え</button>
           <div class="dropdown-menu" aria-labelledby="dropdownSortButton">
-            <button @click="signOut" class="dropdown-item">更新日</button>
-            <button @click="signOut" class="dropdown-item">いいね</button>
+            <button @click="signOut" class="dropdown-item">新しい順</button>
+            <button @click="signOut" class="dropdown-item">古い順</button>
+            <button @click="signOut" class="dropdown-item">いいね多い順</button>
+            <button @click="signOut" class="dropdown-item">いいね少ない順</button>
           </div>
         </div>
       </div>
