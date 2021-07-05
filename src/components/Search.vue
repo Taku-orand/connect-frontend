@@ -27,7 +27,7 @@ export default ({
         )
         .then((response) => {
           console.log(response);
-          if (response.data.questions) {
+          if (response.data.searched) {
             store.commit("setQuestions",response.data.questions);
             store.commit("setAlert", {
               flag: {
@@ -45,7 +45,7 @@ export default ({
                 showErrorAlert: true,
               },
               message: {
-                error: "検索ワードをみつかりませんでした",
+                error: `検索ワード"${data.word}"がみつかりませんでした`,
               },
             });
           }
