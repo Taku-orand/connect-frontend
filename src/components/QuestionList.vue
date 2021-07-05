@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <search></search>
+    <Search v-if="!isMyPage"></Search>
     <h2 class="text-center m-4">質問一覧</h2>
     <template v-for="(question, key) in $store.state.questions" :key="key">
       <div @click="showDetail(question)" class="card mb-4">
@@ -57,7 +57,6 @@ export default {
   props: {
     isMyPage: Boolean,
     tagList: Boolean,
-    isSearch: Boolean,
   },
   setup(props, context) {
     const router = useRouter();
