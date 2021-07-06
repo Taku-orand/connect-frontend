@@ -96,12 +96,24 @@ export const store = createStore({
     },
 
     // like更新
-    updateLike: (state, { question_id, like_count }) => {
-      state.questions.forEach((question) => {
-        if (question.id == question_id) {
-          question.like_count = like_count;
-        }
-      });
+    updateLike: (state, { type, id, like }) => {
+      if (type == "question") {
+        state.questions.forEach((question) => {
+          if (question.id == id) {
+            question.like_count = like;
+          }
+        });
+      }
+      if (type == "details") {
+        state.questionDetails.like_count = like;
+      }
+      if (type == "answer") {
+        state.answers.forEach((answer) => {
+          if (answer.id == id) {
+            answer.like_count = like;
+          }
+        });
+      }
     },
 
     // タグ
