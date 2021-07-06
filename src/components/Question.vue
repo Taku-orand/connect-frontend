@@ -1,15 +1,17 @@
 <template>
-  <div v-if="data.tagList" class="row">
-    <div class="col-3">
-      <TagList></TagList>
+  <div class="container-fluid">
+    <div v-if="data.tagList" class="row">
+      <div class="col-3">
+        <TagList></TagList>
+      </div>
+      <div class="col-9">
+        <router-view @showTagList="showTagList"></router-view>
+      </div>
     </div>
-    <div class="col-9">
-      <router-view @showTagList="showTagList"></router-view>
-    </div>
-  </div>
-  <div v-else class="row">
-    <div class="col-12">
-      <router-view @showTagList="showTagList"></router-view>
+    <div v-else class="row">
+      <div class="col-12">
+        <router-view @showTagList="showTagList"></router-view>
+      </div>
     </div>
   </div>
 </template>

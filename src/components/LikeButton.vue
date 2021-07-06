@@ -1,5 +1,5 @@
 <template>
-  <button @click.stop="addLike" type="button" class="btn btn-primary">
+  <button @click.stop="addLike(question)" type="button" class="btn btn-primary">
     いいね <span class="badge badge-light">{{ question.like_count }}</span>
   </button>
 </template>
@@ -7,7 +7,7 @@
 <script>
 import { reactive } from "vue";
 import axios from "axios";
-import { useRoute } from "vue-router";
+// import { useRoute } from "vue-router";
 import { useStore } from "vuex";
 
 export default {
@@ -20,27 +20,20 @@ export default {
   },
   setup(props) {
     // const router = useRouter();
-    const route = useRoute();
+    // const route = useRoute();
     const store = useStore();
 
     const data = reactive({});
 
-    function addLike() {
+    function addLike(question) {
       axios
         .post(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/like/add/${props.question.like_id}`)
         .then((response) => {
           if (response.data.add_like) {
-            if (props.isMyPage) {
-              store.dispatch("getQuestionDetails");
-            } else if (props.isAnswer) {
-              store.dispatch("getAnswers", route.params.id);
-            } else {
-              store.dispatch("getQuestions");
-              if (route.params.id) {
-                store.dispatch("getQuestionDetails", route.params.id);
-              }
-            }
-            // 質問を更新、マイページなのかに注意
+            store.commit("updateLike", {
+              question_id: question.id,
+              like_count: response.data.like_count,
+            });
           } else {
             store.commit("setAlert", {
               flag: {

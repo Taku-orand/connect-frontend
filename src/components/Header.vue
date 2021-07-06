@@ -1,21 +1,23 @@
 <template>
   <header>
-    <div class="row">
-      <div class="col-8">
-        <h1 class="p-2">Connect 会津大学</h1>
-      </div>
-      <div class="col-2 d-flex align-items-center justify-content-end">
-        <div>{{ $store.state.user.name }}</div>
-      </div>
-      <div class="col-2 d-flex align-items-center justify-content-center">
-        <div class="dropdown text-center">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">メニュー</button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <router-link @click="$store.commit('resetAlert')" class="dropdown-item" to="/my_page">マイページ</router-link>
-            <router-link @click="$store.commit('resetAlert')" class="dropdown-item" to="/question/list">質問一覧</router-link>
-            <router-link @click="$store.commit('resetAlert')" class="dropdown-item" to="/signup">サインアップ</router-link>
-            <router-link @click="$store.commit('resetAlert')" class="dropdown-item" to="/signin">サインイン</router-link>
-            <button @click="signOut" class="dropdown-item">サインアウト</button>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-8">
+          <h1 class="p-2">Connect 会津大学</h1>
+        </div>
+        <div class="col-2 d-flex align-items-center justify-content-end">
+          <div>{{ $store.state.user.name }}</div>
+        </div>
+        <div class="col-2 d-flex align-items-center justify-content-center">
+          <div class="dropdown text-center">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">メニュー</button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <router-link @click="$store.commit('resetAlert')" class="dropdown-item" to="/my_page">マイページ</router-link>
+              <router-link @click="$store.commit('resetAlert')" class="dropdown-item" to="/question/list">質問一覧</router-link>
+              <router-link @click="$store.commit('resetAlert')" class="dropdown-item" to="/signup">サインアップ</router-link>
+              <router-link @click="$store.commit('resetAlert')" class="dropdown-item" to="/signin">サインイン</router-link>
+              <button @click="signOut" class="dropdown-item">サインアウト</button>
+            </div>
           </div>
         </div>
       </div>

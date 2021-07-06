@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container-fluid">
     <!-- successアラート -->
     <div v-if="$store.state.alert.flag.showSuccessAlert" class="alert alert-success mt-3" role="alert">{{ $store.state.alert.message.success }}</div>
     <!-- errorアラート -->
