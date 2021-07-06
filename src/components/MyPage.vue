@@ -1,7 +1,8 @@
 <template>
   <div class="container">
     <h2 class="text-center m-5">マイページ</h2>
-    <p class="text-center">{{ $store.state.user.email }}</p>
+    <h4 class="mb-3">ユーザー名: {{ $store.state.user.name }}</h4>
+    <h4 class="mb-3">メールアドレス: {{ $store.state.user.email }}</h4>
     <QuestionList :is-my-page="true"></QuestionList>
   </div>
 </template>
