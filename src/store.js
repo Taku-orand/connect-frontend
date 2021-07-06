@@ -97,7 +97,7 @@ export const store = createStore({
 
     // like更新
     updateLike: (state, { type, id, like }) => {
-      if (type == "question") {
+      if (type == "questions") {
         state.questions.forEach((question) => {
           if (question.id == id) {
             question.like_count = like;
