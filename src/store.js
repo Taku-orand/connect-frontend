@@ -95,6 +95,15 @@ export const store = createStore({
       state.newAnswer.anonymous = false;
     },
 
+    // like更新
+    updateLike: (state, { question_id, like_count }) => {
+      state.questions.forEach((question) => {
+        if (question.id == question_id) {
+          question.like_count = like_count;
+        }
+      });
+    },
+
     // タグ
     setTags: (state, tags) => {
       state.tags = tags;
