@@ -16,6 +16,7 @@ export default {
   props: {
     question: Object,
     isMyPage: Boolean,
+    isQuestionDetails: Boolean,
     isAnswer: Boolean,
   },
   setup(props) {
@@ -30,10 +31,25 @@ export default {
         .post(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/like/add/${props.question.like_id}`)
         .then((response) => {
           if (response.data.add_like) {
-            store.commit("updateLike", {
-              question_id: question.id,
-              like_count: response.data.like_count,
-            });
+            if (props.isQuestionDetails) {
+              store.commit("updateLike", {
+                type: "details",
+                id: question.id,
+                like: response.data.like_count,
+              });
+            } else if (props.isAnswer) {
+              store.commit("updateLike", {
+                type: "answer",
+                id: question.id,
+                like: response.data.like_count,
+              });
+            } else {
+              store.commit("updateLike", {
+                type: "questions",
+                id: question.id,
+                like: response.data.like_count,
+              });
+            }
           } else {
             store.commit("setAlert", {
               flag: {

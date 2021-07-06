@@ -27,7 +27,7 @@
             <div class="col-6 text-right">
               <button @click.stop="updateSolved(question.id)" v-if="$store.state.user.id == question.user_id && !question.solved" class="btn btn-success mr-2">解決済にする！</button>
               <button @click.stop="updateQuestion(question)" v-if="$store.state.user.id == question.user_id && !question.solved" class="btn btn-secondary mr-2">編集</button>
-              <LikeButton :question="question" :is-my-page="false"></LikeButton>
+              <LikeButton :question="question" :is-my-page="false" :isQuestionDetails="true" :isAnswer="false"></LikeButton>
             </div>
           </div>
         </div>
@@ -57,7 +57,7 @@
               <div class="mt-2">{{ answer.updated_at.substr(0, 4) }}/{{ answer.updated_at.substr(5, 2) }}/{{ answer.updated_at.substr(8, 2) }}</div>
             </div>
             <div class="col-6 text-right">
-              <LikeButton :question="answer" :is-my-page="false" :isAnswer="true"></LikeButton>
+              <LikeButton :question="answer" :is-my-page="false" :isQuestionDetails="false" :isAnswer="true"></LikeButton>
             </div>
           </div>
         </div>

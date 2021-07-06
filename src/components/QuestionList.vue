@@ -49,7 +49,7 @@
             </div>
             <div class="col-8 text-right">
               <button @click.stop="updateQuestion(question)" v-if="$store.state.user.id == question.user_id && !question.solved" class="btn btn-secondary mr-2">編集</button>
-              <LikeButton :question="question" :is-my-page="false" :isAnswer="false"></LikeButton>
+              <LikeButton :question="question" :is-my-page="isMyPage" :isQuestionDetails="false" :isAnswer="false"></LikeButton>
             </div>
           </div>
         </div>
