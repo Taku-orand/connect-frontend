@@ -1,7 +1,5 @@
 <template>
-  <button @click.stop="addLike(question)" type="button" class="btn btn-primary">
-    いいね <span class="badge badge-light">{{ question.like_count }}</span>
-  </button>
+  <button @click.stop="addLike(question)" type="button" class="btn btn-primary p-1 p-md-2"><i class="fas fa-thumbs-up mr-1"></i>{{ question.like_count }}</button>
 </template>
 
 <script>

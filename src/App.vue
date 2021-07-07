@@ -37,6 +37,10 @@ export default {
 </script>
 
 <style>
+body {
+  font-family: "Kosugi Maru", sans-serif;
+}
+
 :root {
   --main-color: #39a0ed;
   --base-color: #ffffff;
@@ -44,8 +48,8 @@ export default {
   --accent-color: #13c4a3;
   --sub-accent-color: #4c6085;
   --emphasis-color: #d991ba;
-  --silver-color: #EEEEEE;
-  --table-head-color:#C0C0C0;
+  --silver-color: #eeeeee;
+  --table-head-color: #c0c0c0;
 }
 
 /* bootstrap */
@@ -81,5 +85,26 @@ export default {
 }
 .badge-secondary {
   background-color: var(--emphasis-color);
+}
+
+h2 {
+  margin: 2rem;
+}
+
+@media screen and (max-width: 959px) {
+  /* 959px以下に適用されるCSS（タブレット用） */
+}
+@media screen and (max-width: 480px) {
+  /* 480px以下に適用されるCSS（スマホ用） */
+  body {
+    font-size: 0.8rem;
+  }
+  h2 {
+    font-size: 1rem;
+    margin: 1rem;
+  }
+  .btn {
+    font-size: 0.5rem;
+  }
 }
 </style>

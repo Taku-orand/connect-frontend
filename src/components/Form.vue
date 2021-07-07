@@ -1,53 +1,49 @@
 <template>
   <div class="user-area mb-3">
     <div class="row">
-      <div class="col-2">
-        <div>投稿者</div>
+      <div class="col-4 pr-0">
+        <p><i class="fas fa-user mr-2"></i>投稿者</p>
       </div>
-      <div class="col-6">
+      <div class="col-2 p-0">
         <div v-if="!isAnswer">
           <div v-if="$store.state.questionDetails.anonymous">
-            <h4>匿名</h4>
+            <p>匿名</p>
           </div>
           <div v-else>
-            <h4>{{ $store.state.user.name }}</h4>
+            <p>{{ $store.state.user.name }}</p>
           </div>
         </div>
         <div v-if="isAnswer">
           <div v-if="$store.state.newAnswer.anonymous">
-            <h4>匿名</h4>
+            <p>匿名</p>
           </div>
           <div v-else>
-            <h4>{{ $store.state.user.name }}</h4>
+            <p>{{ $store.state.user.name }}</p>
           </div>
         </div>
       </div>
-      <div class="col-4 text-right">
-        <button type="button" class="btn btn-secondary" @click="isAnon">匿名で投稿する</button>
+      <div class="col-6 pl-0 text-right">
+        <button type="button" class="btn btn-secondary p-1 p-md-2" @click="isAnon">匿名で投稿する</button>
       </div>
     </div>
   </div>
   <div v-if="!isAnswer" class="tag-area mb-3">
+    <p><i class="fas fa-tags mr-2"></i>タグ</p>
     <div class="row">
-      <div class="col-1">
-        <div>タグ</div>
-      </div>
-      <div class="col-7">
+      <div class="col-6 pr-0">
         <template v-for="(tag, key) in $store.state.tags" :key="key">
           <template v-if="$store.state.selected_tags_id.includes(tag.id)">
-            <span class="badge badge-primary p-2 mr-2">{{ tag.name }}</span>
+            <span class="badge badge-primary p-1 p-md-2 mr-1 mr-md-2 mb-1 mb-md-2">{{ tag.name }}</span>
           </template>
         </template>
       </div>
-      <div class="col-4 text-right">
-        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#selectTagModal">
-          タグを選択する
-        </button>
+      <div class="col-6 pl-0 text-right">
+        <button type="button" class="btn btn-secondary p-1 p-md-2" data-toggle="modal" data-target="#selectTagModal">タグを選択する</button>
       </div>
     </div>
   </div>
   <div v-if="!isAnswer" class="form-group">
-    <label for="title">タイトル</label>
+    <label for="title"><i class="fas fa-heading mr-2"></i>タイトル</label>
     <input v-model="$store.state.questionDetails.title" type="text" class="form-control" id="title" placeholder="タイトルを入力してください。" />
   </div>
   <Md :isAnswer="isAnswer"></Md>
@@ -57,7 +53,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">投稿に関連するタグを選択</h5>
+          <h5 class="modal-title" id="exampleModalLabel">関連するタグを選択</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -65,10 +61,10 @@
         <div class="modal-body">
           <template v-for="(tag, key) in $store.state.tags" :key="key">
             <template v-if="$store.state.selected_tags_id.includes(tag.id)">
-              <button @click="selectTag(tag)" class="btn btn-primary mr-2 mb-2">{{ tag.name }}</button>
+              <button @click="selectTag(tag)" class="btn btn-primary mr-2 mb-2"><i class="fas fa-tag mr-1"></i>{{ tag.name }}</button>
             </template>
             <template v-else>
-              <button @click="selectTag(tag)" class="btn btn-secondary mr-2 mb-2">{{ tag.name }}</button>
+              <button @click="selectTag(tag)" class="btn btn-secondary mr-2 mb-2"><i class="fas fa-tag mr-1"></i>{{ tag.name }}</button>
             </template>
           </template>
         </div>
