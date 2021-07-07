@@ -14,7 +14,7 @@
       </div>
       <div class="col-4 mb-3 text-right">
         <div class="dropdown dropleft">
-          <button class="btn btn-primary dropdown-toggle p-1 p-md-2" type="button" id="dropdownSortButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">並べ替え</button>
+          <button class="btn btn-primary p-1 p-md-2" type="button" id="dropdownSortButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-sort mr-1"></i>並べ替え</button>
           <div class="dropdown-menu" aria-labelledby="dropdownSortButton">
             <button @click="sort('new')" class="dropdown-item">新しい順</button>
             <button @click="sort('old')" class="dropdown-item">古い順</button>
@@ -48,7 +48,7 @@
               <p class="m-0">{{ question.updated_at.substr(0, 4) }}/{{ question.updated_at.substr(5, 2) }}/{{ question.updated_at.substr(8, 2) }}</p>
             </div>
             <div class="col-6 pl-0 text-right">
-              <button @click.stop="updateQuestion(question)" v-if="$store.state.user.id == question.user_id && !question.solved" class="btn btn-secondary p-1 p-md-2 mr-2"><i class="fas fa-edit mr-2"></i>編集</button>
+              <button @click.stop="updateQuestion(question)" v-if="$store.state.user.id == question.user_id && !question.solved" class="btn btn-secondary p-1 p-md-2 mr-2"><i class="fas fa-edit mr-1"></i>編集</button>
               <LikeButton :question="question" :is-my-page="isMyPage" :isQuestionDetails="false" :isAnswer="false"></LikeButton>
             </div>
           </div>

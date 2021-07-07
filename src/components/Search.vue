@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="col-9 pr-0">
+    <div class="col-9">
       <div class="form-group">
         <input v-model="data.word" type="text" class="form-control" id="search" placeholder="検索..." />
       </div>

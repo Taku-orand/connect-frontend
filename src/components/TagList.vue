@@ -2,7 +2,7 @@
   <div class="container sticky">
     <h2 class="text-center"><i class="fas fa-tags mr-2"></i>タグ</h2>
     <ul class="list-group overflow-auto">
-      <li v-for="(tag, key) in $store.state.tags" :key="key" @click="getQuestionByTag(tag.id)" class="list-group-item">{{ tag.name }}</li>
+      <li v-for="(tag, key) in $store.state.tags" :key="key" @click="getQuestionByTag(tag.id)" class="list-group-item"><i class="fas fa-tag mr-2"></i>{{ tag.name }}</li>
     </ul>
   </div>
 </template>
