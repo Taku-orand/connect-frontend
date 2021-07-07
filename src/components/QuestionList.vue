@@ -38,7 +38,7 @@
             </div>
           </div>
         </div>
-        <div class="card-body">
+        <div class="card-body overflow-hidden">
           <h5 class="card-title">{{ question.title }}</h5>
           <Markdown :source="String(question.content)" :linkify="true" :emoji="data.emoji" :breaks="data.breaks" />
         </div>
@@ -167,12 +167,16 @@ export default {
 </script>
 
 <style scoped>
+.card-body {
+  height: 10rem;
+}
 @media screen and (max-width: 959px) {
   /* 959px以下に適用されるCSS（タブレット用） */
 }
 @media screen and (max-width: 480px) {
   /* 480px以下に適用されるCSS（スマホ用） */
-  .questions-count {
+  .card-body {
+    height: 8rem;
   }
 }
 </style>
