@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h2 class="text-center m-4">回答投稿</h2>
+    <h2 class="text-center m-4"><i class="fas fa-comment-dots mr-2"></i>回答投稿</h2>
     <Form :isAnswer="true"></Form>
     <div class="text-right">
       <button @click="createAnswer()" class="btn btn-primary btn-lg mb-5">回答投稿</button>

@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h2 class="text-center m-5">マイページ</h2>
+    <h2 class="text-center"><i class="fas fa-portrait mr-2"></i>マイページ</h2>
     <p class="text-center">{{ $store.state.user.email }}</p>
     <QuestionList :is-my-page="true"></QuestionList>
   </div>

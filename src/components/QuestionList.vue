@@ -1,20 +1,20 @@
 <template>
   <div class="container">
-    <h2 class="text-center m-4">質問一覧</h2>
+    <h2 class="text-center"><i class="fas fa-list mr-2"></i>質問一覧</h2>
     <Search v-if="!isMyPage"></Search>
 
-    <div class="row mb-3">
-      <div class="col-2">
-        <div class="">{{ $store.state.questions.length }}件</div>
+    <div class="row">
+      <div class="col-2 pr-0 mb-3">
+        <p class="m-0 questions-count">{{ $store.state.questions.length }}件</p>
       </div>
-      <div class="col-8">
-        <button @click="sort('all')" class="btn btn-primary mr-2">すべて</button>
-        <button @click="sort('solved')" class="btn btn-primary mr-2">解決済</button>
-        <button @click="sort('unsolved')" class="btn btn-primary mr-2">未解決</button>
+      <div class="col-6 p-0 mb-3 text-center">
+        <button @click="sort('all')" class="btn btn-primary p-1 p-md-2 mr-1">すべて</button>
+        <button @click="sort('solved')" class="btn btn-primary p-1 p-md-2 mr-1">解決済</button>
+        <button @click="sort('unsolved')" class="btn btn-primary p-1 p-md-2 mr-1">未解決</button>
       </div>
-      <div class="col-2">
-        <div class="dropdown">
-          <button class="btn btn-primary dropdown-toggle w-100" type="button" id="dropdownSortButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">並べ替え</button>
+      <div class="col-4 mb-3 text-right">
+        <div class="dropdown dropleft">
+          <button class="btn btn-primary dropdown-toggle p-1 p-md-2" type="button" id="dropdownSortButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">並べ替え</button>
           <div class="dropdown-menu" aria-labelledby="dropdownSortButton">
             <button @click="sort('new')" class="dropdown-item">新しい順</button>
             <button @click="sort('old')" class="dropdown-item">古い順</button>
@@ -44,18 +44,18 @@
         </div>
         <div class="card-footer text-muted">
           <div class="row">
-            <div class="col-4">
-              <div class="mt-2">{{ question.updated_at.substr(0, 4) }}/{{ question.updated_at.substr(5, 2) }}/{{ question.updated_at.substr(8, 2) }}</div>
+            <div class="col-6 pr-0">
+              <p class="m-0">{{ question.updated_at.substr(0, 4) }}/{{ question.updated_at.substr(5, 2) }}/{{ question.updated_at.substr(8, 2) }}</p>
             </div>
-            <div class="col-8 text-right">
-              <button @click.stop="updateQuestion(question)" v-if="$store.state.user.id == question.user_id && !question.solved" class="btn btn-secondary mr-2">編集</button>
+            <div class="col-6 pl-0 text-right">
+              <button @click.stop="updateQuestion(question)" v-if="$store.state.user.id == question.user_id && !question.solved" class="btn btn-secondary p-1 p-md-2 mr-2"><i class="fas fa-edit mr-2"></i>編集</button>
               <LikeButton :question="question" :is-my-page="isMyPage" :isQuestionDetails="false" :isAnswer="false"></LikeButton>
             </div>
           </div>
         </div>
       </div>
     </template>
-    <button v-if="!isMyPage" @click="goCreateQuestion" class="btn btn-info btn-lg fixed-bottom ml-auto shadow-lg p-3 m-5">質問する</button>
+    <button v-if="!isMyPage" @click="goCreateQuestion" class="btn btn-info btn-lg fixed-bottom ml-auto shadow-lg p-md-3 mr-3 mb-3 mr-md-5 mb-md-5">質問する</button>
   </div>
 </template>
 
@@ -166,4 +166,13 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+@media screen and (max-width: 959px) {
+  /* 959px以下に適用されるCSS（タブレット用） */
+}
+@media screen and (max-width: 480px) {
+  /* 480px以下に適用されるCSS（スマホ用） */
+  .questions-count {
+  }
+}
+</style>

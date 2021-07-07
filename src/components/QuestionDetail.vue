@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h2 class="text-center m-4">質問詳細</h2>
+    <h2 class="text-center m-2 m-md-4"><i class="fas fa-info-circle mr-2"></i>質問詳細</h2>
     <!-- questionの中身が読み込まれているか確認 -->
     <template v-if="(question = $store.state.questionDetails)">
       <div class="card mb-4">
@@ -11,6 +11,7 @@
               <div v-else>{{ question.user_name }}</div>
             </div>
             <div class="col-6 text-right">
+              <button @click.stop="updateSolved(question.id)" v-if="$store.state.user.id == question.user_id && !question.solved" class="btn btn-success  p-1 p-md-2 mr-2">解決済にする！</button>
               <span v-if="question.solved" class="badge badge-secondary p-2">解決済</span>
             </div>
           </div>
@@ -21,12 +22,11 @@
         </div>
         <div class="card-footer text-muted">
           <div class="row">
-            <div class="col-6">
-              <div v-if="question.updated_at" class="mt-2">{{ question.updated_at.substr(0, 4) }}/{{ question.updated_at.substr(5, 2) }}/{{ question.updated_at.substr(8, 2) }}</div>
+            <div class="col-6 pr-0">
+              <p v-if="question.updated_at" class="m-0">{{ question.updated_at.substr(0, 4) }}/{{ question.updated_at.substr(5, 2) }}/{{ question.updated_at.substr(8, 2) }}</p>
             </div>
-            <div class="col-6 text-right">
-              <button @click.stop="updateSolved(question.id)" v-if="$store.state.user.id == question.user_id && !question.solved" class="btn btn-success mr-2">解決済にする！</button>
-              <button @click.stop="updateQuestion(question)" v-if="$store.state.user.id == question.user_id && !question.solved" class="btn btn-secondary mr-2">編集</button>
+            <div class="col-6 pl-0 text-right">
+              <button @click.stop="updateQuestion(question)" v-if="$store.state.user.id == question.user_id && !question.solved" class="btn btn-secondary p-1 p-md-2 mr-2"><i class="fas fa-edit mr-2"></i>編集</button>
               <LikeButton :question="question" :is-my-page="false" :isQuestionDetails="true" :isAnswer="false"></LikeButton>
             </div>
           </div>

@@ -1,10 +1,10 @@
 <template>
   <div class="container-fluid">
     <div v-if="data.tagList" class="row">
-      <div class="col-3">
+      <div class="col-md-3 tag-list">
         <TagList></TagList>
       </div>
-      <div class="col-9">
+      <div class="col-md-9">
         <router-view @showTagList="showTagList"></router-view>
       </div>
     </div>
@@ -51,4 +51,14 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+@media screen and (max-width: 959px) {
+  /* 959px以下に適用されるCSS（タブレット用） */
+}
+@media screen and (max-width: 480px) {
+  /* 480px以下に適用されるCSS（スマホ用） */
+  .tag-list {
+    display: none;
+  }
+}
+</style>

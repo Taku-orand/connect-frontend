@@ -1,12 +1,12 @@
 <template>
   <div class="row">
-    <div class="col-10">
+    <div class="col-9 pr-0">
       <div class="form-group">
         <input v-model="data.word" type="text" class="form-control" id="search" placeholder="検索..." />
       </div>
     </div>
-    <div class="col-2">
-      <button v-on:click="search" class="btn btn-primary w-100"><i class="fa fa-search" aria-hidden="true"></i></button>
+    <div class="col-3 pl-0">
+      <button v-on:click="search" class="btn btn-primary w-100 search-btn"><i class="fa fa-search" aria-hidden="true"></i></button>
     </div>
   </div>
 </template>
@@ -29,7 +29,7 @@ export default {
         .then((response) => {
           console.log(response);
           if (response.data.searched_by_word) {
-            store.commit("setQuestions",response.data.questions);
+            store.commit("setQuestions", response.data.questions);
             store.commit("setAlert", {
               flag: {
                 showSuccessAlert: true,
@@ -62,3 +62,15 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+@media screen and (max-width: 959px) {
+  /* 959px以下に適用されるCSS（タブレット用） */
+}
+@media screen and (max-width: 480px) {
+  /* 480px以下に適用されるCSS（スマホ用） */
+  .search-btn {
+    font-size: 1rem;
+  }
+}
+</style>
