@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-    <h2 class="text-center m-5">マイページ</h2>
-    <h4 class="mb-3"><i class="fas fa-portrait mr-2">ユーザー名: {{ $store.state.user.name }}</h4>
-    <h4 class="mb-3"><i class="fas fa-envelope mr-2"></i>メールアドレス: {{ $store.state.user.email }}</h4>
+    <h2 class="text-center">マイページ</h2>
+    <p class="mb-3"><i class="fas fa-portrait mr-2"></i>ユーザー名: {{ $store.state.user.name }}</p>
+    <p class="mb-3"><i class="fas fa-envelope mr-2"></i>メールアドレス: {{ $store.state.user.email }}</p>
     <QuestionList :is-my-page="true"></QuestionList>
   </div>
 </template>
