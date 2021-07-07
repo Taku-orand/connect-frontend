@@ -167,6 +167,9 @@ export default {
 </script>
 
 <style scoped>
+.questions-count {
+  font-size: 1.5rem;
+}
 .card-body {
   height: 10rem;
 }
@@ -175,6 +178,9 @@ export default {
 }
 @media screen and (max-width: 480px) {
   /* 480px以下に適用されるCSS（スマホ用） */
+  .questions-count {
+    font-size: 0.9rem;
+  }
   .card-body {
     height: 8rem;
   }
