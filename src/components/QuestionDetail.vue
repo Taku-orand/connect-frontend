@@ -1,9 +1,9 @@
 <template>
   <div class="container">
-    <h2 class="text-center m-2 m-md-4"><i class="fas fa-info-circle mr-2"></i>質問詳細</h2>
+    <h2 class="text-center"><i class="fas fa-info-circle mr-2"></i>質問詳細</h2>
     <!-- questionの中身が読み込まれているか確認 -->
     <template v-if="(question = $store.state.questionDetails)">
-      <div class="card mb-4">
+      <div class="card mb-2 mb-md-4">
         <div class="card-header">
           <div class="row">
             <div class="col-6">
@@ -12,7 +12,7 @@
             </div>
             <div class="col-6 text-right">
               <button @click.stop="updateSolved(question.id)" v-if="$store.state.user.id == question.user_id && !question.solved" class="btn btn-success  p-1 p-md-2">解決済にする！</button>
-              <span v-if="question.solved" class="badge badge-secondary p-1 p-md-2">解決済</span>
+              <span v-if="question.solved" class="badge badge-secondary p-1 p-md-2"><i class="fas fa-check-circle mr-1"></i>解決済</span>
             </div>
           </div>
         </div>
@@ -34,7 +34,7 @@
       </div>
     </template>
 
-    <div class="badge badge-secondary text-left w-100 p-2 mb-3">{{ $store.state.answers.length }}件の回答</div>
+    <div class="badge badge-secondary text-left w-100 p-2 mb-2 mb-md-3">{{ $store.state.answers.length }}件の回答</div>
 
     <!-- 回答を表示 -->
     <template v-for="(answer, key) in $store.state.answers" :key="key">

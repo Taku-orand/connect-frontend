@@ -2,7 +2,7 @@
   <div>
     <div class="btn-toolbar mb-1" role="toolbar" aria-label="Toolbar with button groups">
       <div class="dropdown mr-1">
-        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">h </a>
+        <a class="btn btn-secondary dropdown-toggle p-1 p-md-2" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">h </a>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
           <button v-on:click="input('h1')" class="dropdown-item">h1</button>
           <button v-on:click="input('h2')" class="dropdown-item">h2</button>
@@ -11,24 +11,24 @@
           <button v-on:click="input('h5')" class="dropdown-item">h5</button>
         </div>
       </div>
-      <button v-on:click="input('bold')" type="button" class="btn btn-secondary mr-1">Bold</button>
-      <button v-on:click="input('italic')" type="button" class="btn btn-secondary mr-1">Italic</button>
-      <button v-on:click="input('quot')" type="button" class="btn btn-secondary mr-1">&quot;&quot;</button>
-      <button v-on:click="input('table')" type="button" class="btn btn-secondary mr-1">Table</button>
-      <button v-on:click="input('link')" type="button" class="btn btn-secondary mr-1">Link</button>
-      <button v-on:click="input('code')" type="button" class="btn btn-secondary mr-1">&lt; code &gt;</button>
-      <button v-on:click="input('clear')" type="button" class="btn btn-secondary mr-1">clear</button>
+      <button v-on:click="input('bold')" type="button" class="btn btn-secondary p-1 p-md-2 mr-1 mr-md-2 mb-1 mb-md-2">Bold</button>
+      <button v-on:click="input('italic')" type="button" class="btn btn-secondary p-1 p-md-2 mr-1  mb-1 mb-md-2">Italic</button>
+      <button v-on:click="input('quot')" type="button" class="btn btn-secondary p-1 p-md-2 mr-1  mb-1 mb-md-2">&quot;&quot;</button>
+      <button v-on:click="input('table')" type="button" class="btn btn-secondary p-1 p-md-2 mr-1  mb-1 mb-md-2">Table</button>
+      <button v-on:click="input('link')" type="button" class="btn btn-secondary p-1 p-md-2 mr-1  mb-1 mb-md-2">Link</button>
+      <button v-on:click="input('code')" type="button" class="btn btn-secondary p-1 p-md-2 mr-1  mb-1 mb-md-2">&lt; code &gt;</button>
+      <button v-on:click="input('clear')" type="button" class="btn btn-secondary p-1 p-md-2 mr-1  mb-1 mb-md-2">clear</button>
     </div>
     <div class="input-area mb-3">
       <div class="row">
-        <div class="col">
+        <div class="col pr-0">
           <div class="form-group">
             <textarea v-if="!isAnswer" v-model="$store.state.questionDetails.content" class="form-control" id="content" rows="10" placeholder="質問内容を入力してください。"> </textarea>
             <textarea v-if="isAnswer" v-model="$store.state.newAnswer.content" class="form-control" id="content" rows="10" placeholder="回答内容を入力してください。"> </textarea>
           </div>
         </div>
-        <div class="col">
-          <div class="card">
+        <div class="col pl-0">
+          <div class="card h-100">
             <div class="card-body">
               <Markdown v-if="!isAnswer" :source="$store.state.questionDetails.content" :linkify="true" :emoji="data.emoji" :breaks="data.breaks" />
               <Markdown v-if="isAnswer" :source="$store.state.newAnswer.content" :linkify="true" :emoji="data.emoji" :breaks="data.breaks" />

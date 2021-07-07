@@ -109,8 +109,8 @@ header {
   h2 {
     font-size: 0.7rem;
   }
-  .h1-br {
-    display: block;
+  .fa-bars {
+    font-size: 1rem;
   }
 }
 </style>
