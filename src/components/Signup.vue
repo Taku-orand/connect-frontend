@@ -4,7 +4,7 @@
     <div class="form-group">
       <label for="name">ユーザー名</label>
       <input v-model="data.name" type="text" class="form-control" id="name" aria-describedby="nameHelp" placeholder="ユーザー名を入力してください。" />
-      <small id="nameHelp" class="form-text text-muted">質問や回答を投稿する際に表示されるユーザー名です。後で変更することができます。</small>
+      <small id="nameHelp" class="form-text text-muted">質問や回答を投稿する際に表示されるユーザー名です。</small>
     </div>
     <div class="form-group">
       <label for="email">メールアドレス</label>
