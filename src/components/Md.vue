@@ -153,17 +153,17 @@ export default {
 /* テーブル */
 .text table {
   width: auto;
-  border: 1px solid #555555;
+  border: 1px solid var(--sub-color);
   border-collapse: collapse;
   border-spacing: 0;
 }
 th {
-  color: #333;
+  color: var(--sub-color);
   padding: 5px;
-  border-top: 1px solid #555555;
-  border-bottom: 1px solid #555555;
-  border-left: 1px solid #555555;
-  border-right: 1px solid #555555;
+  border-top: 1px solid var(--sub-color);
+  border-bottom: 1px solid var(--sub-color);
+  border-left: 1px solid var(--sub-color);
+  border-right: 1px solid var(--sub-color);
   background: var(--table-head-color);
   font-weight: bold;
   line-height: 120%;
@@ -171,9 +171,9 @@ th {
 }
 td {
   padding: 5px;
-  border-bottom: 1px solid #555555;
-  border-left: 1px solid #555555;
-  border-right: 1px solid #555555;
+  border-bottom: 1px solid var(--sub-color);
+  border-left: 1px solid var(--sub-color);
+  border-right: 1px solid var(--sub-color);
 }
 tr:nth-child(2n + 1) {
   background: var(--silver-color);
@@ -184,9 +184,9 @@ blockquote {
   padding: 10px 15px 10px 60px;
   box-sizing: border-box;
   font-style: italic;
-  background: #f5f5f5;
-  color: #777777;
-  border-left: 4px solid #9dd4ff;
+  background: var(--silver-color);
+  color: var(--sub-color);
+  border-left: 4px solid var(--sub-accent-color);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.14);
 }
 
@@ -197,7 +197,7 @@ blockquote:before {
   left: 0;
   content: "“";
   font-family: sans-serif;
-  color: #9dd4ff;
+  color: var(--sub-accent-color);
   font-size: 90px;
   line-height: 1;
 }
