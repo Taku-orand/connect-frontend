@@ -49,7 +49,7 @@
       <div class="input-preview">
         <div class="row">
           <div class="col pr-0">
-            <div class="form-group">
+            <div class="form-group mb-0">
               <textarea v-if="!isAnswer" v-model="$store.state.questionDetails.content" class="form-control" id="content" rows="10" placeholder="質問内容を入力してください。"> </textarea>
               <textarea v-if="isAnswer" v-model="$store.state.newAnswer.content" class="form-control" id="content" rows="10" placeholder="回答内容を入力してください。"> </textarea>
             </div>
