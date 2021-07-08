@@ -30,8 +30,8 @@
         <div class="card-header">
           <div class="row">
             <div class="col-6">
-              <div v-if="question.anonymous">匿名</div>
-              <div v-else>{{ question.user_name }}</div>
+              <div v-if="question.anonymous"><i class="fas fa-user mr-2"></i>匿名</div>
+              <div v-else><i class="fas fa-user mr-2"></i>{{ question.user_name }}</div>
             </div>
             <div class="col-6 text-right">
               <span v-if="question.solved" class="badge badge-secondary p-1 m-md-2"><i class="fas fa-check-circle mr-1"></i>解決済</span>
