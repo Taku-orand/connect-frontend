@@ -20,46 +20,50 @@
       <button v-on:click="input('clear')" type="button" class="btn btn-secondary p-1 p-md-2 mr-1  mb-1 mb-md-2">clear</button>
     </div>
     <div class="input-area mb-3">
-      <ul class="nav nav-tabs" id="markdownTab" role="tablist">
-        <li class="nav-item">
-          <a class="nav-link active" id="input-tab" data-toggle="tab" href="#input" role="tab" aria-controls="input" aria-selected="true">内容</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" id="preview-tab" data-toggle="tab" href="#preview" role="tab" aria-controls="preview" aria-selected="false">プレビュー</a>
-        </li>
-      </ul>
-      <div class="tab-content" id="markdownTabContent">
-        <div class="tab-pane fade show active" id="input" role="tabpanel" aria-labelledby="input-tab">
-          <div class="form-group">
-            <textarea v-if="!isAnswer" v-model="$store.state.questionDetails.content" class="form-control" id="content" rows="10" placeholder="質問内容を入力してください。"> </textarea>
-            <textarea v-if="isAnswer" v-model="$store.state.newAnswer.content" class="form-control" id="content" rows="10" placeholder="回答内容を入力してください。"> </textarea>
+      <div class="input-tab">
+        <ul class="nav nav-tabs" id="markdownTab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="input-tab" data-toggle="tab" href="#input" role="tab" aria-controls="input" aria-selected="true">内容</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="preview-tab" data-toggle="tab" href="#preview" role="tab" aria-controls="preview" aria-selected="false">プレビュー</a>
+          </li>
+        </ul>
+        <div class="tab-content" id="markdownTabContent">
+          <div class="tab-pane fade show active" id="input" role="tabpanel" aria-labelledby="input-tab">
+            <div class="form-group">
+              <textarea v-if="!isAnswer" v-model="$store.state.questionDetails.content" class="form-control" id="content" rows="10" placeholder="質問内容を入力してください。"> </textarea>
+              <textarea v-if="isAnswer" v-model="$store.state.newAnswer.content" class="form-control" id="content" rows="10" placeholder="回答内容を入力してください。"> </textarea>
+            </div>
           </div>
-        </div>
-        <div class="tab-pane fade" id="preview" role="tabpanel" aria-labelledby="preview-tab">
-          <div class="card">
-            <div class="card-body">
-              <Markdown v-if="!isAnswer" :source="$store.state.questionDetails.content" :linkify="true" :emoji="data.emoji" :breaks="data.breaks" />
-              <Markdown v-if="isAnswer" :source="$store.state.newAnswer.content" :linkify="true" :emoji="data.emoji" :breaks="data.breaks" />
+          <div class="tab-pane fade" id="preview" role="tabpanel" aria-labelledby="preview-tab">
+            <div class="card">
+              <div class="card-body">
+                <Markdown v-if="!isAnswer" :source="$store.state.questionDetails.content" :linkify="true" :emoji="data.emoji" :breaks="data.breaks" />
+                <Markdown v-if="isAnswer" :source="$store.state.newAnswer.content" :linkify="true" :emoji="data.emoji" :breaks="data.breaks" />
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <!-- <div class="row">
-        <div class="col pr-0">
-          <div class="form-group">
-            <textarea v-if="!isAnswer" v-model="$store.state.questionDetails.content" class="form-control" id="content" rows="10" placeholder="質問内容を入力してください。"> </textarea>
-            <textarea v-if="isAnswer" v-model="$store.state.newAnswer.content" class="form-control" id="content" rows="10" placeholder="回答内容を入力してください。"> </textarea>
+      <div class="input-preview">
+        <div class="row">
+          <div class="col pr-0">
+            <div class="form-group">
+              <textarea v-if="!isAnswer" v-model="$store.state.questionDetails.content" class="form-control" id="content" rows="10" placeholder="質問内容を入力してください。"> </textarea>
+              <textarea v-if="isAnswer" v-model="$store.state.newAnswer.content" class="form-control" id="content" rows="10" placeholder="回答内容を入力してください。"> </textarea>
+            </div>
           </div>
-        </div>
-        <div class="col pl-0">
-          <div class="card h-100">
-            <div class="card-body">
-              <Markdown v-if="!isAnswer" :source="$store.state.questionDetails.content" :linkify="true" :emoji="data.emoji" :breaks="data.breaks" />
-              <Markdown v-if="isAnswer" :source="$store.state.newAnswer.content" :linkify="true" :emoji="data.emoji" :breaks="data.breaks" />
+          <div class="col pl-0">
+            <div class="card h-100">
+              <div class="card-body">
+                <Markdown v-if="!isAnswer" :source="$store.state.questionDetails.content" :linkify="true" :emoji="data.emoji" :breaks="data.breaks" />
+                <Markdown v-if="isAnswer" :source="$store.state.newAnswer.content" :linkify="true" :emoji="data.emoji" :breaks="data.breaks" />
+              </div>
             </div>
           </div>
         </div>
-      </div> -->
+      </div>
     </div>
   </div>
 </template>
@@ -214,5 +218,22 @@ blockquote cite {
 .nav-tabs .nav-item.show .nav-link,
 .nav-tabs .nav-link.active {
   color: var(--accent-color);
+}
+
+.input-tab {
+  display: none;
+}
+
+@media screen and (max-width: 959px) {
+  /* 959px以下に適用されるCSS（タブレット用） */
+}
+@media screen and (max-width: 480px) {
+  /* 480px以下に適用されるCSS（スマホ用） */
+  .input-tab {
+    display: block;
+  }
+  .input-preview {
+    display: none;
+  }
 }
 </style>
