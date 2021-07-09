@@ -57,15 +57,16 @@
               <div class="mt-2">{{ answer.updated_at.substr(0, 4) }}/{{ answer.updated_at.substr(5, 2) }}/{{ answer.updated_at.substr(8, 2) }}</div>
             </div>
             <div class="col-6 text-right">
+              <button v-if="$store.state.user.id == answer.user_id" class="btn btn-secondary mr-2" @click="edit(answer,key)"> 編集 </button>
               <LikeButton :question="answer" :is-my-page="false" :isQuestionDetails="false" :isAnswer="true"></LikeButton>
             </div>
           </div>
         </div>
       </div>
     </template>
-
-    <div class="answer-area mb-5">
-      <CreateAnswer :question="$store.state.questionDetails"></CreateAnswer>
+    <div class="answer-area mb-5" v-bind:class="data.fixedAnswer">
+      <CreateAnswer :question="$store.state.questionDetails" :updateButton="data.update"></CreateAnswer>
+      <button v-if="data.fixedAnswer['fixed-bottom']" class="btn btn-secondary mr-2" @click="editCancel($store.state.newAnswer)"> 編集キャンセル </button>
     </div>
   </div>
 </template>
@@ -95,7 +96,15 @@ export default {
     const route = useRoute();
     const store = useStore();
 
-    const data = reactive({});
+    const data = reactive({
+      index: null,
+      fixedAnswer:{
+        'fixed-bottom': false,
+        'ml-auto': false,
+        'shadow-lg': false,
+        },
+      update: false,
+    });
 
     // QuestionDetailコンポーネントをロードした時に質問詳細を取得
     onMounted(() => {
@@ -103,6 +112,25 @@ export default {
       store.dispatch("getQuestionDetails", route.params.id);
       store.dispatch("getAnswers", route.params.id);
     });
+
+    function edit(answer,index){
+      store.commit("setAnswer", answer);
+      data.fixedAnswer['fixed-bottom']=true;
+      data.fixedAnswer['ml-auto']=true;
+      data.fixedAnswer['shadow-lg']=true;
+      data.index = index;
+      data.update = true;
+    }
+
+    async function editCancel(answer){
+      data.index = null;
+      data.fixedAnswer['fixed-bottom']=false;
+      data.fixedAnswer['ml-auto']=false;
+      data.fixedAnswer['shadow-lg']=false;
+      store.commit("resetNewAnswer",answer);
+      await store.dispatch("getAnswers",route.params.id);
+      data.update = false;
+    }
 
     async function updateSolved(id) {
       await store.dispatch("getQuestionDetails", id);
@@ -155,6 +183,8 @@ export default {
       data,
       updateQuestion,
       updateSolved,
+      edit,
+      editCancel,
     };
   },
 };

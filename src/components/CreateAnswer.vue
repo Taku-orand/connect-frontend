@@ -3,7 +3,12 @@
     <h2 class="text-center m-4">回答投稿</h2>
     <Form :isAnswer="true"></Form>
     <div class="text-right">
-      <button @click="createAnswer()" class="btn btn-primary btn-lg mb-5">回答投稿</button>
+      <div v-if="updateButton">
+        <button @click="updateAnswer()" class="btn btn-primary btn-lg mb-5">回答修正</button>
+      </div>
+      <div v-else>
+        <button @click="createAnswer()" class="btn btn-primary btn-lg mb-5">回答投稿</button>
+      </div>
     </div>
   </div>
 </template>
@@ -21,6 +26,7 @@ export default {
   },
   props: {
     question: Object,
+    updateButton: Boolean,
   },
   setup(props) {
     // const router = useRouter();
@@ -75,8 +81,54 @@ export default {
           alert(e);
         });
     }
+    async function updateAnswer() {
+      await axios
+        .patch(
+          `${process.env.VUE_APP_CONNECT_BACKEND_URL}/answers/update/${store.state.newAnswer.id}`,
+          {
+            answer: {
+              content: store.state.newAnswer.content,
+              anonymous: store.state.newAnswer.anonymous,
+            },
+          },
+          { withCredentials: true }
+        )
+        .then((response) => {
+          console.log(response);
+          if (response.data.updated_answer) {
+            store.commit("setAlert", {
+              flag: {
+                showSuccessAlert: true,
+                showErrorAlert: false,
+              },
+              message: {
+                success: "編集に成功しました",
+              },
+            });
+            store.dispatch("getQuestionDetails", route.params.id);
+            store.dispatch("getAnswers", route.params.id);
+            store.commit("resetNewAnswer");
+          } else {
+            store.commit("setAlert", {
+              flag: {
+                showSuccessAlert: false,
+                showErrorAlert: true,
+              },
+              message: {
+                error: "編集に失敗しました。",
+              },
+            });
+          }
+        })
+        .catch((e) => {
+          alert(e);
+        });
+    }
+
+
     return {
       createAnswer,
+      updateAnswer,
     };
   },
 };
