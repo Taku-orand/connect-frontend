@@ -95,6 +95,10 @@ export const store = createStore({
       state.newAnswer.anonymous = false;
     },
 
+    setAnswer: (state,answer)=>{
+      state.newAnswer = answer;
+    },
+
     // like更新
     updateLike: (state, { type, id, like }) => {
       if (type == "questions") {

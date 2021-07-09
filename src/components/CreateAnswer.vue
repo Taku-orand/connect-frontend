@@ -1,11 +1,18 @@
 <template>
+
   <div class="container p-0">
     <div class="card h-100">
       <div class="card-body py-0">
         <h2 class="text-center"><i class="fas fa-comment-dots mr-2"></i>回答投稿</h2>
         <Form :isAnswer="true"></Form>
         <div class="text-right">
+        　　　　<div v-if="updateButton">
+            <button @click="updateAnswer()" class="btn btn-primary btn-lg mb-5">回答修正</button>
+      　　　　　　　　　</div>
+               <div v-else>
+              
           <button @click="createAnswer()" class="btn btn-primary btn-lg p-md-3 mb-3 mb-md-5"><i class="fas fa-reply mr-2"></i>回答投稿</button>
+           </div>
         </div>
       </div>
     </div>
@@ -25,12 +32,13 @@ export default {
   },
   props: {
     question: Object,
+    updateButton: Boolean,
   },
-  setup(props) {
+  setup(props, context) {
     // const router = useRouter();
     const route = useRoute();
     const store = useStore();
-
+    console.log(context);
     onMounted(() => {
       store.state.newAnswer.content = "";
     });
@@ -79,8 +87,53 @@ export default {
           alert(e);
         });
     }
+    async function updateAnswer() {
+      await axios
+        .patch(
+          `${process.env.VUE_APP_CONNECT_BACKEND_URL}/answers/update/${store.state.newAnswer.id}`,
+          {
+            answer: {
+              content: store.state.newAnswer.content,
+              anonymous: store.state.newAnswer.anonymous,
+            },
+          },
+          { withCredentials: true }
+        )
+        .then((response) => {
+          console.log(response);
+          if (response.data.updated_answer) {
+            store.dispatch("getQuestionDetails", route.params.id);
+            store.dispatch("getAnswers", route.params.id);
+            context.emit("editCancel");
+            store.commit("setAlert", {
+              flag: {
+                showSuccessAlert: true,
+                showErrorAlert: false,
+              },
+              message: {
+                success: "編集に成功しました",
+              },
+            });
+          } else {
+            store.commit("setAlert", {
+              flag: {
+                showSuccessAlert: false,
+                showErrorAlert: true,
+              },
+              message: {
+                error: "編集に失敗しました。",
+              },
+            });
+          }
+        })
+        .catch((e) => {
+          alert(e);
+        });
+    }
+
     return {
       createAnswer,
+      updateAnswer,
     };
   },
 };
