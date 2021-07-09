@@ -30,6 +30,7 @@ export default {
     onMounted(() => {
       context.emit("showTagList", props.tagList);
       store.dispatch("getQuestionDetails", route.params.id);
+      store.dispatch("getAnswer");
     });
 
     async function updateQuestion() {
