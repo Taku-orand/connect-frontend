@@ -28,11 +28,11 @@ export default {
     question: Object,
     updateButton: Boolean,
   },
-  setup(props) {
+  setup(props, context) {
     // const router = useRouter();
     const route = useRoute();
     const store = useStore();
-
+    console.log(context);
     onMounted(() => {
       store.state.newAnswer.content = "";
     });
@@ -96,6 +96,9 @@ export default {
         .then((response) => {
           console.log(response);
           if (response.data.updated_answer) {
+            store.dispatch("getQuestionDetails", route.params.id);
+            store.dispatch("getAnswers", route.params.id);
+            context.emit("editCancel");
             store.commit("setAlert", {
               flag: {
                 showSuccessAlert: true,
@@ -105,9 +108,6 @@ export default {
                 success: "編集に成功しました",
               },
             });
-            store.dispatch("getQuestionDetails", route.params.id);
-            store.dispatch("getAnswers", route.params.id);
-            store.commit("resetNewAnswer");
           } else {
             store.commit("setAlert", {
               flag: {
@@ -124,7 +124,6 @@ export default {
           alert(e);
         });
     }
-
 
     return {
       createAnswer,
