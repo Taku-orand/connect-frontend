@@ -2,7 +2,12 @@
   <div class="container p-0 mb-4">
     <div class="card">
       <div class="card-body py-0">
-        <h2 class="text-center"><i class="fas fa-comment-dots mr-2"></i>回答投稿</h2>
+        <div v-if="updateAnswerFlag">
+          <h2 class="text-center"><i class="fas fa-comment-dots mr-2"></i>回答編集</h2>
+        </div>
+        <div v-else>
+          <h2 class="text-center"><i class="fas fa-comment-dots mr-2"></i>回答投稿</h2>
+        </div>
         <Form :isAnswer="true"></Form>
         <div class="row">
           <div class="col">
