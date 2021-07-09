@@ -1,7 +1,20 @@
 <template>
   <div class="container">
+    <div class="row sticky">
+      <div class="col-3 pr-0">
+        <div class="dropdown h-100">
+          <button class="btn btn-secondary shadow h-100" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-tags"></i></button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <TagList class="sticky-tag-list"></TagList>
+          </div>
+        </div>
+      </div>
+      <div class="col-9 pl-0">
+        <Search v-if="!isMyPage"></Search>
+      </div>
+    </div>
+
     <h2 class="text-center"><i class="fas fa-list mr-2"></i>質問一覧</h2>
-    <Search v-if="!isMyPage"></Search>
 
     <div class="row">
       <div class="col-2 pr-0 mb-2 mb-md-3">
@@ -55,7 +68,7 @@
         </div>
       </div>
     </template>
-    <button v-if="!isMyPage" @click="goCreateQuestion" class="btn btn-info btn-lg fixed-bottom ml-auto shadow-lg p-md-3 mr-3 mb-3 mr-md-5 mb-md-5"><i class="fas fa-question mr-2"></i>質問する</button>
+    <button v-if="!isMyPage" @click="goCreateQuestion" class="btn btn-info btn-lg fixed-bottom shadow ml-auto p-md-3 mr-3 mb-3 mr-md-5 mb-md-5"><i class="fas fa-question mr-2"></i>質問する</button>
   </div>
 </template>
 
@@ -65,6 +78,7 @@ import { reactive, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 
+import TagList from "./TagList.vue";
 import LikeButton from "./LikeButton.vue";
 import Markdown from "vue3-markdown-it";
 import Search from "./Search.vue";
@@ -73,6 +87,7 @@ export default {
   name: "QuestionList",
 
   components: {
+    TagList,
     LikeButton,
     Markdown,
     Search,
@@ -167,6 +182,14 @@ export default {
 </script>
 
 <style scoped>
+.sticky {
+  position: sticky;
+  top: 2rem;
+  z-index: 999;
+}
+.dropdown-tag {
+  display: none;
+}
 .questions-count {
   font-size: 1.5rem;
 }
@@ -176,8 +199,11 @@ export default {
 @media screen and (max-width: 959px) {
   /* 959px以下に適用されるCSS（タブレット用） */
 }
-@media screen and (max-width: 480px) {
-  /* 480px以下に適用されるCSS（スマホ用） */
+@media screen and (max-width: 576px) {
+  /* 576px以下に適用されるCSS（スマホ用） */
+  .dropdown-tag {
+    display: block;
+  }
   .questions-count {
     font-size: 0.9rem;
   }

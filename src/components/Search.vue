@@ -1,12 +1,12 @@
 <template>
   <div class="row">
-    <div class="col-9">
-      <div class="form-group">
-        <input v-model="data.word" type="text" class="form-control" id="search" placeholder="検索..." />
+    <div class="col-9 p-0">
+      <div class="form-group m-0">
+        <input v-model="data.word" type="text" class="form-control shadow" id="search" placeholder="検索..." />
       </div>
     </div>
     <div class="col-3 pl-0">
-      <button v-on:click="search" class="btn btn-primary w-100 search-btn"><i class="fa fa-search" aria-hidden="true"></i></button>
+      <button v-on:click="search" class="btn btn-primary shadow w-100 search-btn"><i class="fa fa-search" aria-hidden="true"></i></button>
     </div>
   </div>
 </template>

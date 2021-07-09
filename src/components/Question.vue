@@ -1,18 +1,6 @@
 <template>
-  <div class="container-fluid">
-    <div v-if="data.tagList" class="row">
-      <div class="col-md-3 tag-list">
-        <TagList></TagList>
-      </div>
-      <div class="col-md-9">
-        <router-view @showTagList="showTagList"></router-view>
-      </div>
-    </div>
-    <div v-else class="row">
-      <div class="col-12">
-        <router-view @showTagList="showTagList"></router-view>
-      </div>
-    </div>
+  <div class="container">
+    <router-view @showTagList="showTagList"></router-view>
   </div>
 </template>
 
@@ -22,13 +10,9 @@ import { reactive } from "vue";
 // import { useRouter } from "vue-router";
 // import { useStore } from "vuex";
 
-import TagList from "./TagList.vue";
-
 export default {
   name: "Question",
-  components: {
-    TagList,
-  },
+  components: {},
   props: {},
   setup() {
     // const router = useRouter();
@@ -52,11 +36,15 @@ export default {
 </script>
 
 <style scoped>
+.sticky-tag-list {
+  position: sticky;
+  top: 1.5rem; /* bootstrapのm-4が要素の基本サイズ*1.5のため（<h2>タグ一覧<h/2>） */
+}
 @media screen and (max-width: 959px) {
   /* 959px以下に適用されるCSS（タブレット用） */
 }
-@media screen and (max-width: 480px) {
-  /* 480px以下に適用されるCSS（スマホ用） */
+@media screen and (max-width: 576px) {
+  /* 576px以下に適用されるCSS（スマホ用） */
   .tag-list {
     display: none;
   }

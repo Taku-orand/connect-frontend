@@ -1,10 +1,8 @@
 <template>
-  <div class="container sticky">
-    <h2 class="text-center"><i class="fas fa-tags mr-2"></i>タグ</h2>
-    <ul class="list-group overflow-auto">
-      <li v-for="(tag, key) in $store.state.tags" :key="key" @click="getQuestionByTag(tag.id)" class="list-group-item"><i class="fas fa-tag mr-2"></i>{{ tag.name }}</li>
-    </ul>
-  </div>
+  <!-- <h2 class="text-center"><i class="fas fa-tags mr-2"></i>タグ</h2> -->
+  <ul class="list-group overflow-auto">
+    <li v-for="(tag, key) in $store.state.tags" :key="key" @click="getQuestionByTag(tag.id)" class="list-group-item"><i class="fas fa-tag mr-2"></i>{{ tag.name }}</li>
+  </ul>
 </template>
 
 <script>
@@ -59,10 +57,6 @@ export default {
 </script>
 
 <style scoped>
-.sticky {
-  position: sticky;
-  top: 1.5rem; /* bootstrapのm-4が要素の基本サイズ*1.5のため（<h2>タグ一覧<h/2>） */
-}
 .list-group {
   height: 50vh;
 }
