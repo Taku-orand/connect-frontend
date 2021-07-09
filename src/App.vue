@@ -39,6 +39,11 @@ export default {
 <style>
 body {
   font-family: "Kosugi Maru", sans-serif;
+  color: var(--sub-color);
+}
+
+a {
+  color: var(--sub-color);
 }
 
 :root {

@@ -20,18 +20,46 @@
       <button v-on:click="input('clear')" type="button" class="btn btn-secondary p-1 p-md-2 mr-1  mb-1 mb-md-2">clear</button>
     </div>
     <div class="input-area mb-3">
-      <div class="row">
-        <div class="col pr-0">
-          <div class="form-group">
-            <textarea v-if="!isAnswer" v-model="$store.state.questionDetails.content" class="form-control" id="content" rows="10" placeholder="質問内容を入力してください。"> </textarea>
-            <textarea v-if="isAnswer" v-model="$store.state.newAnswer.content" class="form-control" id="content" rows="10" placeholder="回答内容を入力してください。"> </textarea>
+      <div class="input-tab">
+        <ul class="nav nav-tabs" id="markdownTab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="input-tab" data-toggle="tab" href="#input" role="tab" aria-controls="input" aria-selected="true">内容</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="preview-tab" data-toggle="tab" href="#preview" role="tab" aria-controls="preview" aria-selected="false">プレビュー</a>
+          </li>
+        </ul>
+        <div class="tab-content" id="markdownTabContent">
+          <div class="tab-pane fade show active" id="input" role="tabpanel" aria-labelledby="input-tab">
+            <div class="form-group">
+              <textarea v-if="!isAnswer" v-model="$store.state.questionDetails.content" class="form-control" id="content" rows="10" placeholder="質問内容を入力してください。"> </textarea>
+              <textarea v-if="isAnswer" v-model="$store.state.newAnswer.content" class="form-control" id="content" rows="10" placeholder="回答内容を入力してください。"> </textarea>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="preview" role="tabpanel" aria-labelledby="preview-tab">
+            <div class="card">
+              <div class="card-body">
+                <Markdown v-if="!isAnswer" :source="$store.state.questionDetails.content" :linkify="true" :emoji="data.emoji" :breaks="data.breaks" />
+                <Markdown v-if="isAnswer" :source="$store.state.newAnswer.content" :linkify="true" :emoji="data.emoji" :breaks="data.breaks" />
+              </div>
+            </div>
           </div>
         </div>
-        <div class="col pl-0">
-          <div class="card h-100">
-            <div class="card-body">
-              <Markdown v-if="!isAnswer" :source="$store.state.questionDetails.content" :linkify="true" :emoji="data.emoji" :breaks="data.breaks" />
-              <Markdown v-if="isAnswer" :source="$store.state.newAnswer.content" :linkify="true" :emoji="data.emoji" :breaks="data.breaks" />
+      </div>
+      <div class="input-preview">
+        <div class="row">
+          <div class="col pr-0">
+            <div class="form-group mb-0">
+              <textarea v-if="!isAnswer" v-model="$store.state.questionDetails.content" class="form-control" id="content" rows="10" placeholder="質問内容を入力してください。"> </textarea>
+              <textarea v-if="isAnswer" v-model="$store.state.newAnswer.content" class="form-control" id="content" rows="10" placeholder="回答内容を入力してください。"> </textarea>
+            </div>
+          </div>
+          <div class="col pl-0">
+            <div class="card h-100">
+              <div class="card-body">
+                <Markdown v-if="!isAnswer" :source="$store.state.questionDetails.content" :linkify="true" :emoji="data.emoji" :breaks="data.breaks" />
+                <Markdown v-if="isAnswer" :source="$store.state.newAnswer.content" :linkify="true" :emoji="data.emoji" :breaks="data.breaks" />
+              </div>
             </div>
           </div>
         </div>
@@ -125,17 +153,17 @@ export default {
 /* テーブル */
 .text table {
   width: auto;
-  border: 1px solid #555555;
+  border: 1px solid var(--sub-color);
   border-collapse: collapse;
   border-spacing: 0;
 }
 th {
-  color: #333;
+  color: var(--sub-color);
   padding: 5px;
-  border-top: 1px solid #555555;
-  border-bottom: 1px solid #555555;
-  border-left: 1px solid #555555;
-  border-right: 1px solid #555555;
+  border-top: 1px solid var(--sub-color);
+  border-bottom: 1px solid var(--sub-color);
+  border-left: 1px solid var(--sub-color);
+  border-right: 1px solid var(--sub-color);
   background: var(--table-head-color);
   font-weight: bold;
   line-height: 120%;
@@ -143,9 +171,9 @@ th {
 }
 td {
   padding: 5px;
-  border-bottom: 1px solid #555555;
-  border-left: 1px solid #555555;
-  border-right: 1px solid #555555;
+  border-bottom: 1px solid var(--sub-color);
+  border-left: 1px solid var(--sub-color);
+  border-right: 1px solid var(--sub-color);
 }
 tr:nth-child(2n + 1) {
   background: var(--silver-color);
@@ -156,9 +184,9 @@ blockquote {
   padding: 10px 15px 10px 60px;
   box-sizing: border-box;
   font-style: italic;
-  background: #f5f5f5;
-  color: #777777;
-  border-left: 4px solid #9dd4ff;
+  background: var(--silver-color);
+  color: var(--sub-color);
+  border-left: 4px solid var(--sub-accent-color);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.14);
 }
 
@@ -169,7 +197,7 @@ blockquote:before {
   left: 0;
   content: "“";
   font-family: sans-serif;
-  color: #9dd4ff;
+  color: var(--sub-accent-color);
   font-size: 90px;
   line-height: 1;
 }
@@ -185,5 +213,27 @@ blockquote cite {
   text-align: right;
   color: #888888;
   font-size: 0.9em;
+}
+
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+  color: var(--accent-color);
+}
+
+.input-tab {
+  display: none;
+}
+
+@media screen and (max-width: 959px) {
+  /* 959px以下に適用されるCSS（タブレット用） */
+}
+@media screen and (max-width: 480px) {
+  /* 480px以下に適用されるCSS（スマホ用） */
+  .input-tab {
+    display: block;
+  }
+  .input-preview {
+    display: none;
+  }
 }
 </style>
