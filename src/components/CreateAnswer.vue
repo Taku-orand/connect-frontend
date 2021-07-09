@@ -1,15 +1,22 @@
 <template>
-  <div class="container p-0">
-    <div class="card h-100">
+  <div class="container p-0 mb-4">
+    <div class="card">
       <div class="card-body py-0">
         <h2 class="text-center"><i class="fas fa-comment-dots mr-2"></i>回答投稿</h2>
         <Form :isAnswer="true"></Form>
-        <div class="text-right">
-          <div v-if="updateButton">
-            <button @click="updateAnswer()" class="btn btn-primary btn-lg mb-5">回答修正</button>
+        <div class="row">
+          <div class="col">
+            <button v-if="updateAnswerFlag" class="btn btn-secondary" @click="editAnswerCancel()">編集キャンセル</button>
           </div>
-          <div v-else>
-            <button @click="createAnswer()" class="btn btn-primary btn-lg p-md-3 mb-3 mb-md-5"><i class="fas fa-reply mr-2"></i>回答投稿</button>
+          <div class="col">
+            <div class="text-right">
+              <div v-if="updateAnswerFlag">
+                <button @click="updateAnswer()" class="btn btn-primary mb-3">回答修正</button>
+              </div>
+              <div v-else>
+                <button @click="createAnswer()" class="btn btn-primary mb-3"><i class="fas fa-reply mr-2"></i>回答投稿</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -30,13 +37,13 @@ export default {
   },
   props: {
     question: Object,
-    updateButton: Boolean,
+    updateAnswerFlag: Boolean,
   },
   setup(props, context) {
     // const router = useRouter();
     const route = useRoute();
     const store = useStore();
-    console.log(context);
+
     onMounted(() => {
       store.state.newAnswer.content = "";
     });
@@ -85,6 +92,7 @@ export default {
           alert(e);
         });
     }
+
     async function updateAnswer() {
       await axios
         .patch(
@@ -100,9 +108,7 @@ export default {
         .then((response) => {
           console.log(response);
           if (response.data.updated_answer) {
-            store.dispatch("getQuestionDetails", route.params.id);
-            store.dispatch("getAnswers", route.params.id);
-            context.emit("editCancel");
+            context.emit("editAnswerCancel");
             store.commit("setAlert", {
               flag: {
                 showSuccessAlert: true,
@@ -129,10 +135,24 @@ export default {
         });
     }
 
+    function editAnswerCancel() {
+      context.emit("editAnswerCancel");
+    }
+
     return {
       createAnswer,
       updateAnswer,
+      editAnswerCancel,
     };
   },
 };
 </script>
+
+<style scoped>
+@media screen and (max-width: 959px) {
+  /* 959px以下に適用されるCSS（タブレット用） */
+}
+@media screen and (max-width: 480px) {
+  /* 480px以下に適用されるCSS（スマホ用） */
+}
+</style>
