@@ -57,17 +57,14 @@
               <div class="mt-2">{{ answer.updated_at.substr(0, 4) }}/{{ answer.updated_at.substr(5, 2) }}/{{ answer.updated_at.substr(8, 2) }}</div>
             </div>
             <div class="col-6 text-right">
-              <button v-if="$store.state.user.id == answer.user_id" class="btn btn-secondary mr-2" @click="edit(answer)">編集</button>
+              <button v-if="$store.state.user.id == answer.user_id" class="btn btn-secondary mr-2" @click="editAnswer(answer)">編集</button>
               <LikeButton :question="answer" :is-my-page="false" :isQuestionDetails="false" :isAnswer="true"></LikeButton>
             </div>
           </div>
         </div>
       </div>
     </template>
-    <div class="answer-area mb-5" v-bind:class="data.fixedAnswer">
-      <CreateAnswer :question="$store.state.questionDetails" :updateButton="data.update" @editCancel="editCancel()"></CreateAnswer>
-      <button v-if="data.fixedAnswer['fixed-bottom']" class="btn btn-secondary mr-2" @click="editCancel($store.state.newAnswer)">編集キャンセル</button>
-    </div>
+    <CreateAnswer :question="$store.state.questionDetails" :updateAnswerFlag="data.updateAnswerFlag" @editAnswerCancel="editAnswerCancel()" v-bind:class="data.fixedAnswer"></CreateAnswer>
   </div>
 </template>
 
@@ -99,10 +96,11 @@ export default {
     const data = reactive({
       fixedAnswer: {
         "fixed-bottom": false,
-        "ml-auto": false,
         "shadow-lg": false,
+        "mb-0": false,
+        "width-mobile": false,
       },
-      update: false,
+      updateAnswerFlag: false,
     });
 
     // QuestionDetailコンポーネントをロードした時に質問詳細を取得
@@ -112,21 +110,23 @@ export default {
       store.dispatch("getAnswers", route.params.id);
     });
 
-    function edit(answer) {
+    function editAnswer(answer) {
       store.commit("setAnswer", answer);
       data.fixedAnswer["fixed-bottom"] = true;
-      data.fixedAnswer["ml-auto"] = true;
       data.fixedAnswer["shadow-lg"] = true;
-      data.update = true;
+      data.fixedAnswer["mb-0"] = true;
+      data.fixedAnswer["width-mobile"] = true;
+      data.updateAnswerFlag = true;
     }
 
-    async function editCancel() {
-      data.fixedAnswer["fixed-bottom"] = false;
-      data.fixedAnswer["ml-auto"] = false;
-      data.fixedAnswer["shadow-lg"] = false;
-      await store.dispatch("getAnswers", route.params.id);
+    function editAnswerCancel() {
+      store.dispatch("getQuestionDetails", route.params.id);
+      store.dispatch("getAnswers", route.params.id);
       store.commit("resetNewAnswer");
-      data.update = false;
+      data.fixedAnswer["fixed-bottom"] = false;
+      data.fixedAnswer["shadow-lg"] = false;
+      data.fixedAnswer["width-mobile"] = false;
+      data.updateAnswerFlag = false;
     }
 
     async function updateSolved(id) {
@@ -180,8 +180,8 @@ export default {
       data,
       updateQuestion,
       updateSolved,
-      edit,
-      editCancel,
+      editAnswer,
+      editAnswerCancel,
     };
   },
 };
@@ -190,5 +190,15 @@ export default {
 <style scoped>
 .answer-card {
   border-color: var(--emphasis-color);
+}
+
+@media screen and (max-width: 959px) {
+  /* 959px以下に適用されるCSS（タブレット用） */
+}
+@media screen and (max-width: 480px) {
+  /* 480px以下に適用されるCSS（スマホ用） */
+  .width-mobile {
+    width: 90%;
+  }
 }
 </style>

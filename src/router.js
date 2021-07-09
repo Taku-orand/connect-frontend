@@ -41,7 +41,7 @@ export const router = createRouter({
           path: "list",
           name: "question_list",
           component: QuestionList,
-          props: { isMyPage: false, tagList: true },
+          props: { isMyPage: false, tagList: false },
         },
         {
           path: "detail/:id",

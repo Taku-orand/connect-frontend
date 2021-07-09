@@ -1,10 +1,14 @@
 <template>
   <div class="container">
     <h2 class="text-center"><i class="fas fa-portrait mr-2"></i>マイページ</h2>
-    <p class="mb-3 text-center"><i class="fas fa-user mr-2"></i>ユーザー名: {{ $store.state.user.name }}</p>
-    <p class="mb-3 text-center"><i class="fas fa-envelope mr-2"></i>メールアドレス: {{ $store.state.user.email }}</p>
-    <QuestionList :is-my-page="true"></QuestionList>
+    <div class="card">
+      <div class="card-body">
+        <p class="mb-3 text-center"><i class="fas fa-user mr-2"></i>ユーザー名: {{ $store.state.user.name }}</p>
+        <p class="mb-3 text-center"><i class="fas fa-envelope mr-2"></i>メールアドレス: {{ $store.state.user.email }}</p>
+      </div>
+    </div>
   </div>
+  <QuestionList :is-my-page="true"></QuestionList>
 </template>
 
 <script>

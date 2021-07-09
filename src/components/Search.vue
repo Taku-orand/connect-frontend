@@ -1,12 +1,12 @@
 <template>
-  <div class="row">
-    <div class="col-9">
-      <div class="form-group">
-        <input v-model="data.word" type="text" class="form-control" id="search" placeholder="検索..." />
+  <div class="row m-0">
+    <div class="col-10 pr-1 pr-md-3 pl-0">
+      <div class="form-group m-0">
+        <input v-model="data.word" type="text" class="form-control shadow" id="search" placeholder="検索..." />
       </div>
     </div>
-    <div class="col-3 pl-0">
-      <button v-on:click="search" class="btn btn-primary w-100 search-btn"><i class="fa fa-search" aria-hidden="true"></i></button>
+    <div class="col-2 pl-1 pl-md-3 pr-0">
+      <button v-on:click="search" class="btn btn-primary w-100 h-100 shadow search-btn"><i class="fa fa-search" aria-hidden="true"></i><span class="ml-2 search-btn-title">検索</span></button>
     </div>
   </div>
 </template>
@@ -70,7 +70,10 @@ export default {
 @media screen and (max-width: 480px) {
   /* 480px以下に適用されるCSS（スマホ用） */
   .search-btn {
-    font-size: 1rem;
+    font-size: 0.6rem;
+  }
+  .search-btn-title {
+    display: none;
   }
 }
 </style>
