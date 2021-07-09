@@ -1,18 +1,18 @@
 <template>
   <div class="container">
-    <h2 class="text-center m-5">サインイン</h2>
-    <div class="form-group m-5">
+    <h2 class="text-center"><i class="fas fa-sign-in-alt mr-2"></i>サインイン</h2>
+    <div class="form-group">
       <label for="email">メールアドレス</label>
       <input v-model="data.email" type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="メールアドレスを入力してください。" />
       <small id="emailHelp" class="form-text text-muted">あなたのメールアドレスを他の誰とも共有することはありません。</small>
     </div>
-    <div class="form-group m-5">
+    <div class="form-group">
       <label for="password">パスワード</label>
       <input v-model="data.password" type="password" class="form-control" id="password" placeholder="パスワードを入力してください。" />
     </div>
-    <div class="text-center m-5">
-      <button @click="backToHome" class="btn btn-secondary m-3">ホームに戻る</button>
-      <button @click="signin" class="btn btn-primary m-3">アカウント接続</button>
+    <div class="text-center my-4">
+      <button @click="backToHome" class="btn btn-secondary mr-3">ホームに戻る</button>
+      <button @click="signin" class="btn btn-primary ml-3">アカウント接続</button>
     </div>
   </div>
 </template>

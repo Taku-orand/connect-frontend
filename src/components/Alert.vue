@@ -1,9 +1,23 @@
 <template>
-  <div class="container-fluid">
+  <div class="container-fluid fixed-top">
     <!-- successアラート -->
-    <div v-if="$store.state.alert.flag.showSuccessAlert" class="alert alert-success mt-3" role="alert">{{ $store.state.alert.message.success }}</div>
+    <div v-if="$store.state.alert.flag.showSuccessAlert" class="alert alert-success shadow-lg mt-3" role="alert">
+      <div class="row">
+        <div class="col-10"><i class="fas fa-check-circle mr-2"></i>{{ $store.state.alert.message.success }}</div>
+        <div class="col-2 text-right">
+          <i class="fas fa-times ml-auto" @click="$store.commit('resetAlert')"></i>
+        </div>
+      </div>
+    </div>
     <!-- errorアラート -->
-    <div v-if="$store.state.alert.flag.showErrorAlert" class="alert alert-danger mt-3" role="alert">{{ $store.state.alert.message.error }}</div>
+    <div v-if="$store.state.alert.flag.showErrorAlert" class="alert alert-danger shadow-lg mt-3" role="alert">
+      <div class="row">
+        <div class="col-10"><i class="fas fa-exclamation-circle mr-2"></i>{{ $store.state.alert.message.error }}</div>
+        <div class="col-2 text-right">
+          <i class="fas fa-times ml-auto" @click="$store.commit('resetAlert')"></i>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
