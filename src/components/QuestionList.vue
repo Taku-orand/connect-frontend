@@ -1,18 +1,20 @@
 <template>
   <div class="container">
-    <div class="row sticky">
-      <div class="col-3 pr-0">
-        <div class="dropdown h-100">
-          <button class="btn btn-secondary shadow h-100" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-tags"></i></button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <TagList class="sticky-tag-list"></TagList>
+    <template v-if="!isMyPage">
+      <div class="row sticky mt-4">
+        <div class="col-2 pr-1 pr-md-3">
+          <div class="dropdown h-100">
+            <button class="btn btn-secondary shadow w-100 h-100 tag-list-btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-tags"></i><span class="ml-2 tag-list-title">タグ一覧</span></button>
+            <div class="dropdown-menu p-0" aria-labelledby="dropdownMenuButton">
+              <TagList></TagList>
+            </div>
           </div>
         </div>
+        <div class="col-10 pl-1 pl-md-3">
+          <Search></Search>
+        </div>
       </div>
-      <div class="col-9 pl-0">
-        <Search v-if="!isMyPage"></Search>
-      </div>
-    </div>
+    </template>
 
     <h2 class="text-center"><i class="fas fa-list mr-2"></i>質問一覧</h2>
 
@@ -184,11 +186,8 @@ export default {
 <style scoped>
 .sticky {
   position: sticky;
-  top: 2rem;
+  top: 1.5rem;
   z-index: 999;
-}
-.dropdown-tag {
-  display: none;
 }
 .questions-count {
   font-size: 1.5rem;
@@ -201,8 +200,11 @@ export default {
 }
 @media screen and (max-width: 576px) {
   /* 576px以下に適用されるCSS（スマホ用） */
-  .dropdown-tag {
-    display: block;
+  .tag-list-title {
+    display: none;
+  }
+  .tag-list-btn {
+    font-size: 0.6rem;
   }
   .questions-count {
     font-size: 0.9rem;

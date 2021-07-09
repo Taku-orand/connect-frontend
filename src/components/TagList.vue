@@ -56,8 +56,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.list-group {
-  height: 50vh;
-}
-</style>
+<style scoped></style>

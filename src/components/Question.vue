@@ -1,7 +1,5 @@
 <template>
-  <div class="container">
-    <router-view @showTagList="showTagList"></router-view>
-  </div>
+  <router-view @showTagList="showTagList"></router-view>
 </template>
 
 <script>
