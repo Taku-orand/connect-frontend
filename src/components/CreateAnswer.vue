@@ -1,9 +1,13 @@
 <template>
-  <div class="container">
-    <h2 class="text-center"><i class="fas fa-comment-dots mr-2"></i>回答投稿</h2>
-    <Form :isAnswer="true"></Form>
-    <div class="text-right">
-      <button @click="createAnswer()" class="btn btn-primary btn-lg p-md-3 mb-3 mb-md-5"><i class="fas fa-reply mr-2"></i>回答投稿</button>
+  <div class="container p-0">
+    <div class="card h-100">
+      <div class="card-body py-0">
+        <h2 class="text-center"><i class="fas fa-comment-dots mr-2"></i>回答投稿</h2>
+        <Form :isAnswer="true"></Form>
+        <div class="text-right">
+          <button @click="createAnswer()" class="btn btn-primary btn-lg p-md-3 mb-3 mb-md-5"><i class="fas fa-reply mr-2"></i>回答投稿</button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
