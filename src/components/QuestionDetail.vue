@@ -58,7 +58,7 @@
                 <div class="mt-2">{{ answer.updated_at.substr(0, 4) }}/{{ answer.updated_at.substr(5, 2) }}/{{ answer.updated_at.substr(8, 2) }}</div>
               </div>
               <div class="col-6 text-right">
-                <button v-if="$store.state.user.id == answer.user_id" class="btn btn-secondary mr-2" @click="editAnswer(answer)">編集</button>
+                <button v-if="$store.state.user.id == answer.user_id" class="btn btn-secondary p-1 p-md-2 mr-2" @click="editAnswer(answer)"><i class="fas fa-edit mr-1"></i>編集</button>
                 <LikeButton :question="answer" :is-my-page="false" :isQuestionDetails="false" :isAnswer="true"></LikeButton>
               </div>
             </div>
