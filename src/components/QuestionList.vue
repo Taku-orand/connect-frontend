@@ -193,7 +193,7 @@ export default {
   font-size: 1.5rem;
 }
 .card-body {
-  height: 10rem;
+  height: 15rem;
 }
 @media screen and (max-width: 959px) {
   /* 959px以下に適用されるCSS（タブレット用） */
