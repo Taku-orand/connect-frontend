@@ -8,7 +8,7 @@ export const store = createStore({
     return {
       // ユーザー
       user: {
-        name: "ゲストユーザー",
+        name: "ゲスト",
       },
 
       // アラート
@@ -41,7 +41,15 @@ export const store = createStore({
   },
 
   // state 内のデータの状態から算出される値
-  getters: {},
+  getters: {
+    getLikeSum: (state) => {
+      let likeSum = 0;
+      state.questions.forEach((question) => {
+        likeSum += question.like_count;
+      });
+      return likeSum;
+    },
+  },
 
   // state のデータを直接操作するための関数（非同期処理は定義不可）
   mutations: {
@@ -95,7 +103,7 @@ export const store = createStore({
       state.newAnswer.anonymous = false;
     },
 
-    setAnswer: (state,answer)=>{
+    setAnswer: (state, answer) => {
       state.newAnswer = answer;
     },
 
