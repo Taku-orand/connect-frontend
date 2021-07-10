@@ -197,12 +197,12 @@ export default {
 }
 @media screen and (max-width: 959px) {
   /* 959px以下に適用されるCSS（タブレット用） */
-}
-@media screen and (max-width: 576px) {
-  /* 576px以下に適用されるCSS（スマホ用） */
   .tag-list-title {
     display: none;
   }
+}
+@media screen and (max-width: 576px) {
+  /* 576px以下に適用されるCSS（スマホ用） */
   .tag-list-btn {
     font-size: 0.6rem;
   }
