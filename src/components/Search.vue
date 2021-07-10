@@ -66,14 +66,14 @@ export default {
 <style scoped>
 @media screen and (max-width: 959px) {
   /* 959px以下に適用されるCSS（タブレット用） */
+  .search-btn-title {
+    display: none;
+  }
 }
 @media screen and (max-width: 480px) {
   /* 480px以下に適用されるCSS（スマホ用） */
   .search-btn {
     font-size: 0.6rem;
-  }
-  .search-btn-title {
-    display: none;
   }
 }
 </style>

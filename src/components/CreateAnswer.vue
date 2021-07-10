@@ -11,7 +11,7 @@
         <Form :isAnswer="true"></Form>
         <div class="row">
           <div class="col">
-            <button v-if="updateAnswerFlag" class="btn btn-secondary" @click="editAnswerCancel()">編集キャンセル</button>
+            <button v-if="updateAnswerFlag" class="btn btn-secondary" @click="editAnswerCancel()"><i class="fas fa-edit mr-2"></i>キャンセル</button>
           </div>
           <div class="col">
             <div class="text-right">

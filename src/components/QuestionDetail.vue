@@ -37,33 +37,35 @@
     <div class="badge badge-secondary text-left w-100 p-2 mb-2 mb-md-3">{{ $store.state.answers.length }}件の回答</div>
 
     <!-- 回答を表示 -->
-    <template v-for="(answer, key) in $store.state.answers" :key="key">
-      <div class="card mb-4 answer-card">
-        <div class="card-header">
-          <div class="row">
-            <div class="col-6">
-              <div v-if="answer.anonymous"><i class="fas fa-user mr-2"></i>匿名</div>
-              <div v-else><i class="fas fa-user mr-2"></i>{{ answer.user_name }}</div>
-            </div>
-            <div class="col-6 text-right"></div>
-          </div>
-        </div>
-        <div class="card-body">
-          <Markdown :source="String(answer.content)" :linkify="true" :emoji="data.emoji" :breaks="data.breaks" />
-        </div>
-        <div class="card-footer text-muted">
-          <div class="row">
-            <div class="col-6">
-              <div class="mt-2">{{ answer.updated_at.substr(0, 4) }}/{{ answer.updated_at.substr(5, 2) }}/{{ answer.updated_at.substr(8, 2) }}</div>
-            </div>
-            <div class="col-6 text-right">
-              <button v-if="$store.state.user.id == answer.user_id" class="btn btn-secondary mr-2" @click="editAnswer(answer)">編集</button>
-              <LikeButton :question="answer" :is-my-page="false" :isQuestionDetails="false" :isAnswer="true"></LikeButton>
+    <div :class="data.answerArea">
+      <template v-for="(answer, key) in $store.state.answers" :key="key">
+        <div class="card mb-4 answer-card">
+          <div class="card-header">
+            <div class="row">
+              <div class="col-6">
+                <div v-if="answer.anonymous"><i class="fas fa-user mr-2"></i>匿名</div>
+                <div v-else><i class="fas fa-user mr-2"></i>{{ answer.user_name }}</div>
+              </div>
+              <div class="col-6 text-right"></div>
             </div>
           </div>
+          <div class="card-body">
+            <Markdown :source="String(answer.content)" :linkify="true" :emoji="data.emoji" :breaks="data.breaks" />
+          </div>
+          <div class="card-footer text-muted">
+            <div class="row">
+              <div class="col-6">
+                <div class="mt-2">{{ answer.updated_at.substr(0, 4) }}/{{ answer.updated_at.substr(5, 2) }}/{{ answer.updated_at.substr(8, 2) }}</div>
+              </div>
+              <div class="col-6 text-right">
+                <button v-if="$store.state.user.id == answer.user_id" class="btn btn-secondary p-1 p-md-2 mr-2" @click="editAnswer(answer)"><i class="fas fa-edit mr-1"></i>編集</button>
+                <LikeButton :question="answer" :is-my-page="false" :isQuestionDetails="false" :isAnswer="true"></LikeButton>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </template>
+      </template>
+    </div>
     <CreateAnswer :question="$store.state.questionDetails" :updateAnswerFlag="data.updateAnswerFlag" @editAnswerCancel="editAnswerCancel()" v-bind:class="data.fixedAnswer"></CreateAnswer>
   </div>
 </template>
@@ -100,6 +102,9 @@ export default {
         "mb-0": false,
         "width-mobile": false,
       },
+      answerArea: {
+        "answer-area-mb": false,
+      },
       updateAnswerFlag: false,
     });
 
@@ -116,6 +121,7 @@ export default {
       data.fixedAnswer["shadow-lg"] = true;
       data.fixedAnswer["mb-0"] = true;
       data.fixedAnswer["width-mobile"] = true;
+      data.answerArea["answer-area-mb"] = true;
       data.updateAnswerFlag = true;
     }
 
@@ -126,6 +132,7 @@ export default {
       data.fixedAnswer["fixed-bottom"] = false;
       data.fixedAnswer["shadow-lg"] = false;
       data.fixedAnswer["width-mobile"] = false;
+      data.answerArea["answer-area-mb"] = false;
       data.updateAnswerFlag = false;
     }
 
@@ -188,10 +195,12 @@ export default {
 </script>
 
 <style scoped>
+.answer-area-mb {
+  margin-bottom: 40rem;
+}
 .answer-card {
   border-color: var(--emphasis-color);
 }
-
 @media screen and (max-width: 959px) {
   /* 959px以下に適用されるCSS（タブレット用） */
 }
