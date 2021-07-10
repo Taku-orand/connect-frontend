@@ -192,6 +192,9 @@ export default {
 .questions-count {
   font-size: 1.5rem;
 }
+.card {
+  cursor: pointer;
+}
 .card-body {
   height: 15rem;
 }

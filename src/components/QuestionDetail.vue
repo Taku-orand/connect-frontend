@@ -201,7 +201,6 @@ export default {
 .answer-card {
   border-color: var(--emphasis-color);
 }
-
 @media screen and (max-width: 959px) {
   /* 959px以下に適用されるCSS（タブレット用） */
 }
