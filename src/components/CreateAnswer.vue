@@ -8,7 +8,7 @@
         <div v-else>
           <h2 class="text-center"><i class="fas fa-comment-dots mr-2"></i>回答投稿</h2>
         </div>
-        <Form :isAnswer="true"></Form>
+        <Form :isAnswer="true" :updateAnswerFlag="updateAnswerFlag"></Form>
         <div class="row">
           <div class="col">
             <button v-if="updateAnswerFlag" class="btn btn-secondary" @click="editAnswerCancel()"><i class="fas fa-edit mr-2"></i>キャンセル</button>

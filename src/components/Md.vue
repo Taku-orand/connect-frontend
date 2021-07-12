@@ -37,8 +37,8 @@
             </div>
           </div>
           <div class="tab-pane fade" id="preview" role="tabpanel" aria-labelledby="preview-tab">
-            <div class="card">
-              <div class="card-body">
+            <div class="card h-100">
+              <div class="card-body overflow-auto" :class="data.answerForm">
                 <Markdown v-if="!isAnswer" :source="$store.state.questionDetails.content" :linkify="true" :emoji="data.emoji" :breaks="data.breaks" />
                 <Markdown v-if="isAnswer" :source="$store.state.newAnswer.content" :linkify="true" :emoji="data.emoji" :breaks="data.breaks" />
               </div>
@@ -56,7 +56,7 @@
           </div>
           <div class="col pl-0">
             <div class="card h-100">
-              <div class="card-body">
+              <div class="card-body overflow-auto" :class="data.answerForm">
                 <Markdown v-if="!isAnswer" :source="$store.state.questionDetails.content" :linkify="true" :emoji="data.emoji" :breaks="data.breaks" />
                 <Markdown v-if="isAnswer" :source="$store.state.newAnswer.content" :linkify="true" :emoji="data.emoji" :breaks="data.breaks" />
               </div>
@@ -71,7 +71,7 @@
 <script>
 import Markdown from "vue3-markdown-it";
 import { useStore } from "vuex";
-import { reactive, onMounted } from "vue";
+import { reactive, onUpdated } from "vue";
 
 export default {
   components: {
@@ -79,6 +79,7 @@ export default {
   },
   props: {
     isAnswer: Boolean,
+    updateAnswerFlag: Boolean,
   },
   setup(props) {
     const store = useStore();
@@ -88,9 +89,16 @@ export default {
       source: "",
       breaks: true,
       storeTarget: "",
+      answerForm: {
+        "fixed-form": false,
+      },
     });
 
-    onMounted(() => {});
+    onUpdated(() => {
+      if (props.updateAnswerFlag) {
+        data.answerForm["fixed-form"] = true;
+      }
+    });
 
     function input(type) {
       if (!props.isAnswer) {
@@ -222,6 +230,10 @@ blockquote cite {
 
 .input-tab {
   display: none;
+}
+
+.fixed-form {
+  height: 15.7rem;
 }
 
 @media screen and (max-width: 959px) {
