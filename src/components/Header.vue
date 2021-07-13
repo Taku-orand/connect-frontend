@@ -15,11 +15,11 @@
           <div class="dropdown dropleft">
             <button class="btn btn-secondary btn-lg" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-bars"></i></button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <router-link @click="$store.commit('resetAlert')" class="dropdown-item" to="/my_page"><i class="fas fa-portrait mr-2"></i>マイページ</router-link>
+              <router-link v-if="$store.state.user.id != 0" @click="$store.commit('resetAlert')" class="dropdown-item" to="/my_page"><i class="fas fa-portrait mr-2"></i>マイページ</router-link>
               <router-link @click="$store.commit('resetAlert')" class="dropdown-item" to="/question/list"><i class="fas fa-list mr-2 mr-2"></i>質問一覧</router-link>
               <router-link @click="$store.commit('resetAlert')" class="dropdown-item" to="/signup"><i class="fas fa-user-plus mr-2"></i>サインアップ</router-link>
               <router-link @click="$store.commit('resetAlert')" class="dropdown-item" to="/signin"><i class="fas fa-sign-in-alt mr-2"></i>サインイン</router-link>
-              <button @click="signOut" class="dropdown-item"><i class="fas fa-sign-out-alt mr-2"></i>サインアウト</button>
+              <button v-if="$store.state.user.id != 0" @click="signOut" class="dropdown-item"><i class="fas fa-sign-out-alt mr-2"></i>サインアウト</button>
               <router-link @click="$store.commit('resetAlert')" class="dropdown-item" to="/request"><i class="fas fa-lightbulb mr-2"></i>意見ボックス</router-link>
             </div>
           </div>
@@ -63,7 +63,7 @@ export default {
                 showErrorAlert: false,
               },
               message: {
-                success: "ログアウトしました。",
+                success: "サインアウトしました。",
               },
             });
             router.push({
@@ -76,7 +76,7 @@ export default {
                 showErrorAlert: true,
               },
               message: {
-                error: "ログアウトに失敗しました。もう一度行ってください。",
+                error: "サインアウトに失敗しました。もう一度行ってください。",
               },
             });
           }

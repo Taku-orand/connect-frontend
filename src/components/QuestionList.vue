@@ -63,7 +63,7 @@
               <p class="m-0">{{ question.updated_at.substr(0, 4) }}/{{ question.updated_at.substr(5, 2) }}/{{ question.updated_at.substr(8, 2) }}</p>
             </div>
             <div class="col-6 pl-0 text-right">
-              <button @click.stop="updateQuestion(question)" v-if="$store.state.user.id == question.user_id && !question.solved" class="btn btn-secondary p-1 p-md-2 mr-2"><i class="fas fa-edit mr-1"></i>編集</button>
+              <button @click.stop="updateQuestion(question)" v-if="$store.state.user.id == question.user_id && !question.solved && $store.state.user.id != 0" class="btn btn-secondary p-1 p-md-2 mr-2"><i class="fas fa-edit mr-1"></i>編集</button>
               <LikeButton :question="question" :is-my-page="isMyPage" :isQuestionDetails="false" :isAnswer="false"></LikeButton>
             </div>
           </div>
@@ -141,6 +141,18 @@ export default {
       router.push({
         name: "post",
       });
+      if (store.state.user.id == 0) {
+        store.commit("setAlert", {
+          flag: {
+            showSuccessAlert: false,
+            showErrorAlert: false,
+            showWarningAlert: true,
+          },
+          message: {
+            warning: "ゲストユーザーで投稿すると、あとで投稿を確認したり、編集ができなくなります。サインアップまたはサインインしていただくことでマイページより自分の質問を確認したり、質問を修正したりできるようになります。",
+          },
+        });
+      }
     }
 
     function sort(type) {
