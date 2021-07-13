@@ -40,6 +40,9 @@ export const store = createStore({
       tags: {},
       // 選択されたタグ
       selected_tags_id: [],
+
+      // 意見一覧
+      requests: {},
     };
   },
 
@@ -142,6 +145,11 @@ export const store = createStore({
     },
     removeTagId: (state, id) => {
       state.selected_tags_id.splice(state.selected_tags_id.indexOf(id), 1);
+    },
+
+    // 意見
+    setRequest: (state, requests) => {
+      state.requests = requests;
     },
   },
 
@@ -246,6 +254,17 @@ export const store = createStore({
         .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/tags/index`, { withCredentials: true })
         .then((response) => {
           context.commit("setTags", response.data.tags);
+        })
+        .catch((e) => {
+          alert(e);
+        });
+    },
+
+    getRequests: async function(context) {
+      await axios
+        .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/requests/index`, { withCredentials: true })
+        .then((response) => {
+          context.commit("setRequest", response.data.requests);
         })
         .catch((e) => {
           alert(e);

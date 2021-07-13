@@ -20,6 +20,7 @@
               <router-link @click="$store.commit('resetAlert')" class="dropdown-item" to="/signup"><i class="fas fa-user-plus mr-2"></i>サインアップ</router-link>
               <router-link @click="$store.commit('resetAlert')" class="dropdown-item" to="/signin"><i class="fas fa-sign-in-alt mr-2"></i>サインイン</router-link>
               <button v-if="$store.state.user.id != 0" @click="signOut" class="dropdown-item"><i class="fas fa-sign-out-alt mr-2"></i>サインアウト</button>
+              <router-link @click="$store.commit('resetAlert')" class="dropdown-item" to="/request"><i class="fas fa-lightbulb mr-2"></i>意見ボックス</router-link>
             </div>
           </div>
         </div>
