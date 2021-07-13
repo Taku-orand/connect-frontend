@@ -23,7 +23,7 @@
         </div>
       </div>
       <div class="col-6 pl-0 text-right">
-        <button type="button" class="btn btn-secondary p-1 p-md-2" @click="isAnon">匿名で投稿する</button>
+        <button v-if="$store.state.user.id != 0" type="button" class="btn btn-secondary p-1 p-md-2" @click="isAnon">匿名で投稿する</button>
       </div>
     </div>
   </div>
