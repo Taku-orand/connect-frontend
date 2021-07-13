@@ -8,6 +8,7 @@ export const store = createStore({
     return {
       // ユーザー
       user: {
+        id: 0,
         name: "ゲスト",
       },
 
@@ -16,10 +17,12 @@ export const store = createStore({
         flag: {
           showSuccessAlert: false,
           showErrorAlert: false,
+          showWarningAlert: false,
         },
         message: {
           success: "",
           error: "",
+          warning: "",
         },
       },
 
@@ -59,7 +62,7 @@ export const store = createStore({
     },
 
     resetUser: (state) => {
-      state.user.name = "ゲストユーザー";
+      state.user.name = "ゲスト";
     },
 
     // アラート
@@ -72,10 +75,12 @@ export const store = createStore({
         flag: {
           showSuccessAlert: false,
           showErrorAlert: false,
+          showWarningAlert: false,
         },
         message: {
           success: "",
           error: "",
+          warning: "",
         },
       };
     },
