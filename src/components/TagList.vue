@@ -29,10 +29,10 @@ export default {
 
     function getQuestionByTag(id) {
       axios
-        .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/tags/${id}`, { withCredentials: true })
+        .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/tag/${id}`, { withCredentials: true })
         .then((response) => {
           if (response.data.get_question) {
-            store.dispatch("setQuestions", response.data.questions);
+            store.commit("setQuestions", response.data.questions);
           } else {
             store.commit("setAlert", {
               flag: {
