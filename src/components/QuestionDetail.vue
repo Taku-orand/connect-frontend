@@ -7,17 +7,20 @@
         <div class="card-header">
           <div class="row">
             <div class="col-6">
-              <div v-if="question.anonymous"><i class="fas fa-user mr-2"></i>匿名</div>
-              <div v-else><i class="fas fa-user mr-2"></i>{{ question.user_name }}</div>
+              <p v-if="question.anonymous" class="m-0"><i class="fas fa-user mr-2"></i>匿名</p>
+              <p v-else class="m-0"><i class="fas fa-user mr-2"></i>{{ question.user_name }}</p>
             </div>
             <div class="col-6 text-right">
-              <button @click.stop="updateSolved(question.id)" v-if="$store.state.user.id == question.user_id && !question.solved && $store.state.user.id != 0" class="btn btn-success p-1 p-md-2">解決済にする！</button>
               <span v-if="question.solved" class="badge badge-secondary p-1 p-md-2"><i class="fas fa-check-circle mr-1"></i>解決済</span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <h5 class="m-0">{{ question.title }}</h5>
             </div>
           </div>
         </div>
         <div class="card-body">
-          <h5 class="card-title">{{ question.title }}</h5>
           <Markdown :source="String(question.content)" :linkify="true" :emoji="data.emoji" :breaks="data.breaks" />
         </div>
         <div class="card-footer text-muted">

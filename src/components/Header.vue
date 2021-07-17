@@ -4,8 +4,12 @@
       <div class="row">
         <div class="col-6">
           <div class="p-2">
-            <h1 class="m-0">Connect</h1>
-            <h2 class="m-0">会津大学の知恵袋</h2>
+            <div class="row">
+              <h1 @click="goHome()" class="d-inline m-0">Connect</h1>
+            </div>
+            <div class="row">
+              <h2 @click="goHome()" class="d-inline m-0">会津大学の知恵袋</h2>
+            </div>
           </div>
         </div>
         <div class="col-4 d-flex align-items-center justify-content-end">
@@ -86,9 +90,16 @@ export default {
         });
     }
 
+    function goHome() {
+      router.push({
+        name: "home",
+      });
+    }
+
     return {
       data,
       signOut,
+      goHome,
     };
   },
 };
@@ -97,6 +108,10 @@ export default {
 <style scoped>
 header {
   background-color: var(--main-color);
+}
+
+.header-logo {
+  cursor: pointer;
 }
 
 @media screen and (max-width: 959px) {
