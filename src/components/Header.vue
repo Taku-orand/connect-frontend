@@ -5,10 +5,10 @@
         <div class="col-6">
           <div class="p-2 pl-md-5">
             <div class="row">
-              <h1 @click="goHome()" class="d-inline m-0">Connect</h1>
+              <h1 @click="goHome()" class="d-inline m-0 header-logo">Connect</h1>
             </div>
             <div class="row">
-              <h2 @click="goHome()" class="d-inline m-0">会津大学の知恵袋</h2>
+              <h2 @click="goHome()" class="d-inline m-0 header-logo">会津大学の知恵袋</h2>
             </div>
           </div>
         </div>
