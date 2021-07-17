@@ -16,7 +16,7 @@
 import { reactive, onMounted } from "vue";
 // import axios from "axios";
 // import { useRoute } from "vue-router";
-// import { useStore } from "vuex";
+import { useStore } from "vuex";
 
 import QuestionList from "./QuestionList.vue";
 
@@ -29,13 +29,15 @@ export default {
   setup() {
     // const router = useRouter();
     // const route = useRoute();
-    // const store = useStore();
+    const store = useStore();
 
     const data = reactive({
       likeSum: 0,
     });
 
-    onMounted(() => {});
+    onMounted(() => {
+      store.dispatch("checkSignedIn");
+    });
 
     return {
       data,
