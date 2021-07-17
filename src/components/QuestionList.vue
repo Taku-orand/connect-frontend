@@ -4,7 +4,7 @@
       <div class="row sticky mt-4">
         <div class="col-2 pr-1 pr-md-3">
           <div class="dropdown h-100">
-            <button type="button" class="btn btn-secondary shadow w-100 h-100 tag-list-btn" data-toggle="modal" data-target="#selectTagModal">タグ一覧</button>
+            <button type="button" class="btn btn-secondary shadow w-100 h-100 tag-list-btn" data-toggle="modal" data-target="#selectTagModal"><i class="fas fa-tags"></i><span class="ml-2 tag-list-title">タグ一覧</span></button>
             <!-- <button class="btn btn-secondary shadow w-100 h-100 tag-list-btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-tags"></i><span class="ml-2 tag-list-title">タグ一覧</span></button>
             <div class="dropdown-menu p-0" aria-labelledby="dropdownMenuButton">
               <TagList></TagList>
