@@ -58,7 +58,7 @@ export default {
               name: data.name,
               email: data.email,
               password: data.password,
-              passwordConfirmation: data.passwordConfirmation,
+              password_confirmation: data.passwordConfirmation,
             },
           },
           { withCredentials: true }

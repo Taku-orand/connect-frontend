@@ -278,6 +278,7 @@ export default {
     height: 8rem;
   }
   .create-question-btn {
+    width: 50%;
     font-size: 1.5rem;
   }
 }
