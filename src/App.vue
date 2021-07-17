@@ -1,7 +1,12 @@
 <template>
-  <Header></Header>
-  <Alert></Alert>
-  <router-view></router-view>
+  <div class="app">
+    <Header></Header>
+    <Alert></Alert>
+    <router-view class="main"></router-view>
+    <footer class="text-center copyright p-2 p-md-3 m-0">
+      &copy; 2021 Oranginner
+    </footer>
+  </div>
 </template>
 
 <script>
@@ -94,6 +99,21 @@ a {
 
 h2 {
   margin: 2rem;
+}
+
+.app {
+  display: flex;
+  flex-flow: column;
+  min-height: 100vh;
+}
+
+.main {
+  flex: 1;
+}
+
+.copyright {
+  background-color: var(--sub-color);
+  color: var(--base-color);
 }
 
 @media screen and (max-width: 959px) {
