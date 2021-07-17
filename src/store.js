@@ -99,6 +99,8 @@ export const store = createStore({
     },
     resetQuestionDetails: (state) => {
       state.questionDetails = {};
+      state.questionDetails.title = "";
+      state.questionDetails.content = "";
     },
 
     // 回答
