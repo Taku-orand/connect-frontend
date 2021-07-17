@@ -4,10 +4,11 @@
       <div class="row sticky mt-4">
         <div class="col-2 pr-1 pr-md-3">
           <div class="dropdown h-100">
-            <button class="btn btn-secondary shadow w-100 h-100 tag-list-btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-tags"></i><span class="ml-2 tag-list-title">タグ一覧</span></button>
+            <button type="button" class="btn btn-secondary shadow w-100 h-100 tag-list-btn" data-toggle="modal" data-target="#selectTagModal">タグ一覧</button>
+            <!-- <button class="btn btn-secondary shadow w-100 h-100 tag-list-btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-tags"></i><span class="ml-2 tag-list-title">タグ一覧</span></button>
             <div class="dropdown-menu p-0" aria-labelledby="dropdownMenuButton">
               <TagList></TagList>
-            </div>
+            </div> -->
           </div>
         </div>
         <div class="col-10 pl-1 pl-md-3">
@@ -15,6 +16,25 @@
         </div>
       </div>
     </template>
+
+    <!-- タグ選択モーダル -->
+    <div class="modal fade" id="selectTagModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">タグで質問を絞り込む</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <template v-for="(tag, key) in $store.state.tags" :key="key">
+              <button @click="getQuestionByTag(tag.id)" class="btn btn-secondary mr-2 mb-2" data-dismiss="modal"><i class="fas fa-tag mr-1"></i>{{ tag.name }}</button>
+            </template>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <h2 class="text-center"><i class="fas fa-list mr-2"></i>質問一覧</h2>
 
@@ -80,11 +100,11 @@
 
 <script>
 import { reactive, onMounted } from "vue";
-// import axios from "axios";
+import axios from "axios";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 
-import TagList from "./TagList.vue";
+// import TagList from "./TagList.vue";
 import LikeButton from "./LikeButton.vue";
 import Markdown from "vue3-markdown-it";
 import Search from "./Search.vue";
@@ -93,7 +113,7 @@ export default {
   name: "QuestionList",
 
   components: {
-    TagList,
+    // TagList,
     LikeButton,
     Markdown,
     Search,
@@ -117,6 +137,7 @@ export default {
       } else {
         store.dispatch("getQuestions");
       }
+      store.dispatch("getTags");
     });
 
     function showDetail(question) {
@@ -188,12 +209,37 @@ export default {
       }
     }
 
+    function getQuestionByTag(id) {
+      axios
+        .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/tag/${id}`, { withCredentials: true })
+        .then((response) => {
+          if (response.data.get_question) {
+            store.commit("setQuestions", response.data.questions);
+          } else {
+            store.commit("setAlert", {
+              flag: {
+                showSuccessAlert: false,
+                showErrorAlert: true,
+                showWarningAlert: false,
+              },
+              message: {
+                error: "タグ絞り込みに失敗しました。",
+              },
+            });
+          }
+        })
+        .catch((e) => {
+          alert(e);
+        });
+    }
+
     return {
       data,
       showDetail,
       updateQuestion,
       goCreateQuestion,
       sort,
+      getQuestionByTag,
     };
   },
 };
