@@ -3,7 +3,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-6">
-          <div class="p-2">
+          <div class="p-2 pl-md-5">
             <div class="row">
               <h1 @click="goHome()" class="d-inline m-0">Connect</h1>
             </div>
