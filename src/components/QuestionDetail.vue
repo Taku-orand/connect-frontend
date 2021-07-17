@@ -11,7 +11,7 @@
               <div v-else><i class="fas fa-user mr-2"></i>{{ question.user_name }}</div>
             </div>
             <div class="col-6 text-right">
-              <button @click.stop="updateSolved(question.id)" v-if="$store.state.user.id == question.user_id && !question.solved" class="btn btn-success  p-1 p-md-2">解決済にする！</button>
+              <button @click.stop="updateSolved(question.id)" v-if="$store.state.user.id == question.user_id && !question.solved && $store.state.user.id != 0" class="btn btn-success p-1 p-md-2">解決済にする！</button>
               <span v-if="question.solved" class="badge badge-secondary p-1 p-md-2"><i class="fas fa-check-circle mr-1"></i>解決済</span>
             </div>
           </div>
@@ -26,7 +26,7 @@
               <p v-if="question.updated_at" class="m-0">{{ question.updated_at.substr(0, 4) }}/{{ question.updated_at.substr(5, 2) }}/{{ question.updated_at.substr(8, 2) }}</p>
             </div>
             <div class="col-6 pl-0 text-right">
-              <button @click.stop="updateQuestion(question)" v-if="$store.state.user.id == question.user_id && !question.solved" class="btn btn-secondary p-1 p-md-2 mr-2"><i class="fas fa-edit mr-1"></i>編集</button>
+              <button @click.stop="updateQuestion(question)" v-if="$store.state.user.id == question.user_id && !question.solved && $store.state.user.id != 0" class="btn btn-secondary p-1 p-md-2 mr-2"><i class="fas fa-edit mr-1"></i>編集</button>
               <LikeButton :question="question" :is-my-page="false" :isQuestionDetails="true" :isAnswer="false"></LikeButton>
             </div>
           </div>
@@ -58,7 +58,7 @@
                 <div class="mt-2">{{ answer.updated_at.substr(0, 4) }}/{{ answer.updated_at.substr(5, 2) }}/{{ answer.updated_at.substr(8, 2) }}</div>
               </div>
               <div class="col-6 text-right">
-                <button v-if="$store.state.user.id == answer.user_id" class="btn btn-secondary p-1 p-md-2 mr-2" @click="editAnswer(answer)"><i class="fas fa-edit mr-1"></i>編集</button>
+                <button v-if="$store.state.user.id == answer.user_id && $store.state.user.id != 0" class="btn btn-secondary p-1 p-md-2 mr-2" @click="editAnswer(answer)"><i class="fas fa-edit mr-1"></i>編集</button>
                 <LikeButton :question="answer" :is-my-page="false" :isQuestionDetails="false" :isAnswer="true"></LikeButton>
               </div>
             </div>

@@ -23,7 +23,7 @@
         </div>
       </div>
       <div class="col-6 pl-0 text-right">
-        <button type="button" class="btn btn-secondary p-1 p-md-2" @click="isAnon">匿名で投稿する</button>
+        <button v-if="$store.state.user.id != 0" type="button" class="btn btn-secondary p-1 p-md-2" @click="isAnon">匿名で投稿する</button>
       </div>
     </div>
   </div>
@@ -46,7 +46,7 @@
     <label for="title"><i class="fas fa-heading mr-2"></i>タイトル</label>
     <input v-model="$store.state.questionDetails.title" type="text" class="form-control" id="title" placeholder="タイトルを入力してください。" />
   </div>
-  <Md :isAnswer="isAnswer"></Md>
+  <Md :isAnswer="isAnswer" :updateAnswerFlag="updateAnswerFlag"></Md>
 
   <!-- タグ選択モーダル -->
   <div class="modal fade" id="selectTagModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -86,6 +86,7 @@ export default {
   },
   props: {
     isAnswer: Boolean,
+    updateAnswerFlag: Boolean,
   },
   setup(props) {
     const store = useStore();

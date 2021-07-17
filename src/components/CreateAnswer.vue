@@ -8,7 +8,7 @@
         <div v-else>
           <h2 class="text-center"><i class="fas fa-comment-dots mr-2"></i>回答投稿</h2>
         </div>
-        <Form :isAnswer="true"></Form>
+        <Form :isAnswer="true" :updateAnswerFlag="updateAnswerFlag"></Form>
         <div class="row">
           <div class="col">
             <button v-if="updateAnswerFlag" class="btn btn-secondary" @click="editAnswerCancel()"><i class="fas fa-edit mr-2"></i>キャンセル</button>
@@ -54,48 +54,61 @@ export default {
     });
 
     async function createAnswer() {
-      await axios
-        .post(
-          `${process.env.VUE_APP_CONNECT_BACKEND_URL}/answers/create`,
-          {
-            answer: {
-              content: store.state.newAnswer.content,
-              anonymous: store.state.newAnswer.anonymous,
-              question_id: props.question.id,
-            },
+      if (store.state.newAnswer.content == "") {
+        store.commit("setAlert", {
+          flag: {
+            showSuccessAlert: false,
+            showErrorAlert: true,
+            showWarningAlert: false,
           },
-          { withCredentials: true }
-        )
-        .then((response) => {
-          console.log(response);
-          if (response.data.created_answer) {
-            store.commit("setAlert", {
-              flag: {
-                showSuccessAlert: true,
-                showErrorAlert: false,
-              },
-              message: {
-                success: "投稿に成功しました",
-              },
-            });
-            store.dispatch("getQuestionDetails", route.params.id);
-            store.dispatch("getAnswers", route.params.id);
-            store.commit("resetNewAnswer");
-          } else {
-            store.commit("setAlert", {
-              flag: {
-                showSuccessAlert: false,
-                showErrorAlert: true,
-              },
-              message: {
-                error: "投稿に失敗しました。",
-              },
-            });
-          }
-        })
-        .catch((e) => {
-          alert(e);
+          message: {
+            error: "内容を入力してから投稿してください。",
+          },
         });
+      } else {
+        await axios
+          .post(
+            `${process.env.VUE_APP_CONNECT_BACKEND_URL}/answers/create`,
+            {
+              answer: {
+                content: store.state.newAnswer.content,
+                anonymous: store.state.newAnswer.anonymous,
+                question_id: props.question.id,
+              },
+            },
+            { withCredentials: true }
+          )
+          .then((response) => {
+            console.log(response);
+            if (response.data.created_answer) {
+              store.commit("setAlert", {
+                flag: {
+                  showSuccessAlert: true,
+                  showErrorAlert: false,
+                },
+                message: {
+                  success: "投稿に成功しました",
+                },
+              });
+              store.dispatch("getQuestionDetails", route.params.id);
+              store.dispatch("getAnswers", route.params.id);
+              store.commit("resetNewAnswer");
+            } else {
+              store.commit("setAlert", {
+                flag: {
+                  showSuccessAlert: false,
+                  showErrorAlert: true,
+                },
+                message: {
+                  error: "投稿に失敗しました。",
+                },
+              });
+            }
+          })
+          .catch((e) => {
+            alert(e);
+          });
+      }
     }
 
     async function updateAnswer() {

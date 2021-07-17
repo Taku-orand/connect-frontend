@@ -8,6 +8,7 @@ import QuestionList from "./components/QuestionList.vue";
 import QuestionDetail from "./components/QuestionDetail.vue";
 import CreateQuestion from "./components/CreateQuestion.vue";
 import UpdateQuestion from "./components/UpdateQuestion.vue";
+import Request from "./components/Request.vue";
 
 export const router = createRouter({
   history: createWebHistory(),
@@ -62,6 +63,11 @@ export const router = createRouter({
           props: { tagList: false },
         },
       ],
+    },
+    {
+      path: "/request",
+      name: "request",
+      component: Request,
     },
   ],
 });
