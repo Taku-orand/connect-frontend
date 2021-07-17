@@ -94,7 +94,7 @@
         </div>
       </div>
     </template>
-    <button v-if="!isMyPage" @click="goCreateQuestion" class="btn btn-info btn-lg fixed-bottom shadow ml-auto p-md-3 mr-3 mb-3 mr-md-5 mb-md-5"><i class="fas fa-question mr-2"></i>質問する</button>
+    <button v-if="!isMyPage" @click="goCreateQuestion" class="btn btn-info fixed-bottom shadow ml-auto p-md-3 mr-3 mb-3 mr-md-5 mb-md-5"><i class="fas fa-question mr-2"></i>質問する</button>
   </div>
 </template>
 
