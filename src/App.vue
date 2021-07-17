@@ -2,6 +2,7 @@
   <Header></Header>
   <Alert></Alert>
   <router-view></router-view>
+  <p class="text-center">&copy; 2021 Oranginner</p>
 </template>
 
 <script>
