@@ -4,7 +4,7 @@
     <Alert></Alert>
     <router-view class="main"></router-view>
     <footer class="text-center copyright p-2 p-md-3 m-0">
-      <p class="m-0">&copy; 2021 Oranginner</p>
+      &copy; 2021 Oranginner
     </footer>
   </div>
 </template>
