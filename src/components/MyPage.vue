@@ -8,8 +8,8 @@
         <p class="mb-3 text-center"><i class="fas fa-thumbs-up mr-2"></i>合計いいね: {{ $store.getters.getLikeSum }}</p>
       </div>
     </div>
+    <QuestionList :is-my-page="true"></QuestionList>
   </div>
-  <QuestionList :is-my-page="true"></QuestionList>
 </template>
 
 <script>
