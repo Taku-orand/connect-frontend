@@ -47,6 +47,7 @@ export default {
       email: "",
       password: "",
       passwordConfirmation: "",
+      error_messages: "",
     });
 
     async function signup() {
@@ -79,15 +80,30 @@ export default {
               name: "home",
             });
           } else {
+            if(response.data.errors){
+              if(response.data.errors.name){
+                data.error_messages += response.data.errors.name+"。\n"
+              }
+              if(response.data.errors.password){
+                data.error_messages += response.data.errors.password+"。\n"
+              }
+              if(response.data.errors.email){
+                data.error_messages += response.data.errors.email+"。\n";
+              }
+              if(response.data.errors.password_confirmation){
+                data.error_messages += response.data.errors.password_confirmation+"。\n";
+              }
+            }
             store.commit("setAlert", {
               flag: {
                 showSuccessAlert: false,
                 showErrorAlert: true,
               },
               message: {
-                error: "サインアップに失敗しました。既に登録されているメールアドレスかパスワードが不適切です。",
+                error: data.error_messages,
               },
             });
+            data.error_messages = ""
           }
         })
         .catch((e) => {
