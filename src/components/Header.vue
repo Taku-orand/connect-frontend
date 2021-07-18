@@ -3,7 +3,7 @@
     <div class="container-fluid">
       <div class="row d-flex align-items-center justify-content-end">
         <div class="col-1 text-center p-0 pl-1 pl-md-3">
-          <img src="../assets/logo.png" class="logo-img" />
+          <img @click="goHome()" src="../assets/logo.png" class="logo-img" />
         </div>
         <div class="col-5 pl-4">
           <div class="p-2">
@@ -112,6 +112,7 @@ export default {
 .logo-img {
   width: 4.5rem;
   height: 4.5rem;
+  cursor: pointer;
 }
 header {
   background-color: var(--main-color);
