@@ -50,49 +50,62 @@ export default {
     });
 
     async function signup() {
-      await axios
-        .post(
-          `${process.env.VUE_APP_CONNECT_BACKEND_URL}/signup`,
-          {
-            user: {
-              name: data.name,
-              email: data.email,
-              password: data.password,
-              password_confirmation: data.passwordConfirmation,
-            },
+      if (data.name == "" || data.email == "" || data.password == "" || data.passwordConfirmation == "") {
+        store.commit("setAlert", {
+          flag: {
+            showSuccessAlert: false,
+            showErrorAlert: true,
+            showWarningAlert: false,
           },
-          { withCredentials: true }
-        )
-        .then((response) => {
-          if (response.data.signed_up) {
-            store.dispatch("checkSignedIn");
-            store.commit("setAlert", {
-              flag: {
-                showSuccessAlert: true,
-                showErrorAlert: false,
-              },
-              message: {
-                success: "サインアップに成功し、サインインしました。",
-              },
-            });
-            router.push({
-              name: "home",
-            });
-          } else {
-            store.commit("setAlert", {
-              flag: {
-                showSuccessAlert: false,
-                showErrorAlert: true,
-              },
-              message: {
-                error: "サインアップに失敗しました。既に登録されているメールアドレスかパスワードが不適切です。",
-              },
-            });
-          }
-        })
-        .catch((e) => {
-          alert(e);
+          message: {
+            error: "ユーザー名、メールアドレス、パスワード、パスワードの確認を入力してください。",
+          },
         });
+      } else {
+        await axios
+          .post(
+            `${process.env.VUE_APP_CONNECT_BACKEND_URL}/signup`,
+            {
+              user: {
+                name: data.name,
+                email: data.email,
+                password: data.password,
+                password_confirmation: data.passwordConfirmation,
+              },
+            },
+            { withCredentials: true }
+          )
+          .then((response) => {
+            if (response.data.signed_up) {
+              store.dispatch("checkSignedIn");
+              store.commit("setAlert", {
+                flag: {
+                  showSuccessAlert: true,
+                  showErrorAlert: false,
+                },
+                message: {
+                  success: "サインアップに成功し、サインインしました。",
+                },
+              });
+              router.push({
+                name: "home",
+              });
+            } else {
+              store.commit("setAlert", {
+                flag: {
+                  showSuccessAlert: false,
+                  showErrorAlert: true,
+                },
+                message: {
+                  error: "サインアップに失敗しました。既に登録されているメールアドレスかパスワードが不適切です。",
+                },
+              });
+            }
+          })
+          .catch((e) => {
+            alert(e);
+          });
+      }
     }
 
     function backToHome() {
