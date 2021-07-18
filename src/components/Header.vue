@@ -3,7 +3,7 @@
     <div class="container-fluid">
       <div class="row d-flex align-items-center justify-content-end">
         <div class="col-1 text-center p-0">
-          <img src="../assets/logo.png" class="logo-img" />
+          <img src="../assets/qa_logo3.png" class="logo-img" />
         </div>
         <div class="col-5">
           <div class="p-2">
