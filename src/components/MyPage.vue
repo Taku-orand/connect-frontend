@@ -33,9 +33,8 @@ export default {
 
     const data = reactive({});
 
-    onMounted(async () => {
-      await store.dispatch("getMyQuestion");
-      await store.dispatch("checkSignedIn");
+    onMounted(() => {
+      store.dispatch("checkSignedIn");
     });
 
     return {
