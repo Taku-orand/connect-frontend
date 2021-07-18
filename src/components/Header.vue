@@ -5,7 +5,7 @@
         <div class="col-6">
           <div class="p-2 pl-md-5">
             <div class="row">
-              <img src="../assets/logo.png" class="logo-img" />
+              <img src="../assets/qa_logo3.png" class="logo-img" />
               <h1 @click="goHome()" class="d-inline m-0 header-logo">Connect</h1>
             </div>
             <div class="row">
