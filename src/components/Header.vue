@@ -2,10 +2,10 @@
   <header>
     <div class="container-fluid">
       <div class="row d-flex align-items-center justify-content-end">
-        <div class="col-1 text-center p-0">
-          <img src="../assets/qa_logo3.png" class="logo-img" />
+        <div class="col-1 text-center p-0 pl-1 pl-md-3">
+          <img src="../assets/logo.png" class="logo-img" />
         </div>
-        <div class="col-5">
+        <div class="col-5 pl-4">
           <div class="p-2">
             <div class="row">
               <h1 @click="goHome()" class="d-inline m-0 header-logo">Connect</h1>
@@ -127,8 +127,8 @@ header {
 @media screen and (max-width: 480px) {
   /* 480px以下に適用されるCSS（スマホ用） */
   .logo-img {
-    width: 2rem;
-    height: 2rem;
+    width: 2.5rem;
+    height: 2.5rem;
   }
   h1 {
     font-size: 1.4rem;
