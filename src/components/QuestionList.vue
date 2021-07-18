@@ -279,7 +279,7 @@ export default {
   }
   .create-question-btn {
     width: 50%;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
   }
 }
 </style>

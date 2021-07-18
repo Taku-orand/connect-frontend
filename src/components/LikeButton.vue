@@ -1,5 +1,5 @@
 <template>
-  <button @click.stop="addLike(question)" type="button" class="btn btn-primary p-1 p-md-2"><i class="fas fa-thumbs-up mr-1"></i>{{ question.like_count }}</button>
+  <button @click.stop="addLike(question)" type="button" :class="data.pushedLike" class="btn p-1 p-md-2"><i class="fas fa-thumbs-up mr-1" :class="data.rotateLogo"></i>{{ question.like_count }}</button>
 </template>
 
 <script>
@@ -22,9 +22,22 @@ export default {
     // const route = useRoute();
     const store = useStore();
 
-    const data = reactive({});
+    const data = reactive({
+      pushedLike: {
+        "pushed-like": false,
+      },
+      rotateLogo: {
+        "role-log": false,
+      },
+    });
 
     function addLike(question) {
+      data.pushedLike["pushed-like"] = true;
+      data.rotateLogo["rotate-logo"] = true;
+      setTimeout(() => {
+        data.pushedLike["pushed-like"] = false;
+        data.rotateLogo["rotate-logo"] = false;
+      }, 2000);
       axios
         .post(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/like/add/${props.question.like_id}`)
         .then((response) => {
@@ -73,4 +86,21 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.btn {
+  color: var(--base-color);
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+  transition: 1s;
+}
+.pushed-like {
+  color: var(--accent-color);
+  background-color: var(--base-color);
+  border-color: var(--base-color);
+}
+.rotate-logo {
+  color: var(--accent-color);
+  transform: rotate(360deg);
+  transition: 1s;
+}
+</style>

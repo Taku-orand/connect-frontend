@@ -5,6 +5,7 @@
         <div class="col-6">
           <div class="p-2 pl-md-5">
             <div class="row">
+              <img src="../assets/logo.png" class="logo-img" />
               <h1 @click="goHome()" class="d-inline m-0 header-logo">Connect</h1>
             </div>
             <div class="row">
@@ -106,6 +107,10 @@ export default {
 </script>
 
 <style scoped>
+.logo-img {
+  width: 3rem;
+  height: 3rem;
+}
 header {
   background-color: var(--main-color);
 }
@@ -119,6 +124,10 @@ header {
 }
 @media screen and (max-width: 480px) {
   /* 480px以下に適用されるCSS（スマホ用） */
+  .logo-img {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
   h1 {
     font-size: 1.4rem;
   }
