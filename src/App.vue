@@ -125,11 +125,11 @@ h2 {
     font-size: 0.8rem;
   }
   h2 {
-    font-size: 1rem;
+    font-size: 1.2rem;
     margin: 1rem;
   }
   .btn {
-    font-size: 0.5rem;
+    font-size: 0.8rem;
   }
 }
 </style>
