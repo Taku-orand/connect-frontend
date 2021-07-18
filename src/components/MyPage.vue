@@ -38,7 +38,7 @@ export default {
     onMounted(async () => {
       await store.dispatch("checkSignedIn");
       await store.dispatch("getMyQuestion");
-      data.likeSum = store.getters.getLikeSum;
+      data.likeSum = await store.getters.getLikeSum;
     });
 
     onUpdated(() => {});
