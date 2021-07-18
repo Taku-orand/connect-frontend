@@ -178,6 +178,11 @@ export const store = createStore({
           console.log(response);
           if (response.data.get_my_questions) {
             context.commit("setQuestions", response.data.questions);
+            let likeSum = 0;
+            store.state.questions.forEach((question) => {
+              likeSum += question.like_count;
+            });
+            context.commit("setLikeSum", likeSum);
           } else {
             store.commit("setAlert", {
               flag: {

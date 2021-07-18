@@ -36,11 +36,6 @@ export default {
     onMounted(async () => {
       await store.dispatch("getMyQuestion");
       await store.dispatch("checkSignedIn");
-      let likeSum = 0;
-      store.state.questions.forEach((question) => {
-        likeSum += question.like_count;
-      });
-      store.commit("setLikeSum", likeSum);
     });
 
     return {
