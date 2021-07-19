@@ -21,6 +21,7 @@
       <input v-model="data.passwordConfirmation" type="password" class="form-control" id="passwordConfirmation" aria-describedby="passwordConfirmationHelp" placeholder="パスワードを確認のためもう一度入力してください。" />
       <small id="passwordConfirmationHelp" class="form-text text-muted">パスワードは8文字以上入力してください。</small>
     </div>
+    <p class="warning-message">※現在iOSのgoogle chromeでのサインインで不具合が生じています。利用される際はSafariを利用するかPCでの利用を推奨しています。また、Webサイトを超えたトラッキングを許可していない場合にもサインインできない可能性があります。ご迷惑をおかけしますが、ご了承ください。</p>
     <div class="text-center my-4">
       <button @click="backToHome" class="btn btn-secondary mr-3"><i class="fas fa-home mr-2"></i>ホームに戻る</button>
       <button @click="signup" class="btn btn-primary ml-3"><i class="fas fa-plus-square mr-2"></i>アカウント制作</button>
@@ -56,13 +57,13 @@ export default {
           `${process.env.VUE_APP_CONNECT_BACKEND_URL}/signup`,
           {
             user: {
-            name: data.name,
-            email: data.email,
-            password: data.password,
-            password_confirmation: data.passwordConfirmation,
+              name: data.name,
+              email: data.email,
+              password: data.password,
+              password_confirmation: data.passwordConfirmation,
+            },
           },
-        },
-        { withCredentials: true }
+          { withCredentials: true }
         )
         .then((response) => {
           if (response.data.signed_up) {
@@ -80,18 +81,18 @@ export default {
               name: "home",
             });
           } else {
-            if(response.data.errors){
-              if(response.data.errors.name){
-                data.error_messages += response.data.errors.name+"。\n"
+            if (response.data.errors) {
+              if (response.data.errors.name) {
+                data.error_messages += response.data.errors.name + "。\n";
               }
-              if(response.data.errors.password){
-                data.error_messages += response.data.errors.password+"。\n"
+              if (response.data.errors.password) {
+                data.error_messages += response.data.errors.password + "。\n";
               }
-              if(response.data.errors.email){
-                data.error_messages += response.data.errors.email+"。\n";
+              if (response.data.errors.email) {
+                data.error_messages += response.data.errors.email + "。\n";
               }
-              if(response.data.errors.password_confirmation){
-                data.error_messages += response.data.errors.password_confirmation+"。\n";
+              if (response.data.errors.password_confirmation) {
+                data.error_messages += response.data.errors.password_confirmation + "。\n";
               }
             }
             store.commit("setAlert", {
@@ -103,7 +104,7 @@ export default {
                 error: data.error_messages,
               },
             });
-            data.error_messages = ""
+            data.error_messages = "";
           }
         })
         .catch((e) => {
@@ -127,4 +128,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.warning-message {
+  color: var(--emphasis-color);
+}
+</style>
