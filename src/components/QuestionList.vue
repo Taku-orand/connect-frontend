@@ -4,10 +4,11 @@
       <div class="row sticky mt-4">
         <div class="col-2 pr-1 pr-md-3">
           <div class="dropdown h-100">
-            <button class="btn btn-secondary shadow w-100 h-100 tag-list-btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-tags"></i><span class="ml-2 tag-list-title">タグ一覧</span></button>
+            <button type="button" class="btn btn-secondary shadow w-100 h-100 tag-list-btn" data-toggle="modal" data-target="#selectTagModal"><i class="fas fa-tags"></i><span class="ml-2 tag-list-title">タグ一覧</span></button>
+            <!-- <button class="btn btn-secondary shadow w-100 h-100 tag-list-btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-tags"></i><span class="ml-2 tag-list-title">タグ一覧</span></button>
             <div class="dropdown-menu p-0" aria-labelledby="dropdownMenuButton">
               <TagList></TagList>
-            </div>
+            </div> -->
           </div>
         </div>
         <div class="col-10 pl-1 pl-md-3">
@@ -15,6 +16,25 @@
         </div>
       </div>
     </template>
+
+    <!-- タグ選択モーダル -->
+    <div class="modal fade" id="selectTagModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">タグで質問を絞り込む</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <template v-for="(tag, key) in $store.state.tags" :key="key">
+              <button @click="getQuestionByTag(tag.id)" class="btn btn-secondary mr-2 mb-2" data-dismiss="modal"><i class="fas fa-tag mr-1"></i>{{ tag.name }}</button>
+            </template>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <h2 class="text-center"><i class="fas fa-list mr-2"></i>質問一覧</h2>
 
@@ -45,16 +65,20 @@
         <div class="card-header">
           <div class="row">
             <div class="col-6">
-              <div v-if="question.anonymous"><i class="fas fa-user mr-2"></i>匿名</div>
-              <div v-else><i class="fas fa-user mr-2"></i>{{ question.user_name }}</div>
+              <p v-if="question.anonymous" class="m-0"><i class="fas fa-user mr-2"></i>匿名</p>
+              <p v-else class="m-0"><i class="fas fa-user mr-2"></i>{{ question.user_name }}</p>
             </div>
             <div class="col-6 text-right">
-              <span v-if="question.solved" class="badge badge-secondary p-1 m-md-2"><i class="fas fa-check-circle mr-1"></i>解決済</span>
+              <span v-if="question.solved" class="badge badge-secondary p-1 p-md-2"><i class="fas fa-check-circle mr-1"></i>解決済</span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <h5 class="m-0">{{ question.title }}</h5>
             </div>
           </div>
         </div>
         <div class="card-body overflow-hidden">
-          <h5 class="card-title">{{ question.title }}</h5>
           <Markdown :source="String(question.content)" :linkify="true" :emoji="data.emoji" :breaks="data.breaks" />
         </div>
         <div class="card-footer text-muted">
@@ -70,17 +94,17 @@
         </div>
       </div>
     </template>
-    <button v-if="!isMyPage" @click="goCreateQuestion" class="btn btn-info btn-lg fixed-bottom shadow ml-auto p-md-3 mr-3 mb-3 mr-md-5 mb-md-5"><i class="fas fa-question mr-2"></i>質問する</button>
+    <button v-if="!isMyPage" @click="goCreateQuestion" class="btn btn-lg btn-info fixed-bottom shadow p-3 ml-auto mr-3 mr-md-5 mb-5 create-question-btn" type="button"><i class="fas fa-question mr-2"></i>質問する</button>
   </div>
 </template>
 
 <script>
 import { reactive, onMounted } from "vue";
-// import axios from "axios";
+import axios from "axios";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 
-import TagList from "./TagList.vue";
+// import TagList from "./TagList.vue";
 import LikeButton from "./LikeButton.vue";
 import Markdown from "vue3-markdown-it";
 import Search from "./Search.vue";
@@ -89,7 +113,7 @@ export default {
   name: "QuestionList",
 
   components: {
-    TagList,
+    // TagList,
     LikeButton,
     Markdown,
     Search,
@@ -113,6 +137,7 @@ export default {
       } else {
         store.dispatch("getQuestions");
       }
+      store.dispatch("getTags");
     });
 
     function showDetail(question) {
@@ -149,7 +174,7 @@ export default {
             showWarningAlert: true,
           },
           message: {
-            warning: "ゲストユーザーで投稿すると、あとで投稿を確認したり、編集ができなくなります。サインアップまたはサインインしていただくことでマイページより自分の質問を確認したり、質問を修正したりできるようになります。",
+            warning: "ゲストユーザーで投稿すると、あとで投稿を確認したり、編集ができなくなります。\nサインアップまたはサインインしていただくことでマイページより自分の質問を確認したり、質問を修正したりできるようになります。",
           },
         });
       }
@@ -184,12 +209,37 @@ export default {
       }
     }
 
+    function getQuestionByTag(id) {
+      axios
+        .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/tag/${id}`, { withCredentials: true })
+        .then((response) => {
+          if (response.data.get_question) {
+            store.commit("setQuestions", response.data.questions);
+          } else {
+            store.commit("setAlert", {
+              flag: {
+                showSuccessAlert: false,
+                showErrorAlert: true,
+                showWarningAlert: false,
+              },
+              message: {
+                error: "タグ絞り込みに失敗しました。",
+              },
+            });
+          }
+        })
+        .catch((e) => {
+          alert(e);
+        });
+    }
+
     return {
       data,
       showDetail,
       updateQuestion,
       goCreateQuestion,
       sort,
+      getQuestionByTag,
     };
   },
 };
@@ -226,6 +276,10 @@ export default {
   }
   .card-body {
     height: 8rem;
+  }
+  .create-question-btn {
+    width: 50%;
+    font-size: 1.2rem;
   }
 }
 </style>

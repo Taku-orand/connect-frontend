@@ -12,6 +12,8 @@ export const store = createStore({
         name: "ゲスト",
       },
 
+      likeSum: 0,
+
       // アラート
       alert: {
         flag: {
@@ -47,15 +49,7 @@ export const store = createStore({
   },
 
   // state 内のデータの状態から算出される値
-  getters: {
-    getLikeSum: (state) => {
-      let likeSum = 0;
-      state.questions.forEach((question) => {
-        likeSum += question.like_count;
-      });
-      return likeSum;
-    },
-  },
+  getters: {},
 
   // state のデータを直接操作するための関数（非同期処理は定義不可）
   mutations: {
@@ -63,9 +57,12 @@ export const store = createStore({
     updateUser: (state, user) => {
       state.user = user;
     },
-
     resetUser: (state) => {
       state.user.name = "ゲスト";
+    },
+
+    setLikeSum: (state, likeSum) => {
+      state.likeSum = likeSum;
     },
 
     // アラート
@@ -99,6 +96,8 @@ export const store = createStore({
     },
     resetQuestionDetails: (state) => {
       state.questionDetails = {};
+      state.questionDetails.title = "";
+      state.questionDetails.content = "";
     },
 
     // 回答
@@ -179,6 +178,11 @@ export const store = createStore({
           console.log(response);
           if (response.data.get_my_questions) {
             context.commit("setQuestions", response.data.questions);
+            let likeSum = 0;
+            store.state.questions.forEach((question) => {
+              likeSum += question.like_count;
+            });
+            context.commit("setLikeSum", likeSum);
           } else {
             store.commit("setAlert", {
               flag: {

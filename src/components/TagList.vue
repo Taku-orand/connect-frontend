@@ -45,7 +45,9 @@ export default {
             });
           }
         })
-        .catch(() => {});
+        .catch((e) => {
+          alert(e);
+        });
     }
 
     return {
@@ -56,4 +58,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.list-group {
+  height: 70vh;
+}
+</style>

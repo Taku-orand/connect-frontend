@@ -51,4 +51,9 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.row {
+  white-space: pre-wrap;
+  white-space: pre-line;
+}
+</style>

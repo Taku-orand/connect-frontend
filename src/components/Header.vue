@@ -1,11 +1,18 @@
 <template>
   <header>
     <div class="container-fluid">
-      <div class="row">
-        <div class="col-6">
+      <div class="row d-flex align-items-center justify-content-end">
+        <div class="col-1 text-center p-0 pl-1 pl-md-3">
+          <img @click="goHome()" src="../assets/logo.png" class="logo-img" />
+        </div>
+        <div class="col-5 pl-4">
           <div class="p-2">
-            <h1 class="m-0">Connect</h1>
-            <h2 class="m-0">会津大学の知恵袋</h2>
+            <div class="row">
+              <h1 @click="goHome()" class="d-inline m-0 header-logo">Connect</h1>
+            </div>
+            <div class="row">
+              <h2 @click="goHome()" class="d-inline m-0 header-logo">会津大学の知恵袋</h2>
+            </div>
           </div>
         </div>
         <div class="col-4 d-flex align-items-center justify-content-end">
@@ -86,17 +93,33 @@ export default {
         });
     }
 
+    function goHome() {
+      router.push({
+        name: "home",
+      });
+    }
+
     return {
       data,
       signOut,
+      goHome,
     };
   },
 };
 </script>
 
 <style scoped>
+.logo-img {
+  width: 4.5rem;
+  height: 4.5rem;
+  cursor: pointer;
+}
 header {
   background-color: var(--main-color);
+}
+
+.header-logo {
+  cursor: pointer;
 }
 
 @media screen and (max-width: 959px) {
@@ -104,6 +127,10 @@ header {
 }
 @media screen and (max-width: 480px) {
   /* 480px以下に適用されるCSS（スマホ用） */
+  .logo-img {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
   h1 {
     font-size: 1.4rem;
   }

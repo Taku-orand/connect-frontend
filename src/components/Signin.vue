@@ -10,6 +10,7 @@
       <label for="password"><i class="fas fa-lock mr-2"></i>パスワード</label>
       <input v-model="data.password" type="password" class="form-control" id="password" placeholder="パスワードを入力してください。" />
     </div>
+    <p class="warning-message">※現在iOSのgoogle chromeでのサインインで不具合が生じています。利用される際はSafariを利用するかPCでの利用を推奨しています。また、Webサイトを超えたトラッキングを許可していない場合にもサインインできない可能性があります。ご迷惑をおかけしますが、ご了承ください。</p>
     <div class="text-center my-4">
       <button @click="backToHome" class="btn btn-secondary mr-3"><i class="fas fa-home mr-2"></i>ホームに戻る</button>
       <button @click="signin" class="btn btn-primary ml-3"><i class="fas fa-sign-in-alt mr-2"></i>アカウント接続</button>
@@ -97,4 +98,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.warning-message {
+  color: var(--emphasis-color);
+}
+</style>
