@@ -76,6 +76,7 @@ export default {
               console.log(response);
               if (response.data.posted) {
                 store.commit("resetQuestionDetails");
+                store.commit("resetTagId");
                 store.commit("setAlert", {
                   flag: {
                     showSuccessAlert: true,
