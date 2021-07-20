@@ -35,51 +35,64 @@ export default {
     const data = reactive({
       email: "",
       password: "",
+      isPosting: false,
     });
 
+    function beginPost() {
+      data.isPosting = true;
+    }
+
+    function endPost() {
+      data.isPosting = false;
+    }
+
     function signin() {
-      axios
-        .post(
-          `${process.env.VUE_APP_CONNECT_BACKEND_URL}/signin`,
-          {
-            user: {
-              email: data.email,
-              password: data.password,
+      if (!data.isPosting) {
+        beginPost();
+        axios
+          .post(
+            `${process.env.VUE_APP_CONNECT_BACKEND_URL}/signin`,
+            {
+              user: {
+                email: data.email,
+                password: data.password,
+              },
             },
-          },
-          { withCredentials: true }
-        )
-        .then((response) => {
-          console.log(response);
-          if (response.data.signed_in) {
-            store.dispatch("checkSignedIn");
-            store.commit("setAlert", {
-              flag: {
-                showSuccessAlert: true,
-                showErrorAlert: false,
-              },
-              message: {
-                success: "サインインに成功しました。",
-              },
-            });
-            router.push({
-              name: "home",
-            });
-          } else {
-            store.commit("setAlert", {
-              flag: {
-                showSuccessAlert: false,
-                showErrorAlert: true,
-              },
-              message: {
-                error: "サインインに失敗しました。メールアドレスかパスワードが間違っています。",
-              },
-            });
-          }
-        })
-        .catch((e) => {
-          alert(e);
-        });
+            { withCredentials: true }
+          )
+          .then((response) => {
+            console.log(response);
+            if (response.data.signed_in) {
+              store.dispatch("checkSignedIn");
+              store.commit("setAlert", {
+                flag: {
+                  showSuccessAlert: true,
+                  showErrorAlert: false,
+                },
+                message: {
+                  success: "サインインに成功しました。",
+                },
+              });
+              router.push({
+                name: "home",
+              });
+            } else {
+              store.commit("setAlert", {
+                flag: {
+                  showSuccessAlert: false,
+                  showErrorAlert: true,
+                },
+                message: {
+                  error: "サインインに失敗しました。メールアドレスかパスワードが間違っています。",
+                },
+              });
+            }
+          })
+          .catch((e) => {
+            alert(e);
+          });
+        endPost();
+      }
     }
 
     function backToHome() {
@@ -91,6 +104,8 @@ export default {
 
     return {
       data,
+      beginPost,
+      endPost,
       signin,
       backToHome,
     };

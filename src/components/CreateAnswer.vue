@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { onMounted } from "vue";
+import { reactive, onMounted } from "vue";
 import { useStore } from "vuex";
 import { useRoute } from "vue-router";
 import axios from "axios";
@@ -49,6 +49,18 @@ export default {
     const route = useRoute();
     const store = useStore();
 
+    const data = reactive({
+      isPosting: false,
+    });
+
+    function beginPost() {
+      data.isPosting = true;
+    }
+
+    function endPost() {
+      data.isPosting = false;
+    }
+
     onMounted(() => {
       store.state.newAnswer.content = "";
     });
@@ -66,33 +78,82 @@ export default {
           },
         });
       } else {
+        if (!data.isPosting) {
+          beginPost();
+          await axios
+            .post(
+              `${process.env.VUE_APP_CONNECT_BACKEND_URL}/answers/create`,
+              {
+                answer: {
+                  content: store.state.newAnswer.content,
+                  anonymous: store.state.newAnswer.anonymous,
+                  question_id: props.question.id,
+                },
+              },
+              { withCredentials: true }
+            )
+            .then((response) => {
+              console.log(response);
+              if (response.data.created_answer) {
+                store.commit("setAlert", {
+                  flag: {
+                    showSuccessAlert: true,
+                    showErrorAlert: false,
+                  },
+                  message: {
+                    success: "投稿に成功しました",
+                  },
+                });
+                store.dispatch("getQuestionDetails", route.params.id);
+                store.dispatch("getAnswers", route.params.id);
+                store.commit("resetNewAnswer");
+              } else {
+                store.commit("setAlert", {
+                  flag: {
+                    showSuccessAlert: false,
+                    showErrorAlert: true,
+                  },
+                  message: {
+                    error: "投稿に失敗しました。",
+                  },
+                });
+              }
+            })
+            .catch((e) => {
+              alert(e);
+            });
+          endPost();
+        }
+      }
+    }
+
+    async function updateAnswer() {
+      if (!data.isPosting) {
+        beginPost();
         await axios
-          .post(
-            `${process.env.VUE_APP_CONNECT_BACKEND_URL}/answers/create`,
+          .patch(
+            `${process.env.VUE_APP_CONNECT_BACKEND_URL}/answers/update/${store.state.newAnswer.id}`,
             {
               answer: {
                 content: store.state.newAnswer.content,
                 anonymous: store.state.newAnswer.anonymous,
-                question_id: props.question.id,
               },
             },
             { withCredentials: true }
           )
           .then((response) => {
             console.log(response);
-            if (response.data.created_answer) {
+            if (response.data.updated_answer) {
+              context.emit("editAnswerCancel");
               store.commit("setAlert", {
                 flag: {
                   showSuccessAlert: true,
                   showErrorAlert: false,
                 },
                 message: {
-                  success: "投稿に成功しました",
+                  success: "編集に成功しました",
                 },
               });
-              store.dispatch("getQuestionDetails", route.params.id);
-              store.dispatch("getAnswers", route.params.id);
-              store.commit("resetNewAnswer");
             } else {
               store.commit("setAlert", {
                 flag: {
@@ -100,7 +161,7 @@ export default {
                   showErrorAlert: true,
                 },
                 message: {
-                  error: "投稿に失敗しました。",
+                  error: "編集に失敗しました。",
                 },
               });
             }
@@ -108,49 +169,8 @@ export default {
           .catch((e) => {
             alert(e);
           });
+        endPost();
       }
-    }
-
-    async function updateAnswer() {
-      await axios
-        .patch(
-          `${process.env.VUE_APP_CONNECT_BACKEND_URL}/answers/update/${store.state.newAnswer.id}`,
-          {
-            answer: {
-              content: store.state.newAnswer.content,
-              anonymous: store.state.newAnswer.anonymous,
-            },
-          },
-          { withCredentials: true }
-        )
-        .then((response) => {
-          console.log(response);
-          if (response.data.updated_answer) {
-            context.emit("editAnswerCancel");
-            store.commit("setAlert", {
-              flag: {
-                showSuccessAlert: true,
-                showErrorAlert: false,
-              },
-              message: {
-                success: "編集に成功しました",
-              },
-            });
-          } else {
-            store.commit("setAlert", {
-              flag: {
-                showSuccessAlert: false,
-                showErrorAlert: true,
-              },
-              message: {
-                error: "編集に失敗しました。",
-              },
-            });
-          }
-        })
-        .catch((e) => {
-          alert(e);
-        });
     }
 
     function editAnswerCancel() {
@@ -158,6 +178,9 @@ export default {
     }
 
     return {
+      data,
+      beginPost,
+      endPost,
       createAnswer,
       updateAnswer,
       editAnswerCancel,

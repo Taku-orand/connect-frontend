@@ -129,7 +129,7 @@ h2 {
     margin: 1rem;
   }
   .btn {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
   }
 }
 </style>

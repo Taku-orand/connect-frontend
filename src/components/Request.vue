@@ -49,7 +49,16 @@ export default {
         title: "",
         content: "",
       },
+      isPosting: false,
     });
+
+    function beginPost() {
+      data.isPosting = true;
+    }
+
+    function endPost() {
+      data.isPosting = false;
+    }
 
     function postRequest() {
       if (data.request.title == "" || data.request.content == "") {
@@ -64,53 +73,59 @@ export default {
           },
         });
       } else {
-        axios
-          .post(
-            `${process.env.VUE_APP_CONNECT_BACKEND_URL}/requests/create`,
-            {
-              request: {
-                title: data.request.title,
-                content: data.request.content,
+        if (!data.isPosting) {
+          beginPost();
+          axios
+            .post(
+              `${process.env.VUE_APP_CONNECT_BACKEND_URL}/requests/create`,
+              {
+                request: {
+                  title: data.request.title,
+                  content: data.request.content,
+                },
               },
-            },
-            { withCredentials: true }
-          )
-          .then((response) => {
-            if (response.data.created_request) {
-              store.dispatch("getRequests");
-              store.commit("setAlert", {
-                flag: {
-                  showSuccessAlert: true,
-                  showErrorAlert: false,
-                  showWarningAlert: false,
-                },
-                message: {
-                  success: "意見を投稿しました。",
-                },
-              });
-              data.request.title = "";
-              data.request.content = "";
-            } else {
-              store.commit("setAlert", {
-                flag: {
-                  showSuccessAlert: false,
-                  showErrorAlert: true,
-                  showWarningAlert: false,
-                },
-                message: {
-                  error: "意見を投稿するのに失敗しました。もう一度試していださい。",
-                },
-              });
-            }
-          })
-          .catch((e) => {
-            alert(e);
-          });
+              { withCredentials: true }
+            )
+            .then((response) => {
+              if (response.data.created_request) {
+                store.dispatch("getRequests");
+                store.commit("setAlert", {
+                  flag: {
+                    showSuccessAlert: true,
+                    showErrorAlert: false,
+                    showWarningAlert: false,
+                  },
+                  message: {
+                    success: "意見を投稿しました。",
+                  },
+                });
+                data.request.title = "";
+                data.request.content = "";
+              } else {
+                store.commit("setAlert", {
+                  flag: {
+                    showSuccessAlert: false,
+                    showErrorAlert: true,
+                    showWarningAlert: false,
+                  },
+                  message: {
+                    error: "意見を投稿するのに失敗しました。もう一度試していださい。",
+                  },
+                });
+              }
+            })
+            .catch((e) => {
+              alert(e);
+            });
+          endPost();
+        }
       }
     }
 
     return {
       data,
+      beginPost,
+      endPost,
       postRequest,
     };
   },

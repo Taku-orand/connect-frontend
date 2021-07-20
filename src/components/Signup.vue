@@ -49,67 +49,80 @@ export default {
       password: "",
       passwordConfirmation: "",
       error_messages: "",
+      isPosting: false,
     });
 
+    function beginPost() {
+      data.isPosting = true;
+    }
+
+    function endPost() {
+      data.isPosting = false;
+    }
+
     async function signup() {
-      await axios
-        .post(
-          `${process.env.VUE_APP_CONNECT_BACKEND_URL}/signup`,
-          {
-            user: {
-              name: data.name,
-              email: data.email,
-              password: data.password,
-              password_confirmation: data.passwordConfirmation,
+      if (!data.isPosting) {
+        beginPost();
+        await axios
+          .post(
+            `${process.env.VUE_APP_CONNECT_BACKEND_URL}/signup`,
+            {
+              user: {
+                name: data.name,
+                email: data.email,
+                password: data.password,
+                password_confirmation: data.passwordConfirmation,
+              },
             },
-          },
-          { withCredentials: true }
-        )
-        .then((response) => {
-          if (response.data.signed_up) {
-            store.dispatch("checkSignedIn");
-            store.commit("setAlert", {
-              flag: {
-                showSuccessAlert: true,
-                showErrorAlert: false,
-              },
-              message: {
-                success: "サインアップに成功し、サインインしました。",
-              },
-            });
-            router.push({
-              name: "home",
-            });
-          } else {
-            if (response.data.errors) {
-              if (response.data.errors.name) {
-                data.error_messages += response.data.errors.name + "。\n";
+            { withCredentials: true }
+          )
+          .then((response) => {
+            if (response.data.signed_up) {
+              store.dispatch("checkSignedIn");
+              store.commit("setAlert", {
+                flag: {
+                  showSuccessAlert: true,
+                  showErrorAlert: false,
+                },
+                message: {
+                  success: "サインアップに成功し、サインインしました。",
+                },
+              });
+              router.push({
+                name: "home",
+              });
+            } else {
+              if (response.data.errors) {
+                if (response.data.errors.name) {
+                  data.error_messages += response.data.errors.name + "。\n";
+                }
+                if (response.data.errors.password) {
+                  data.error_messages += response.data.errors.password + "。\n";
+                }
+                if (response.data.errors.email) {
+                  data.error_messages += response.data.errors.email + "。\n";
+                }
+                if (response.data.errors.password_confirmation) {
+                  data.error_messages += response.data.errors.password_confirmation + "。\n";
+                }
               }
-              if (response.data.errors.password) {
-                data.error_messages += response.data.errors.password + "。\n";
-              }
-              if (response.data.errors.email) {
-                data.error_messages += response.data.errors.email + "。\n";
-              }
-              if (response.data.errors.password_confirmation) {
-                data.error_messages += response.data.errors.password_confirmation + "。\n";
-              }
+              store.commit("setAlert", {
+                flag: {
+                  showSuccessAlert: false,
+                  showErrorAlert: true,
+                },
+                message: {
+                  error: data.error_messages,
+                },
+              });
+              data.error_messages = "";
             }
-            store.commit("setAlert", {
-              flag: {
-                showSuccessAlert: false,
-                showErrorAlert: true,
-              },
-              message: {
-                error: data.error_messages,
-              },
-            });
-            data.error_messages = "";
-          }
-        })
-        .catch((e) => {
-          alert(e);
-        });
+          })
+          .catch((e) => {
+            alert(e);
+          });
+        endPost();
+      }
     }
 
     function backToHome() {
@@ -121,6 +134,8 @@ export default {
 
     return {
       data,
+      beginPost,
+      endPost,
       signup,
       backToHome,
     };
