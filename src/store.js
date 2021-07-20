@@ -145,6 +145,9 @@ export const store = createStore({
     removeTagId: (state, id) => {
       state.selected_tags_id.splice(state.selected_tags_id.indexOf(id), 1);
     },
+    resetTagId: (state) => {
+      state.selected_tags_id = [];
+    },
 
     // 意見
     setRequest: (state, requests) => {
