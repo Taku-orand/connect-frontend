@@ -9,6 +9,7 @@ import QuestionDetail from "./components/QuestionDetail.vue";
 import CreateQuestion from "./components/CreateQuestion.vue";
 import UpdateQuestion from "./components/UpdateQuestion.vue";
 import Request from "./components/Request.vue";
+import Notification from "./components/Notification.vue"
 
 export const router = createRouter({
   history: createWebHistory(),
@@ -68,6 +69,11 @@ export const router = createRouter({
       path: "/request",
       name: "request",
       component: Request,
+    },
+    {
+      path: "/notifications",
+      name: "notifications",
+      component: Notification,
     },
   ],
 });

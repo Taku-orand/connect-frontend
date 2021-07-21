@@ -153,6 +153,10 @@ export const store = createStore({
     setRequest: (state, requests) => {
       state.requests = requests;
     },
+
+    setNortification: (state, nortifications) => {
+      state.nortifications = nortifications;
+    },
   },
 
   // mutations の操作を各コンポーネントから呼び出すために使用する関数（非同期処理を定義可）
@@ -276,6 +280,18 @@ export const store = createStore({
         .catch((e) => {
           alert(e);
         });
+    },
+
+    // 通知を取得する。
+    getNotifications: async function(context) {
+      await axios
+      .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/notifications/index`,{withCredentials: true})
+      .then((response) => {
+        context.commit("setNortification", response.data.nortifications);
+      })
+      .catch((e) => {
+        alert(e);
+      });
     },
   },
 });
