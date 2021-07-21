@@ -62,7 +62,6 @@ export default {
             { withCredentials: true }
           )
           .then((response) => {
-            console.log(response);
             if (response.data.update_question) {
               store.commit("setAlert", {
                 flag: {

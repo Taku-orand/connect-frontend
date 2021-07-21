@@ -61,7 +61,6 @@ export default {
             { withCredentials: true }
           )
           .then((response) => {
-            console.log(response);
             if (response.data.signed_in) {
               store.dispatch("checkSignedIn");
               store.commit("setAlert", {
