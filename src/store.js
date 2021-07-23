@@ -178,7 +178,6 @@ export const store = createStore({
       await axios
         .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/questions/user`, { withCredentials: true })
         .then((response) => {
-          console.log(response);
           if (response.data.get_my_questions) {
             context.commit("setQuestions", response.data.questions);
             let likeSum = 0;
@@ -208,7 +207,6 @@ export const store = createStore({
       await axios
         .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/questions/index`, { withCredentials: true })
         .then((response) => {
-          console.log(response);
           context.commit("setQuestions", response.data.questions);
         })
         .catch((e) => {
@@ -221,7 +219,6 @@ export const store = createStore({
       await axios
         .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/sort/${type}`, { withCredentials: true })
         .then((response) => {
-          console.log(response);
           context.commit("setQuestions", response.data.questions);
         })
         .catch((e) => {
@@ -234,7 +231,6 @@ export const store = createStore({
       await axios
         .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/questions/show/${id}`, { withCredentials: true })
         .then((response) => {
-          console.log(response);
           context.commit("setQuestionDetails", response.data.question);
         })
         .catch((e) => {
@@ -247,7 +243,6 @@ export const store = createStore({
       await axios
         .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/answers/show/${id}`, { withCredentials: true })
         .then((response) => {
-          console.log(response);
           context.commit("setAnswers", response.data.answers);
         })
         .catch((e) => {
