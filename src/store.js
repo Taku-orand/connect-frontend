@@ -154,8 +154,8 @@ export const store = createStore({
       state.requests = requests;
     },
 
-    setNortification: (state, nortifications) => {
-      state.nortifications = nortifications;
+    setNotification: (state, notifications) => {
+      state.notifications = notifications;
     },
   },
 
@@ -287,7 +287,21 @@ export const store = createStore({
       await axios
       .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/notifications/index`,{withCredentials: true})
       .then((response) => {
-        context.commit("setNortification", response.data.nortifications);
+        console.log(response.data.notifications.length > 0)
+        if(response.data.notifications){
+          context.commit("setNotification", response.data.notifications);
+        } else {
+          context.commit("setNotification", false);
+          store.commit("setAlert", {
+            flag: {
+              showSuccessAlert: false,
+              showErrorAlert: true,
+            },
+            message: {
+              error: "通知を取得できませんでした",
+            },
+          });
+        }
       })
       .catch((e) => {
         alert(e);

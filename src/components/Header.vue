@@ -18,6 +18,7 @@
         <div class="col-4 d-flex align-items-center justify-content-end">
           <p class="m-0"><i class="fas fa-user mr-2"></i>{{ $store.state.user.name }}</p>
         </div>
+        <Notification></Notification>
         <div class="col-2 d-flex align-items-center justify-content-center">
           <div class="dropdown dropleft">
             <button class="btn btn-secondary btn-lg" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-bars"></i></button>
@@ -41,9 +42,13 @@ import { reactive } from "vue";
 import axios from "axios";
 import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
+import Notification from "./Notification.vue";
 
 export default {
   name: "Header",
+  components: {
+    Notification,
+  },
   props: {
     user: Object,
   },
