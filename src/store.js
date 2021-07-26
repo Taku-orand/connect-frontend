@@ -287,7 +287,6 @@ export const store = createStore({
       await axios
       .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/notifications/index`,{withCredentials: true})
       .then((response) => {
-        console.log(response.data.notifications.length > 0)
         if(response.data.notifications){
           context.commit("setNotification", response.data.notifications);
         } else {
