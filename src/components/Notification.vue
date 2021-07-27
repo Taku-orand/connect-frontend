@@ -1,5 +1,5 @@
 <template>
-  <div class="dropdown col-2">
+  <div class="dropdown">
     <button
       class="btn btn-secondary dropdown-toggle"
       type="button"
@@ -45,7 +45,7 @@
                 }}</span></router-link
               >
               にコメントしました。<br />
-              <div class="m-0">
+              <div class="m-0 ">
                 <span
                   class="text-muted text-truncate d-inline-block answer-content"
                   >{{ notification.answer_content }}</span
@@ -54,6 +54,7 @@
                   >〜{{ time_diff(notification.created_at) }}</span
                 >
               </div>
+              <div class="dropdown-divider"></div>
             </div>
           </div>
         </div>

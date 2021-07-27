@@ -18,8 +18,8 @@
         <div class="col-4 d-flex align-items-center justify-content-end">
           <p class="m-0"><i class="fas fa-user mr-2"></i>{{ $store.state.user.name }}</p>
         </div>
-        <Notification></Notification>
         <div class="col-2 d-flex align-items-center justify-content-center">
+          <Notification></Notification>
           <div class="dropdown dropleft">
             <button class="btn btn-secondary btn-lg" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-bars"></i></button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
