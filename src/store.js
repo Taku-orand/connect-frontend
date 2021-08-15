@@ -92,7 +92,7 @@ export const store = createStore({
 
     // 質問詳細
     setQuestionDetails: (state, questionDetails) => {
-      state.questionDetails = questionDetails;
+      state.questionDetails = questionDetails[0];
     },
     resetQuestionDetails: (state) => {
       state.questionDetails = {};
@@ -232,6 +232,7 @@ export const store = createStore({
       await axios
         .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/questions/show/${id}`, { withCredentials: true })
         .then((response) => {
+          console.log(response.data.question);
           context.commit("setQuestionDetails", response.data.question);
         })
         .catch((e) => {
