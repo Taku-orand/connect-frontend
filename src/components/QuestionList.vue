@@ -69,6 +69,7 @@
               <p v-else class="m-0"><i class="fas fa-user mr-2"></i>{{ question.user_name }}</p>
             </div>
             <div class="col-6 text-right">
+              <span v-for="(tag, key) in question.tags" :key="key" class="badge badge-primary p-1 p-md-2 ml-1 ml-md-2">{{ tag.name }}</span>
               <span v-if="question.solved" class="badge badge-secondary p-1 p-md-2"><i class="fas fa-check-circle mr-1"></i>解決済</span>
             </div>
           </div>
