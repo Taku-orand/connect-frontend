@@ -92,7 +92,7 @@ export const store = createStore({
 
     // 質問詳細
     setQuestionDetails: (state, questionDetails) => {
-      state.questionDetails = questionDetails;
+      state.questionDetails = questionDetails[0];
     },
     resetQuestionDetails: (state) => {
       state.questionDetails = {};
