@@ -1,7 +1,7 @@
 import Auth0Lock from "auth0-lock";
-var clientId = "YOUR_AUTH0_APP_CLIENTID";
-var domain = "YOUR_DOMAIN_AT.auth0.com";
-var lock = new Auth0Lock(clientId, domain);
+var clientId = "8tZYoj0ohFai5MxvWj3qHGj6Ig7uZOCr";
+var domain = "dev-u53mpmd1.jp.auth0.com";
+export var lock = new Auth0Lock(clientId, domain);
 var accessToken = null;
 var profile = null;
 
@@ -14,6 +14,8 @@ lock.on("authenticated", function(authResult) {
 
     accessToken = authResult.accessToken;
     profile = profileResult;
+    console.log(accessToken);
+    console.log(profile);
 
     // Update DOM
   });

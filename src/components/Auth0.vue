@@ -5,6 +5,7 @@
 <script>
 import { reactive } from "vue";
 // import { useStore } from "vuex";
+import { lock } from "../auth0.js";
 
 export default {
   name: "Alert",
@@ -15,6 +16,8 @@ export default {
     // const store = useStore();
 
     const data = reactive({});
+
+    lock.show();
 
     return {
       data,
