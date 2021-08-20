@@ -9,10 +9,16 @@ import QuestionDetail from "./components/QuestionDetail.vue";
 import CreateQuestion from "./components/CreateQuestion.vue";
 import UpdateQuestion from "./components/UpdateQuestion.vue";
 import Request from "./components/Request.vue";
+import Auth0 from "./components/Auth0.vue";
 
 export const router = createRouter({
   history: createWebHistory(),
   routes: [
+    {
+      path: "/auth0",
+      name: "auth0",
+      component: Auth0,
+    },
     {
       path: "/signup",
       name: "signup",
