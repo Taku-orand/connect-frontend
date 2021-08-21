@@ -1,86 +1,60 @@
 <template>
-  <!-- Button trigger modal -->
-  <button
-    type="button"
-    class="btn btn-primary"
-    data-toggle="modal"
-    data-target="#notificationModal"
-  >
-    <i class="far fa-bell"></i>
-  </button>
-  <div
-    class="modal fade "
-    id="notificationModal"
-    tabindex="-1"
-    role="dialog"
-    aria-labelledby="notificationModalTitle"
-    aria-hidden="true"
-    style="top: 10%;"
-  >
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <button @click="deleteNotification()" class="btn btn-danger">
-          通知削除
-        </button>
-        <div class="modal-header">
-          <h5 class="modal-title" id="notificationModalTitle">通知</h5>
-          <button
-            type="button"
-            class="close"
-            data-dismiss="modal"
-            aria-label="Close"
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="card">
-            <div class="list-group list-group-flush">
-              <div
-                v-if="
-                  $store.state.notifications == false ||
-                    $store.state.user.id == 0
-                "
+  <div class="dropdown">
+    <button
+      class="btn btn-secondary dropdown-toggle"
+      type="button"
+      id="dropdownMenuButton"
+      data-toggle="dropdown"
+      aria-haspopup="true"
+      aria-expanded="false"
+    >
+      <i class="far fa-bell"></i>
+    </button>
+    <div
+      class="dropdown-menu dropdown-menu-right"
+      aria-labelledby="dropdownMenuButton"
+    >
+      <button @click="deleteNotification()" class="text-danger">
+        通知削除
+      </button>
+      <div
+        v-if="$store.state.notifications == false || $store.state.user.id == 0"
+      >
+        <span class="dropdown-item">通知はありません。</span>
+      </div>
+      <div v-else>
+        <div
+          v-for="(notification, key) in $store.state.notifications"
+          :key="key"
+          class="dropdown-item"
+        >
+          <div>
+            <div v-if="notification.checked == true">
+              <span class="font-weight-bold">{{
+                notification.visitor_name
+              }}</span
+              >さんが
+              <router-link
+                :to="{
+                  name: 'question_detail',
+                  params: { id: notification.question_id },
+                }"
+                class="text-primary"
+                ><span class="text-truncate d-inline-block question-content">{{
+                  notification.question_title
+                }}</span></router-link
               >
-                <span class="list-group-item">通知はありません。</span>
-              </div>
-              <div v-else>
-                <div
-                  v-for="(notification, key) in $store.state.notifications"
-                  :key="key"
-                  class="list-group-item"
+              にコメントしました。<br />
+              <div class="m-0 ">
+                <span
+                  class="text-muted text-truncate d-inline-block answer-content"
+                  >{{ notification.answer_content }}</span
                 >
-                  <div>
-                    <div v-if="notification.checked == true">
-                      <span class="font-weight-bold">{{
-                        notification.visitor_name
-                      }}</span
-                      >さんが
-                      <router-link
-                        :to="{
-                          name: 'question_detail',
-                          params: { id: notification.question_id },
-                        }"
-                        class="text-primary"
-                        ><span
-                          class="text-truncate d-inline-block question-content"
-                          >{{ notification.question_title }}</span
-                        ></router-link
-                      >
-                      にコメントしました。<br />
-                      <div class="m-0 ">
-                        <span
-                          class="text-muted text-truncate d-inline-block answer-content"
-                          >{{ notification.answer_content }}</span
-                        >
-                        <span class="float-right"
-                          >〜{{ time_diff(notification.created_at) }}</span
-                        >
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <span class="float-right"
+                  >〜{{ time_diff(notification.created_at) }}</span
+                >
               </div>
+              <div class="dropdown-divider"></div>
             </div>
           </div>
         </div>
