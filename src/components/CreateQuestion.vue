@@ -73,7 +73,6 @@ export default {
               { withCredentials: true }
             )
             .then((response) => {
-              console.log(response);
               if (response.data.posted) {
                 store.commit("resetQuestionDetails");
                 store.commit("resetTagId");

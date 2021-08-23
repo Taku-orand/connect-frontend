@@ -7,5 +7,5 @@ import VueGtag from "vue-gtag-next";
 var app = createApp(App);
 app.use(router);
 app.use(store);
-app.use(VueGtag, { property: { id: "G-L0EN9QCWZ3", router } });
+app.use(VueGtag, { property: { id: `${process.env.GOOGLE_ANALYTICS_ID}`, router } });
 app.mount("#app");

@@ -27,7 +27,6 @@ export default {
       await axios
         .get(`${process.env.VUE_APP_CONNECT_BACKEND_URL}/search/?word=${data.word}`, { withCredentials: true })
         .then((response) => {
-          console.log(response);
           if (response.data.searched_by_word) {
             store.commit("setQuestions", response.data.questions);
             store.commit("setAlert", {

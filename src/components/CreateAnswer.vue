@@ -93,7 +93,6 @@ export default {
               { withCredentials: true }
             )
             .then((response) => {
-              console.log(response);
               if (response.data.created_answer) {
                 store.commit("setAlert", {
                   flag: {
@@ -142,7 +141,6 @@ export default {
             { withCredentials: true }
           )
           .then((response) => {
-            console.log(response);
             if (response.data.updated_answer) {
               context.emit("editAnswerCancel");
               store.commit("setAlert", {

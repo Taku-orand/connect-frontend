@@ -64,12 +64,13 @@
       <div @click="showDetail(question)" class="card mb-2 mb-md-4">
         <div class="card-header">
           <div class="row">
-            <div class="col-6">
+            <div class="col-4">
               <p v-if="question.anonymous" class="m-0"><i class="fas fa-user mr-2"></i>匿名</p>
               <p v-else class="m-0"><i class="fas fa-user mr-2"></i>{{ question.user_name }}</p>
             </div>
-            <div class="col-6 text-right">
-              <span v-if="question.solved" class="badge badge-secondary p-1 p-md-2"><i class="fas fa-check-circle mr-1"></i>解決済</span>
+            <div class="col-8 text-right">
+              <span v-for="(tag, key) in question.tags" :key="key" class="badge badge-primary p-1 p-md-2 ml-1 ml-md-2 mb-1 mb-md-2">{{ tag.name }}</span>
+              <span v-if="question.solved" class="badge badge-secondary p-1 p-md-2 ml-1 ml-md-2"><i class="fas fa-check-circle mr-1"></i>解決済</span>
             </div>
           </div>
           <div class="row">
@@ -94,7 +95,7 @@
         </div>
       </div>
     </template>
-    <button v-if="!isMyPage" @click="goCreateQuestion" class="btn btn-lg btn-info fixed-bottom shadow p-3 ml-auto mr-3 mr-md-5 mb-5 create-question-btn" type="button"><i class="fas fa-question mr-2"></i>質問する</button>
+    <button v-if="!isMyPage" @click="goCreateQuestion" class="btn btn-lg btn-info shadow p-3 create-question-btn" type="button"><i class="fas fa-question mr-2"></i>質問する</button>
   </div>
 </template>
 
@@ -260,6 +261,11 @@ export default {
 .card-body {
   height: 15rem;
 }
+.create-question-btn {
+  position: fixed;
+  right: 3rem;
+  bottom: 3rem;
+}
 @media screen and (max-width: 959px) {
   /* 959px以下に適用されるCSS（タブレット用） */
   .tag-list-title {
@@ -280,6 +286,8 @@ export default {
   .create-question-btn {
     width: 50%;
     font-size: 1.2rem;
+    right: 1rem;
+    bottom: 1rem;
   }
 }
 </style>

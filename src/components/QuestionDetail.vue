@@ -6,12 +6,13 @@
       <div class="card mb-2 mb-md-4">
         <div class="card-header">
           <div class="row">
-            <div class="col-6">
+            <div class="col-4">
               <p v-if="question.anonymous" class="m-0"><i class="fas fa-user mr-2"></i>匿名</p>
               <p v-else class="m-0"><i class="fas fa-user mr-2"></i>{{ question.user_name }}</p>
             </div>
-            <div class="col-6 text-right">
-              <span v-if="question.solved" class="badge badge-secondary p-1 p-md-2"><i class="fas fa-check-circle mr-1"></i>解決済</span>
+            <div class="col-8 text-right">
+              <span v-for="(tag, key) in question.tags" :key="key" class="badge badge-primary p-1 p-md-2 ml-1 ml-md-2 mb-1 mb-md-2">{{ tag.name }}</span>
+              <span v-if="question.solved" class="badge badge-secondary p-1 p-md-2 ml-1 ml-md-2"><i class="fas fa-check-circle mr-1"></i>解決済</span>
             </div>
           </div>
           <div class="row">
@@ -30,6 +31,7 @@
             </div>
             <div class="col-6 pl-0 text-right">
               <button @click.stop="updateQuestion(question)" v-if="$store.state.user.id == question.user_id && !question.solved && $store.state.user.id != 0" class="btn btn-secondary p-1 p-md-2 mr-2"><i class="fas fa-edit mr-1"></i>編集</button>
+              <button @click.stop="updateSolved(question.id)" v-if="$store.state.user.id == question.user_id && !question.solved" class="btn btn-success p-1 p-md-2 mr-2">解決した！</button>
               <LikeButton :question="question" :is-my-page="false" :isQuestionDetails="true" :isAnswer="false"></LikeButton>
             </div>
           </div>
