@@ -31,7 +31,7 @@
             </div>
             <div class="col-6 pl-0 text-right">
               <button @click.stop="updateQuestion(question)" v-if="$store.state.user.id == question.user_id && !question.solved && $store.state.user.id != 0" class="btn btn-secondary p-1 p-md-2 mr-2"><i class="fas fa-edit mr-1"></i>編集</button>
-              <button @click.stop="updateSolved(question.id)" v-if="$store.state.user.id == question.user_id && !question.solved" class="btn btn-success p-1 p-md-2 mr-2">解決した！</button>
+              <button @click.stop="updateSolved(question.id)" v-if="$store.state.user.id == question.user_id && $store.state.user.id != 0 && !question.solved" class="btn btn-success p-1 p-md-2 mr-2">解決した！</button>
               <LikeButton :question="question" :is-my-page="false" :isQuestionDetails="true" :isAnswer="false"></LikeButton>
             </div>
           </div>
