@@ -95,7 +95,7 @@
         </div>
       </div>
     </template>
-    <button v-if="!isMyPage" @click="goCreateQuestion" class="btn btn-lg btn-info fixed-bottom shadow p-3 ml-auto mr-3 mr-md-5 mb-5 create-question-btn" type="button"><i class="fas fa-question mr-2"></i>質問する</button>
+    <button v-if="!isMyPage" @click="goCreateQuestion" class="btn btn-lg btn-info shadow p-3 create-question-btn" type="button"><i class="fas fa-question mr-2"></i>質問する</button>
   </div>
 </template>
 
@@ -261,6 +261,11 @@ export default {
 .card-body {
   height: 15rem;
 }
+.create-question-btn {
+  position: fixed;
+  right: 3rem;
+  bottom: 3rem;
+}
 @media screen and (max-width: 959px) {
   /* 959px以下に適用されるCSS（タブレット用） */
   .tag-list-title {
@@ -281,6 +286,8 @@ export default {
   .create-question-btn {
     width: 50%;
     font-size: 1.2rem;
+    right: 1rem;
+    bottom: 1rem;
   }
 }
 </style>
